@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粘性布局，原理是一定条件下他的属性就会由relative变为fixed</title>
+    <style>
+       *{
+        margin: 0;
+        padding: 0;
+       }
+       .container{
+        /* height: 1000px; */
+       }
+        .left{
+            position: sticky;
+            /* 生效时候的定位 */
+            margin-top: 100px;
+            top: 0px;
+            height: 100px;
+            border: 2px solid #4CAF50;
+            width: 200px; 
+        }
+        .right{
+            background-color: skyblue;
+            /* width: 1000px; */
+            height: 3000px;
+            margin-left: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        }
+      
+    </style>
+</head>
+<body>
+    <div>
+        吸顶元素失效是因为 <br>
+        1.父元素小，因为sticky会吸附于父元素 <br>
+        2.overflow:设置成了hidden
+
+        <div class="container">
+            <div class="left"></div>
+            <div class="right">
+          
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

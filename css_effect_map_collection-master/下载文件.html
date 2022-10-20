@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="input" style="width: 100%;height: 40px;">
+  <button onclick="download()">点击瞎子啊</button>
+  <script>
+    const input = document.getElementById('input')
+    function download() {
+      const url = input.value;
+      const sa = url.split('/');
+      const fileName = sa[sa.length - 1];
+      
+      // fetch({
+      //   url, method: 'GET', responseType: 'blob',
+      // })
+      fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+      }).then(res => {
+        console.log('1111111111111111', res);
+      })
+      // fetch(url, {
+      //   method: 'GET',
+      //   responseType: 'blob'
+      // }).then((response) => {
+      //   console.log(response);
+      //   const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+      //   const link = document.createElement('a');
+      //   link.style.display = 'none';
+      //   link.href = downloadUrl;
+      //   link.setAttribute('download', fileName);
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link);
+      // });
+    }
+  </script>
+</body>
+</html>

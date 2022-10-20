@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .container{
+            display: grid;
+            /* 一行都是20%的排3个 */
+            grid-template-columns: 20%  60%  20% ;
+            /* 相邻网格线之间的空间，这里表示第一行和第二行中间的px是300px。第二行和第三行中间的px是400px  */
+            grid-template-rows: 300px 400px;
+            grid-gap:30px 30px;
+            align-items:center;
+            justify-content: center;
+        }
+        .item {
+            background: red;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>头部示例一：nav-box是下划线</title>
+    <style>
+        *{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+ 
+        .nav{
+            width: 80%;
+            height: 70px;
+            position: relative;
+            top: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .nav ul{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+        }
+         .nav-box{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            /* 如果导航栏就六个导航，那么每个导航的宽度都是整个导航
+            的六分之一 */
+            width: calc((100% / 3)*1);
+            height: 10px;
+            border-radius: 2px;
+            transition: .5s;
+        }
+        .nav ul li{
+            width: 100%;
+            text-align: center;
+        }
+      
+        li:nth-child(1):hover~.nav-box{
+            left: calc(100% / 3 *0);
+            background-color: rgb(250, 190, 250);
+        }
+      li:nth-child(2):hover~.nav-box{
+            left: calc(100% / 3 *1);
+            background-color: red;
+        }
+        li:nth-child(3):hover~.nav-box{
+            left: calc(100% / 3 *2);
+            background-color: #d18df8;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><a href = 'javascript:void(0)'>HTML</a></li>
+            <li><a href = 'javascript:void(0)'>CSS</a></li>
+            <li><a href = 'javascript:void(0)'>JS</a></li>
+           
+            <div class="nav-box"></div>
+        </ul>
+    </div>
+
+
+    <style>
+        /* 又学到新知识，line-height和height相等的时候于flex justy-content结合能够实现居中 */
+        .navbar{
+            margin: 30px;
+            box-shadow:0px 5px 20px rgb(58, 47, 47);
+            width: 80%;
+            height: 100px;
+            border-radius: 10px;
+            line-height: 100px;
+        }
+        .row{
+            display: flex;
+            text-align: center;
+            justify-content: center;  
+            position: relative;
+        }
+        .row-item{
+            font-size: 25px;
+            width: 33%;
+            color: black;
+        }
+        .active{
+            width: 33%;
+            background-color: rgb(57, 112, 112);
+            border-radius: 10px;
+            transition: .2s;
+        }
+        .underline{
+
+            bottom: 0;
+            right: 0;
+            transition: .5s;
+            position: absolute;
+            height: 10px;
+            width: 33%;
+            background-color: #9f9ae0;
+            
+        }
+        /* nth是匹配父元素选择器的 */
+        .row-item:nth-child(1):hover~.underline{
+            left: calc(100% / 3 *0);
+            background: red;
+        }
+        .row-item:nth-child(2):hover~.underline{
+            left: calc(100% / 3 *1);
+
+        }
+        .row-item:nth-child(3):hover~.underline{
+            left: calc(100% / 3 *2);
+
+        }
+    </style>
+    <div class="navbar">
+        <div class="row">
+            
+            <a href="#" class="row-item">HTML</a>
+            <a href="#" class="row-item">HTML</a>
+            <a href="#" class="row-item">HTML</a>
+            <span class="underline"></span>
+        </div>
+    </div>
+</body>
+</html>

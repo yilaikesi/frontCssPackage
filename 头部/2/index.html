@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        :root {
+            --count: 33.3%;
+            --color: red;
+        }
+
+        .header {
+            background-color: rgb(60, 60, 70);
+            display: flex;
+            justify-content: center;
+            box-shadow: 2px 5px 15px rgb(104, 93, 93);
+            border-radius: 10px;
+            line-height: 40px;
+        }
+
+        a {
+           
+            width: var(--count);
+   
+            text-align: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        .active {
+            width: var(--count);
+            background-color: rgb(57, 112, 112);
+            border-radius: 10px;
+            transition: .2s;
+            /* transform: rotate(50deg); */
+        }
+       
+    </style>
+    <div class="header">
+        <a href="" class="nav-item">first</a>
+        <a href="" class="nav-item">second</a>
+        <a href="" class="nav-item">third</a>
+        <a href="" class="nav-item">fouth</a>
+        <!-- <div class="active"></div> -->
+    </div>
+
+    <script>
+        var rootElement = document.documentElement;
+        // getComputedStyle(document.documentElement).getPropertyValue('--mode') 获取属性
+        rootElement.style.setProperty('--count', '25%');
+        // 直接点击的元素
+        const links = document.querySelectorAll('.nav-item')
+        // 设置选中态
+        function setActive(el) {
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+            el.classList.add('active');
+        }
+        // 遍历所有a标签，绑定点击事件
+        links.forEach((link, index) => {
+            link.addEventListener('click', e => {
+                // 阻止事件的默认动作
+                e.preventDefault();
+                // 设置选中态
+                setActive(e.currentTarget);
+            })
+        })
+    </script>
+</body>
+
+</html>

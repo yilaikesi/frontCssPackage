@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山羊の前端小窝</title>
+    <style>
+        body{
+            background-color: rgba(130, 140, 250, 0.2);
+            display: flex;
+            justify-content: center;
+        }
+        .shell{
+            max-width: 1300px;
+            /* 每一列的数量 */
+            column-count: 3;
+            /* 列与列的间隔 */
+            column-gap: 15px;
+        }
+        .image{
+            margin-bottom: 15px;
+        }
+        img{
+            width: 100%;
+        }
+        @media (max-width:1200px){
+            .shell{
+                column-count: 4;
+            }
+        }
+        @media (max-width:850px){
+            .shell{
+                column-count: 3;
+            }
+        }
+        @media (max-width:600px){
+            .shell{
+                column-count: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="image"><img src="Image/1 (1).jpeg"></div>
+        <div class="image"><img src="Image/1 (2).jpeg"></div>
+        <div class="image"><img src="Image/1 (3).jpeg"></div>
+        <div class="image"><img src="Image/1 (4).jpeg"></div>
+        <div class="image"><img src="Image/1 (5).jpeg"></div>
+        <div class="image"><img src="Image/1 (6).jpeg"></div>
+        <div class="image"><img src="Image/1 (7).jpeg"></div>
+       
+    </div>
+</body>
+</html>
