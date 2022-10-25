@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(245, 245, 245);
+    }
+    .all {
+		display: flex;
+        flex-direction: column;
+		justify-content: center;
+	}
+
+	.button-group {
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 5vh;
+		width: 80vw;
+	}
+
+	.card {
+		background-color: white;
+		width: 90vw;
+		height: 12vh;
+		border-radius: 3vw;
+		margin: 1.9vh;
+	}
+
+	.text-the_owner_id {
+		margin: 3vw;
+		margin-left: 4vw;
+		padding-top: 1vw;
+		font-size: 4vw;
+	}
+
+	.text-the_owner_name {
+		margin: 3vw;
+		margin-left: 4vw;
+		padding-top: 1vw;
+		font-size: 4vw;
+	}
+
+	.text-shop_no {
+		margin: 3vw;
+		margin-left: 4vw;
+		padding-top: 0.1vw;
+		font-size: 3.5vw;
+	}
+
+	.card-select {
+		color: white;
+		background-color: rgb(0, 132, 255);
+	}
+
+	.bottom {
+		position: fixed;
+		bottom: 5vh;
+		height: 20vh;
+		width: 100vw;
+		margin-bottom: -5vh;
+		background-color: white;
+	}
+
+	.button-reset {
+		margin-top: -3vh;
+		/* width:90vw; */
+	}
+
+	.button-confirm {
+		margin-top: 1vh;
+	}
+
+	.firstline {
+		margin-top: 5vw;
+	}
+	.text-shop_no:last-child{
+		padding-bottom: 29vh;
+	}
+</style>
+<body>
+    <div  class="all">
+        <div class="top">
+            
+        </div>
+        <div class='card-select card' @click="select(item)">
+            <div class="firstline">
+                <span class="text-the_owner_id">编号：1</span>
+                <span class="text-the_owner_name">姓名：zp</span>
+            </div>
+            
+            <div class="text-shop_no">铺号：&nbsp测试</div>
+        </div>
+        <div class='card-select card' @click="select(item)">
+            <div class="firstline">
+                <span class="text-the_owner_id">编号：1</span>
+                <span class="text-the_owner_name">姓名：zp</span>
+            </div>
+            
+            <div class="text-shop_no">铺号：&nbsp测试</div>
+        </div>
+        <div class='card' @click="select(item)">
+            <div class="firstline">
+                <span class="text-the_owner_id">编号：1</span>
+                <span class="text-the_owner_name">姓名：zp</span>
+            </div>
+            
+            <div class="text-shop_no">铺号：&nbsp测试</div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="button-group" v-if="change">
+            <button form-type="submit" class="button-reset">重新选择</button>
+            <button type="primary" @click="subit()" class="button-confirm">确认投票</button>
+        </div>
+        <!-- <div class="button-group" v-if="!change">
+            <button form-type="submit" class="button-reset">已选2个，最大可选5个</button>
+            <button type="default" @click="back()" class="button-confirm">选择完成(返回可重选)</button>
+        </div> -->
+    </div>
+</body>
+</html>
