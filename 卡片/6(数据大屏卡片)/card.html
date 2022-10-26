@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: black;
+    }
+    .blue_button {
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        border-width: 2px 0px 0px 2px;
+        /* border-style: solid; */
+        border-radius: 10%;
+        border-image: linear-gradient(45deg, rgb(12, 133, 240) 0%, rgb(255, 255, 255, 0) 100%) stretch 1;
+        border-left-color: aliceblue !important;
+        opacity: 80%;
+        text-align: center;
+        line-height: 50px;
+        font-size: 5px;
+        opacity: 80%;
+        color: white;
+        background: linear-gradient(90deg, rgb(12, 133, 240) 0%, rgb(255, 255, 255, 0) 60%) ;
+    }
+    .blue_button_container{
+        padding: 3px;
+    }
+    .blue_button_image{
+        position: relative;
+        line-height: 50%;
+        top: 5px;
+    }
+    .blue_button_image{
+        width: 25px;
+    }
+    .blue_button_text{
+        margin: 5px;
+    }
+</style>
+
+<body>
+    <div class="blue_button">
+        <div class="blue_button_container">
+            <img src="./icon_data.png" class="blue_button_image" alt="" >
+             <span class="blue_button_text">当前展示</span>
+        </div>
+        
+    </div>
+    
+</body>
+
+</html>

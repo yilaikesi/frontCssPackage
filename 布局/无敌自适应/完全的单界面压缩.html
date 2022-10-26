@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --scale: 1
+    }
+
+    #ScaleBox {
+        /* --scale: 1; */
+    }
+
+    .ScaleBox {
+        position: absolute;
+        transform-origin: left top;
+        display: flex;
+        flex-direction: column;
+        transform: scale(var(--scale)) translate(-50%, -50%);
+        /* left: 50%;
+        top: 50%; */
+        transition: 0.3s;
+        z-index: 999;
+        /* 这里是设计稿的px尺寸，作业的时候要按照1920*1080来看（f12） */
+        width: 1920px;
+        height: 937px;
+        overflow: hidden;
+    }
+</style>
+
+<body>
+    <div class="ScaleBox">
+        <div style="width: 1920px;height:1080px;background:red">dsadasd</div>
+    </div>
+    <script>
+      
+
+        function adapition(rootEle) {
+            let scale = "";
+            //设计的尺寸
+            let width = 1920;
+            let height = 937;
+            function getScale() {
+                let wh = window.innerHeight / height;
+                let ww = window.innerWidth / width;
+                return {
+                    widthRatio:ww,
+                    heightRatio:wh,
+                }
+            }
+            function setScale() {
+                console.log("执行到这里了")
+                if (window.innerHeight == 1080) {
+                    document.querySelector(".ScaleBox").style.height = `1080px `;
+                } else {
+                    document.querySelector(".ScaleBox").style.height = `937px `;
+                }
+                scale = getScale();
+                console.log(` transform:scale(${scale.widthRatio }, ${scale.heightRatio };transform-origin:left top )`)
+                // document.body.style.setProperty("--scale", scale);
+                document.querySelector(".ScaleBox").style.cssText =` transform:scale(${scale.widthRatio }, ${scale.heightRatio });transform-origin:left top;overflow: hidden;`
+            }
+            function debounce(fn, time) {
+                window.flag = null;
+                return function () {
+                    clearTimeout(window.flag)
+                    window.flag = setTimeout(() => {
+                        fn()
+                    }, time)
+                }
+            }
+            window.addEventListener("resize", debounce(setScale, 100));
+            window.addEventListener("load", setScale)
+        }
+        adapition()
+    </script>
+
+</body>
+
+</html>

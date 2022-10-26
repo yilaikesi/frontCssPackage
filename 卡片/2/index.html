@@ -6,11 +6,13 @@
         --scale: 1
     }
 
-    #ScaleBox {
+    body {
         /* --scale: 1; */
+        background-image: url("background.png");
     }
 
     .ScaleBox {
+
         position: absolute;
         transform: scale(var(--scale)) translate(-50%, -50%);
         display: flex;
@@ -21,6 +23,7 @@
         transition: 0.3s;
         z-index: 999;
         /* width: 3840px; */
+        /* height: 1879px; */
     }
 </style>
 <script>
@@ -74,7 +77,6 @@
     border-style: solid;
     /* source  slice  repeat */
     border-image: linear-gradient(90deg, rgb(0, 137, 255) 0%, rgb(255, 255, 255, 0) 100%) stretch 1;
-
  -->
 
 <head>
@@ -86,50 +88,164 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title>Document</title>
 </head>
+
+
+
+
 <style>
-    .card_info {
+    /* 左边的盒子 */
+    .card_left {
+
+        position: absolute;
+        right: 1080px;
+        top: 300px;
+        height: 1288px;
+        width: 750px;
+
+        border-radius: 20px;
+        opacity: 80%;
+    }
+    .card_info_left_box:not(:first-child){
+        margin-top: 90px;
+    }
+</style>
+
+<style>
+    /* 左下角的按钮 */
+    .blue_button_first {
+        position: absolute;
+        left: -1250px;
+        top: 1900px;
+        width: 480px;
+        height: 140px;
+        border-width: 4px 0px 0px 4px;
+        border-style: solid;
+        border-radius: 45px;
+        border-image: linear-gradient(180deg, rgb(12, 133, 240,60%) 0%, rgb(255, 255, 255, 0) 100%) stretch 1;
+        opacity: 80%;
+        text-align: center;
+        font-size: 31px;
+        opacity: 80%;
+        color: white;
+        background: linear-gradient(135deg, rgb(3, 21, 37) 0%, rgb(255, 255, 255, 0) 80%) ;
+    }
+    .blue_button_second {
+        position: absolute;
+        left: -1800px;
+        top: 1900px;
+        width: 480px;
+        height: 140px;
+        border-width: 4px 0px 0px 4px;
+        border-style: solid;
+        border-radius: 45px;
+        border-image: linear-gradient(180deg, rgb(12, 133, 240,60%) 0%, rgb(255, 255, 255, 0) 100%) stretch 1;
+        opacity: 80%;
+        text-align: center;
+        font-size: 31px;
+        opacity: 80%;
+        color: white;
+        background: linear-gradient(135deg, rgb(3, 21, 37) 0%, rgb(255, 255, 255, 0) 80%) ;
+    }
+    .blue_button_container{
+        padding: 3px;
+    }
+    .blue_button_image{
+        position: relative;
+        left: -10px;
+        top: 23px;
+        width: 12%;
+    }
+    .blue_button_image{
+        /* width: 25px; */
+    }
+    .blue_button_text{
+        position: relative;
+        top: 5px;
+    }
+</style>
+<style>
+    /* 右边的盒子 */
+    * {
+        font-family: "Microsoft YaHei";
+    }
+
+    .card_right {
         float: right;
-        
-        /* right: -1800px; */
-        margin-top: 100px;
-        margin-left: 2150px;
+        position: absolute;
+        top:100px;
+        left: 1000px;
+
         height: 1988px;
         width: 750px;
         border-width: 1.5px 2px 0px 2px;
         border-style: solid;
         border-radius: 20px;
         border-image: linear-gradient(180deg, rgb(12, 133, 240) 0%, rgb(255, 255, 255, 0) 100%) stretch 1;
+        /* 阴影 */
         background-image: url('./backgroud_gradient.png');
+        box-shadow: 0 0 1px rgb(126, 97, 255) inset;
         opacity: 80%;
     }
-    .m-30{
-        margin-top:30px
+
+    .m-30 {
+        margin-top: 30px !important
     }
-    .card_info_container{
+    .m-50 {
+        margin-top: 50px !important
+    }
+    .f-35 {
+        font-size: 35px !important;
+    }
+
+    .f-32 {
+        font-size: 32px !important;
+    }
+    .f-48 {
+        font-size: 48px !important;
+    }
+
+    .card_info_container {
         padding: 40px;
     }
+
     .card_info_title {
-        font-size: 30px;
-        font-family: "Microsoft YaHei";
+        font-size: 25px;
         color: aliceblue;
         opacity: 50%;
+        margin-bottom: 10px;
+    }
+
+    .card_info_bottom_description {
+        font-size: 32px;
+        color: aliceblue;
     }
 
     .card_info_description {
-        font-size: 48px;
-        font-family: "Microsoft YaHei";
+        margin-top: 15px;
+        font-size: 40px;
         color: aliceblue;
+        margin-bottom: 15px;
+    }
+
+    .card_info_left_description {
+        margin-top: 45px;
+        font-size: 40px;
+        color: aliceblue;
+        margin-bottom: 15px;
     }
 
     .card_info_firstbox_bottom {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 55% 60%;
+        grid-template-rows: 150px 150px;
+        margin-bottom: 60px;
 
     }
 
     .card_info_thirdbox_topbox {
         display: grid;
         grid-template-columns: 6% 70% 20%;
+        margin-top: 60px;
     }
 
     .card_info_thirdbox_bottombox {
@@ -139,17 +255,27 @@
         align-items: center;
         justify-content: center;
     }
-    .button_back{
+
+    .button_back {
         width: 100%;
-        height: 60px;
+        height: 80px;
         text-align: center;
         line-height: 60px;
         font-size: 30px;
         background: rgb(44, 48, 45);
         color: white;
+        border-radius: 20px;
     }
-</style>
-<style>
+
+    .card_info_secondbox {
+        margin-top: 50px;
+        margin-bottom: 100px;
+    }
+
+    .card_info_bottom_description {
+        margin-top: 15px;
+    }
+
     .card_divide {
         border-width: 0px 0px 10px 0px;
         border-style: solid;
@@ -161,142 +287,323 @@
     .card_button {
         position: relative;
     }
-
     .txt {
         position: absolute;
-        top: -50px;
-        left: 100px;
+        top: -32px;
+        left: 120px;
         z-index: 999;
-        font-size: 48px;
+        font-size: 35px;
         color: white;
     }
+</style>
+<style>
+
 </style>
 
 <style>
     /* 拖拽 */
     [draggable] {
-      cursor: move;
+        cursor: move;
     }
 </style>
 
+<style>
+    /* 中下切换的按钮 */
+    .button_switch_group{
+        position: absolute;
+        top: 1700px;
+        right: -200px;
+        background-color: linear-gradient( rgb(0, 137, 255) 0%, rgb(255, 255, 255, 0) 100%);
+    }
+    .switch_button{
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        color: white;
+        font-size: 32px;
+        height: 70px;
+        width: 280px;
+        border: 0;
+        border-radius: 50px;
+        background-color: rgba(0, 0, 0, 0.1);
+        margin:40px
+    }
+    .active{
+        background-color: skyblue;
+    }
+    .flexbox{
+        display: flex;
+    }
+</style>
+<style>
+    /* 阴影 */
+    .allShadow{
+        /* position: absolute; */
+        /* background-color: aqua; */
+        /* width: 2160px;
+        height: 500px; */
+    }
+    .shadow_right{
+        position: absolute;
+        right: -1900px;
+    }
+    .shadow_left{
+        position: absolute;
+        left: -2300px;
+        transform: rotate(180deg);
+    }
+    .shadow_top{
+        position: absolute;
+        transform: rotate(90deg);
+        width: 1500px;
+    }
+    .shadow_bottom{
+        position: absolute;
+       
+    }
+</style>
 <body>
-    <div class="ScaleBox">
 
-        <div class="card_info draggable" draggable="true" >
-            <div class="card_info_container">
-                <div class="card_info_back">
-                    <button class="button_back">
-                        <div>
-                           <img src="back.png" alt="" style="color: white"> 返回
-                        </div>
-                        
-                    </button>
-                </div>
+
+    <div class="ScaleBox">
+        <!-- 阴影 -->
+        <!-- <img src="./shadow_left_right.png" class="shadow_left"></img >
+        <img src="./shadow_left_right.png" class="shadow_right"></img > -->
+        <!-- <img src="./shadow_left_right.png" class="shadow_top"></img >
+        <img src="./shadow_left_right.png" class="shadow_bottom"></img > -->
+        
+        <div class="element">
+            <div class="allShadow">
+
+            </div>
     
-                <div class="card_info_firstbox">
-                    <div class="card_info_firstbox_top ">
-                        <div class="card_info_title m-30">
-                            车库名
-                        </div>
+            <!-- 中下切换的按钮 -->
+            <div class="button_switch_group">
+                <div class="flexbox">
+                    <div class="swtich_button_second ">
+                        <button class="switch_button active ">
+                            车库整体
+                        </button>
+                    </div>
+                    <div class="swtich_button_first">
+                        <button class="switch_button ">
+                            电梯间
+                        </button>
+                    </div>
+                    
+                </div>
+                
+            </div>
+    
+    
+            <!-- 左下角的按钮 -->
+            <div class="button_group">
+                <div class="blue_button_first">
+                    <div class="blue_button_container">
+                        <img src="./icon_data.png" class="blue_button_image" alt="" >
+                         <span class="blue_button_text">授权信息:展示厅大屏</span>
+                    </div>
+                    
+                </div>
+                <div class="blue_button_second">
+                    <div class="blue_button_container">
+                        <img src="./icon_data.png" class="blue_button_image" alt="" >
+                         <span class="blue_button_text">当前展示：运维数据</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+    
+    
+           <div class="left">
+            <img src="./logo.png" alt="" width="600" style="top: 100px;position:absolute;left: -1800px;">
+            <!-- 左边的盒子 -->
+            <div class="card_left draggable">
+                <div class="card_info_container">
+                    <!-- 上到下的盒子 -->
+                    <div class="card_info_left_box ">
                         <div class="card_info_description">
-                            世泊百德广场立体停车库
+                            <div class="card_info_title f-35">
+                                已占用车库数量
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                35个
+                            </div>
                         </div>
-                        <div class="card_info_title m-30">
-                            地址
-                        </div>
+                    </div>
+                    <div class="card_info_left_box ">
                         <div class="card_info_description">
-                            广州市白云区
+                            <div class="card_info_title f-35">
+                                工作中出入口
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                7个
+                            </div>
                         </div>
-                        <div class="card_info_title m-30">
-                            简介
-                        </div>
+                    </div>
+                    <div class="card_info_left_box ">
                         <div class="card_info_description">
-                            广州市白云区
+                            <div class="card_info_title f-35">
+                                当前出入口工作模式
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                非高峰模式
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_info_left_box ">
+                        <div class="card_info_description">
+                            <div class="card_info_title f-35">
+                                今日停车量
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                15
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_info_left_box ">
+                        <div class="card_info_description">
+                            <div class="card_info_title f-35">
+                                今日调用任务数
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                35次
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_info_left_box ">
+                        <div class="card_info_description">
+                            <div class="card_info_title f-35">
+                                月保车数量
+                            </div>
+                            <div class="card_info_bottom_description f-32">
+                                40辆
+                            </div>
                         </div>
                     </div>
     
-                    <div class="card_info_firstbox_bottom m-30">
+                </div>
+            </div>
+           </div>
     
-                        <div class="card_info_description ">
-                            <div class="card_info_title">
-                                车库信息
-                            </div>
-                            <div class="card_info_bottom_description">
-                                6位置
-                            </div>
-                        </div>
-                        <div class="card_info_description">
-                            <div class="card_info_title">
-                                车库信息
-                            </div>
-                            <div class="card_info_bottom_description">
-                                6位置
-                            </div>
-                        </div>
-                        <div class="card_info_description m-30">
-                            <div class="card_info_title">
-                                车库信息
-                            </div>
-                            <div class="card_info_bottom_description">
-                                6位置
-                            </div>
-                        </div>
-                        <div class="card_info_description m-30">
-                            <div class="card_info_title">
-                                车库信息
-                            </div>
-                            <div class="card_info_bottom_description">
-                                6位置
-                            </div>
-                        </div>
-                        <div class="card_info_description m-30">
-                            <div class="card_info_title">
-                                车库信息
-                            </div>
-                            <div class="card_info_bottom_description">
-                                6位置
-                            </div>
-                        </div>
     
+            <!-- 右边的盒子 -->
+            <div class="card_right draggable " draggable="true">
+                <div class="card_info_container">
+                    <div class="card_info_back m-30">
+                        <button class="button_back">
+                            <div>
+                                <img src="back.png" alt="" style="color: white" height=""> 返回
+                            </div>
+                        </button>
                     </div>
-                </div>
-                <div class="card_divide m-30">
-                </div>
-                <div class="card_info_secondbox m-30">
-                    <div class="card_info_title">收费信息</div>
-                    <div class="card_info_description">24小时封顶价格</div>
-                    <div class="card_info_description">每小时价格5元</div>
-                </div>
+                    <div class="card_info_firstbox">
+                        <div class="card_info_firstbox_top ">
+                            <div class="card_info_title m-50">
+                                车库名
+                            </div>
+                            <div class="card_info_description f-48">
+                                世泊百德广场立体停车库
+                            </div>
+                            <div class="card_info_title m-50">
+                                地址
+                            </div>
+                            <div class="card_info_description f-32">
+                                广州市白云区鹅掌坦111号
+                            </div>
+                            <div class="card_info_title m-50 f-32">
+                                简介
+                            </div>
+                            <div class="card_info_description f-32">
+                                四层双阳移动机器人停车库，共63个车位
+                            </div>
+                        </div>
+                        <div class="card_info_firstbox_bottom m-50">
     
-                <div class="card_divide m-30">
-                </div>
-                <div class="card_info_thirdbox m-30">
-                    <div class="card_info_thirdbox_topbox m-30">
-                        div.
-                        <div class="card_info_title">云监控</div>
-                        <div class="card_info_title">点击播放</div>
+                            <div class="card_info_description ">
+                                <div class="card_info_title">
+                                    车库信息
+                                </div>
+                                <div class="card_info_bottom_description">
+                                    6位置
+                                </div>
+                            </div>
+                            <div class="card_info_description">
+                                <div class="card_info_title">
+                                    车库信息
+                                </div>
+                                <div class="card_info_bottom_description">
+                                    6位置
+                                </div>
+                            </div>
+                            <div class="card_info_description m-30">
+                                <div class="card_info_title">
+                                    车库信息
+                                </div>
+                                <div class="card_info_bottom_description">
+                                    6位置
+                                </div>
+                            </div>
+                            <div class="card_info_description m-30">
+                                <div class="card_info_title">
+                                    车库信息
+                                </div>
+                                <div class="card_info_bottom_description">
+                                    6位置
+                                </div>
+                            </div>
+                            <div class="card_info_description m-30">
+                                <div class="card_info_title">
+                                    车库信息
+                                </div>
+                                <div class="card_info_bottom_description">
+                                    6位置
+                                </div>
+                            </div>
+    
+                        </div>
                     </div>
-                    <div class="card_info_thirdbox_bottombox m-30">
-                        <div class="card_button">
-                            <img src="button.png" alt="" width="">
-                            <p class="txt">111</p>
+                    <div class="card_divide m-30">
+                    </div>
+                    <div class="card_info_secondbox m-50">
+                        <div class="card_info_title">收费信息</div>
+                        <div class="card_info_bottom_description ">24小时封顶价格</div>
+                        <div class="card_info_bottom_description">每小时价格5元</div>
+                    </div>
+    
+                    <div class="card_divide m-30">
+                    </div>
+                    <div class="card_info_thirdbox m-30">
+                        <div class="card_info_thirdbox_topbox m-30">
+                            div.
+                            <div class="card_info_title">云监控</div>
+                            <div class="card_info_title">点击播放</div>
                         </div>
-                        <div class="card_button">
-                            <img src="button.png" alt="" width="">
-                            <p class="txt">111</p>
-                        </div>
-                        <div class="card_button">
-                            <img src="button.png" alt="" width="">
-                            <p class="txt">111</p>
-                        </div>
-                        <div class="card_button">
-                            <img src="button.png" alt="" width="">
-                            <p class="txt">111</p>
+                        <div class="card_info_thirdbox_bottombox m-30">
+                            <div class="card_button">
+                                <img src="button.png" alt="" width="">
+                                <p class="txt">电梯</p>
+                            </div>
+                            <div class="card_button">
+                                <img src="button.png" alt="" width="">
+                                <p class="txt">111</p>
+                            </div>
+                            <div class="card_button">
+                                <img src="button.png" alt="" width="">
+                                <p class="txt">111</p>
+                            </div>
+                            <div class="card_button">
+                                <img src="button.png" alt="" width="">
+                                <p class="txt">111</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+       
     </div>
 
 </body>
@@ -307,16 +614,17 @@
     const nodeList = document.getElementsByClassName('draggable');
     console.log(nodeList);
     [...nodeList].forEach(el => {
-      el.addEventListener('dragstart', (e)=> {
-        e.dataTransfer.clientX = e.clientX
-        e.dataTransfer.clientY = e.clientY
-      })
-      el.addEventListener('dragend', (e)=> {
-        const { clientX, clientY, dataTransfer: {clientX: scx,clientY: scy} } = e
-        const [ tX, tY ] = (el.style.transform || '').match(/-?\d+/g) || [0, 0]
-        console.log("移动的距离",tX, tY);
-        el.style.transform = `translate(${+tX + clientX - scx}px, ${+tY + clientY - scy}px)`
-      })
+        el.addEventListener('dragstart', (e) => {
+            e.dataTransfer.clientX = e.clientX
+            e.dataTransfer.clientY = e.clientY
+        })
+        el.addEventListener('dragend', (e) => {
+            const { clientX, clientY, dataTransfer: { clientX: scx, clientY: scy } } = e
+            const [tX, tY] = (el.style.transform || '').match(/-?\d+/g) || [0, 0]
+            console.log("移动的距离", tX, tY);
+            el.style.transform = `translate(${+tX + clientX - scx}px, ${+tY + clientY - scy}px)`
+        })
     });
 </script>
+
 </html>
