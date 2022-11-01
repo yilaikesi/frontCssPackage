@@ -1,0 +1,134 @@
+.page {
+  padding-bottom: 12.13rem;
+  background-color: #509cfe;
+  border-radius: 0px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.space-y-14 > *:not(:first-child) {
+  margin-top: 0.88rem;
+}
+.group {
+  padding: 1rem 0.88rem 0.94rem 2rem;
+}
+.text {
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-family: PingFangSC;
+  line-height: 0.81rem;
+}
+.space-x-5 > *:not(:first-child) {
+  margin-left: 0.31rem;
+}
+.image {
+  width: 1.06rem;
+  height: 0.75rem;
+}
+.image_2 {
+  width: 1rem;
+  height: 0.75rem;
+}
+.image_3 {
+  width: 1.56rem;
+  height: 0.75rem;
+}
+.group_2 {
+  padding-left: 1.88rem;
+  padding-right: 1.81rem;
+}
+.group_3 {
+  position: relative;
+}
+.image_4 {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: 0.88rem;
+}
+.text_2 {
+  color: #ffffff;
+  font-size: 1.06rem;
+  font-family: PingFang SC Bold;
+  line-height: 1rem;
+}
+.section {
+  margin-top: 9.31rem;
+  padding: 2.56rem 0;
+  background-image: url('../../img/d19f05abfa4b1922e404ab0c21ca856c.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.section_2 {
+  padding: 5.19rem 0;
+  background-image: url('../../img/25d928c60b49c6ab023d8ec0f70ad6ec.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 14.63rem;
+  position: relative;
+}
+.image-wrapper {
+  padding: 1.31rem 0;
+  background-image: url('../../img/03392925ed587892ee2a171b9d2b6ead.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 4.25rem;
+}
+.image_6 {
+  width: 1.63rem;
+  height: 1.63rem;
+}
+.image_7 {
+  width: 2.38rem;
+  height: 2.38rem;
+  position: absolute;
+  right: 2.81rem;
+  bottom: 1rem;
+}
+.image_5 {
+  width: 2.38rem;
+  height: 2.38rem;
+  position: absolute;
+  left: 2rem;
+  top: 1.31rem;
+}
+.font_1 {
+  font-size: 0.81rem;
+  font-family: PingFang SC Regular;
+  line-height: 0.81rem;
+  color: #ffffff;
+}
+.text_3 {
+  position: absolute;
+  left: 2rem;
+  top: 4.13rem;
+}
+.text_4 {
+  position: absolute;
+  right: 4.81rem;
+  bottom: 2.31rem;
+}
+.group_4 {
+  margin-top: 3.94rem;
+}
+.font_2 {
+  font-size: 1rem;
+  font-family: PingFang SC Regular;
+  line-height: 1rem;
+  color: #ffffff;
+}
+.text_5 {
+  line-height: 0.94rem;
+}
+.image_8 {
+  margin-top: 0.19rem;
+  width: 0.5rem;
+  height: 0.75rem;
+}
+.text_6 {
+  margin-left: 0.13rem;
+}

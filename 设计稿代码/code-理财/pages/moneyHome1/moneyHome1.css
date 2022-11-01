@@ -1,0 +1,245 @@
+.page {
+  padding-bottom: 1.38rem;
+  background-color: #ffffff;
+  border-radius: 0px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.group {
+  padding: 1.06rem 0.88rem 0.94rem 2rem;
+}
+.text {
+  color: #080808;
+  font-size: 0.94rem;
+  font-family: SFUIDisplay;
+  line-height: 0.75rem;
+}
+.image {
+  width: 1.06rem;
+  height: 0.75rem;
+}
+.image_2 {
+  width: 1rem;
+  height: 0.75rem;
+}
+.image_3 {
+  width: 1.56rem;
+  height: 0.75rem;
+}
+.group_2 {
+  padding: 0.75rem 0;
+}
+.group_3 {
+  margin-top: 1.13rem;
+  padding: 0 1rem;
+}
+.view {
+  margin-top: 0;
+}
+.image_4 {
+  border-radius: 0px;
+  width: 5.06rem;
+  height: 1.25rem;
+}
+.image_5 {
+  margin-right: 0.25rem;
+  width: 1rem;
+  height: 1.19rem;
+}
+.group_4 {
+  margin-top: 1.25rem;
+}
+.section {
+  margin: 0 1rem;
+  padding: 9.06rem 0 0.75rem;
+  background-image: url('../../img/34f0bb0715893fafe7fbe8832f8a8a6f.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.section_2 {
+  background-color: #f3f3f3;
+  border-radius: 0.094rem;
+  width: 0.75rem;
+  height: 0.19rem;
+}
+.section_3 {
+  background-color: #71a3fe;
+  border-radius: 0.094rem;
+  width: 0.75rem;
+  height: 0.19rem;
+}
+.equal-division {
+  margin-top: 0.75rem;
+  padding: 0 0.75rem;
+}
+.space-x-6 > *:not(:first-child) {
+  margin-left: 0.38rem;
+}
+.equal-division-item {
+  flex: 1 1 4.38rem;
+  padding: 0.25rem 0 0.63rem;
+}
+.space-y-10 > *:not(:first-child) {
+  margin-top: 0.63rem;
+}
+.image_6 {
+  border-radius: 0px;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.font_1 {
+  font-size: 0.75rem;
+  font-family: PingFangSC;
+  line-height: 0.69rem;
+  color: #333333;
+}
+.image_7 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.text_2 {
+  line-height: 0.75rem;
+}
+.group_5 {
+  margin: 0.25rem 0 0.19rem;
+  padding-top: 0.69rem;
+  width: 4.06rem;
+  position: relative;
+}
+.divider {
+  background-color: #71a3feb3;
+  border-radius: 0px;
+  width: 4rem;
+  height: 0.25rem;
+}
+.font_2 {
+  font-size: 0.94rem;
+  font-family: PingFang SC Bold;
+  line-height: 0.94rem;
+  color: #333333;
+}
+.text_3 {
+  color: #343434;
+  font-size: 1rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
+.text-wrapper {
+  padding: 0.38rem 0;
+  background-color: #1b78f81a;
+  border-radius: 0.69rem;
+  width: 3.38rem;
+  height: 1.38rem;
+}
+.text_4 {
+  color: #1b78f8;
+  font-size: 0.69rem;
+  line-height: 0.63rem;
+}
+.space-y-14 > *:not(:first-child) {
+  margin-top: 0.88rem;
+}
+.list-item {
+  padding: 1.19rem 1rem 1.06rem;
+  background-color: #ffffff;
+  box-shadow: 0px 0.25rem 1.13rem #261f4d0f;
+  border-radius: 0.5rem;
+}
+.text_5 {
+  align-self: flex-start;
+}
+.group_6 {
+  margin-top: 1.25rem;
+  padding: 0 0.063rem;
+}
+.space-x-43 > *:not(:first-child) {
+  margin-left: 2.69rem;
+}
+.font_3 {
+  font-size: 1.44rem;
+  font-family: DINPro;
+  line-height: 1.13rem;
+  font-weight: 700;
+  color: #ec615a;
+}
+.text_6 {
+  margin-bottom: 0.19rem;
+  font-size: 0.88rem;
+  line-height: 0.88rem;
+}
+.group_7 {
+  margin-top: 0.69rem;
+}
+.font_4 {
+  font-size: 0.75rem;
+  font-family: PingFang SC Regular;
+  line-height: 0.69rem;
+  color: #9a9a9a;
+}
+.text_7 {
+  margin-bottom: 0.13rem;
+}
+.font_5 {
+  font-size: 0.75rem;
+  font-family: PingFang SC Regular;
+  line-height: 0.81rem;
+  color: #9a9a9a;
+}
+.text_8 {
+  margin-right: 3.81rem;
+}
+.view_2 {
+  margin-top: 0;
+}
+.space-x-5 > *:not(:first-child) {
+  margin-left: 0.31rem;
+}
+.text-wrapper_2 {
+  padding: 0.13rem 0;
+  background-color: #e7f1ff;
+  border-radius: 0.13rem;
+  height: 0.88rem;
+}
+.text_9 {
+  margin-left: 0.25rem;
+  margin-right: 0.19rem;
+  color: #1a77f7;
+  font-size: 0.63rem;
+  font-family: PingFang SC Regular;
+  line-height: 0.63rem;
+}
+.space-x-44 > *:not(:first-child) {
+  margin-left: 2.75rem;
+}
+.space-x-62 > *:not(:first-child) {
+  margin-left: 3.88rem;
+}
+.equal-division_2 {
+  margin-top: 5.94rem;
+}
+.equal-division-item_2 {
+  flex: 1 1 5.88rem;
+  padding: 0.38rem 0 0.31rem;
+}
+.space-y-6 > *:not(:first-child) {
+  margin-top: 0.38rem;
+}
+.image_8 {
+  width: 1rem;
+  height: 1rem;
+}
+.font_6 {
+  font-size: 0.63rem;
+  font-family: PingFangSC;
+  letter-spacing: -0.015rem;
+  line-height: 0.44rem;
+  color: #bbbabf;
+}
+.text_10 {
+  color: #1b78f8;
+}
