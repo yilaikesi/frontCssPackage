@@ -1,0 +1,232 @@
+.page {
+  background-color: #ffffff;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.header {
+  padding: 0.5rem 0.38rem 0.94rem 0.41rem;
+  height: 4.44rem;
+}
+.space-y-35 > *:not(:first-child) {
+  margin-top: 1.09rem;
+}
+.image {
+  width: 22.66rem;
+  height: 0.81rem;
+}
+.group {
+  padding: 0 0.53rem;
+  position: relative;
+}
+.image_2 {
+  position: absolute;
+  left: 0.53rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.13rem;
+  height: 0.94rem;
+}
+.text {
+  color: #272636;
+  font-size: 1.19rem;
+  font-family: SourceHanSansCN;
+  font-weight: 300;
+  line-height: 1.09rem;
+}
+.group_2 {
+  padding-top: 1.13rem;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+.group_3 {
+  padding: 0 0.94rem;
+}
+.text_2 {
+  align-self: center;
+  color: #cccccc;
+  font-size: 0.75rem;
+  font-family: PingFangSC;
+  line-height: 0.55rem;
+}
+.group_4 {
+  flex: 1 1 auto;
+}
+.group_5 {
+  padding-bottom: 0.94rem;
+}
+.space-x-18 > *:not(:first-child) {
+  margin-left: 0.56rem;
+}
+.image_3 {
+  margin: 3.69rem 0.16rem 0 0.41rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.image_4 {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  flex-shrink: 0;
+}
+.text-wrapper {
+  margin-right: 0.38rem;
+  padding: 0.75rem 0 0.97rem;
+  flex: 1 1 auto;
+  background-image: url('../../img/12bd4827613829c03e943a759d269ced.png');
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 2.5rem;
+}
+.font_1 {
+  font-size: 0.88rem;
+  font-family: SourceHanSansCN;
+  line-height: 1.19rem;
+  font-weight: 300;
+  color: #272636;
+}
+.text_3 {
+  line-height: 0.81rem;
+}
+.section {
+  padding: 0.81rem 1.06rem 0.5rem;
+  align-self: flex-end;
+  background-image: url('../../img/6de9f246e2171222910c323a8ea96f07.png');
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 15.06rem;
+}
+.font_2 {
+  font-size: 0.88rem;
+  font-family: PingFangSC;
+  line-height: 1.19rem;
+  color: #ffffff;
+}
+.text_4 {
+  align-self: flex-start;
+}
+.image_5 {
+  flex-shrink: 0;
+}
+.view {
+  margin-top: 1.56rem;
+}
+.space-x-8 > *:not(:first-child) {
+  margin-left: 0.25rem;
+}
+.font_3 {
+  font-size: 0.75rem;
+  font-family: SourceHanSansCN;
+  line-height: 0.56rem;
+  font-weight: 300;
+  color: #cccccc;
+}
+.group_6 {
+  flex: 1 1 auto;
+}
+.space-y-30 > *:not(:first-child) {
+  margin-top: 0.94rem;
+}
+.image_6 {
+  background-color: #000000;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.section_2 {
+  padding: 0.75rem 1.38rem;
+  background-image: url('../../img/9c1e7eb31c5c2fb5760c792c2be989b9.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 6.56rem;
+  height: 2.5rem;
+}
+.image_7 {
+  flex-shrink: 0;
+  width: 0.69rem;
+  height: 1rem;
+}
+.text_5 {
+  margin: 0.063rem 0 0.19rem 1.63rem;
+  color: #999999;
+  line-height: 0.73rem;
+}
+.image_8 {
+  align-self: flex-end;
+  width: 15.06rem;
+  height: 6.5rem;
+}
+.image_9 {
+  background-color: #4385f5;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.section_3 {
+  margin-left: 0.94rem;
+  padding: 0.56rem 1.03rem 0.69rem;
+  background-color: #f3f3f3;
+  border-radius: 0.5rem;
+  height: 3.63rem;
+}
+.image_10 {
+  margin-left: -15.06rem;
+  margin-top: 0.88rem;
+  width: 0.5rem;
+  height: 0.75rem;
+}
+.section_4 {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  /* height: 10%; */
+  margin-top: 3.5rem;
+  padding: 0.34rem 0.56rem 0.38rem 0.88rem;
+  background-color: #fafafa;
+  border-top: solid 0.058rem #ebebeb;
+}
+.space-x-23 > *:not(:first-child) {
+  margin-left: 0.72rem;
+}
+.image_13 {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1.38rem;
+  height: 0.97rem;
+}
+.section_5 {
+  padding: 0.41rem 0 0.31rem;
+  flex: 1 1 auto;
+  background-color: #efefef;
+  border-radius: 0.5rem;
+  height: 2.02rem;
+}
+.search {
+  margin-left: 0.69rem;
+}
+.space-x-10 > *:not(:first-child) {
+  margin-left: 0.31rem;
+}
+.image_11 {
+  flex-shrink: 0;
+  width: 0.13rem;
+  height: 1.28rem;
+}
+.text_6 {
+  margin-top: 0.47rem;
+  color: #ceced9;
+  font-size: 0.88rem;
+  font-family: SourceHanSansCN;
+  font-weight: 300;
+  line-height: 0.8rem;
+}
+.image_12 {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1.59rem;
+  height: 1.25rem;
+}
