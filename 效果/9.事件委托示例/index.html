@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div onclick="parent()">
+        <ul class="list" >
+            <div href="www.baidu.com">百度</div>
+            <div href="www.baidu.com">搜狐</div>
+        </ul>
+    </div>
+    <script>
+        function parent(){
+            console.log("dsadas")
+        }
+        document.querySelector('.list').addEventListener('click',(e)=>{
+            console.log(e.target.innerHTML)
+            // 阻止冒泡方法  不让事件向documen上蔓延。
+            // 只激活内部函数,顶部的onclick就不会执行力
+            // e.stopPropagation()
+            // 阻止默认行为
+            e.preventDefault()
+        },false)
+
+    </script>
+</body>
+</html>
