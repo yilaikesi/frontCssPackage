@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img1 {
+            width: 300px;
+            height: 200px;
+        }
+
+        .img2 {
+            width: 300px;
+            height: 200px;
+        }
+
+        .img3 {
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="logo.png" class="img1" />
+    <img src="logo.png" class="img2" />
+    <img src="logo.png" class="img3" />
+    <script>
+        function addWaterMarker(str, parentNode, font, textColor) {
+            // 水印文字，父元素，字体，文字颜色
+            var element = document.createElement("canvas");
+            parentNode.parentNode.appendChild(element);
+
+            element.width = parentNode.width;
+            element.height = parentNode.height;
+            // element.style.display = "none";
+            var context = element.getContext("2d");
+            let img = new Image();
+            img.src = "logo.png";
+            img.alt = "sad";
+            img.onload = function () {
+                context.drawImage(img, 0, 0);
+            };
+            // context.drawImage(require("@/assets/logo.png"), 100, 100);
+            // context.rotate((-15 * Math.PI) / 180); //旋转角度
+            context.font = font || "12px Microsoft JhengHei";
+            context.fillStyle = textColor || "rgba(180, 180, 180, 0.3)";
+            // context.textAlign = "left";
+            //  context.textBaseline = 'middle';
+            // context.fillText(str, element.width / 3, element.height / 2);
+            context.fillText(str, parentNode.width - 100, parentNode.height - 20)
+            // parentNode.src = element.toDataURL("image/png");
+            parentNode.style.display = "none";
+        }
+        let dom1 = document.querySelector(".img1");
+        addWaterMarker("text", dom1, "", "red");
+
+        let dom2 = document.querySelector(".img2");
+        addWaterMarker("text", dom2, "", "red");
+        let dom3 = document.querySelector(".img3");
+        addWaterMarker("text", dom3, "", "red");
+    </script>
+</body>
+
+</html>
