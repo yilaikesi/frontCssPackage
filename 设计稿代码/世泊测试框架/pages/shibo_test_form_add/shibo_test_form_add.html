@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electrolux</title>
+  <link rel="stylesheet" href="../../index.css" />
+  <style>
+    .justify-end .justify-center {
+  justify-content: flex-end;
+}
+    .page {
+      background-color: #252c32;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 100%;
+    }
+
+    .header {
+      padding: 2.402vh;
+      background-color: #1b1b1b;
+      height: 6.907vh;
+    }
+
+    .image {
+      /* width: 3.003vh;
+  height: 3.003vh; */
+    }
+
+    .pos {
+      position: absolute;
+      left: 2.402vh;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .text {
+      color: #ffffff;
+      font-size: 2.102vh;
+      font-family: SourceHanSansCN;
+      font-weight: 700;
+      line-height: 1.952vh;
+    }
+
+    .group {
+      padding: 3.168vh 5.105vh 8.859vh;
+      overflow-y: auto;
+    }
+
+    .space-y-160>*:not(:first-child) {
+      margin-top: 6.024vh;
+    }
+
+    .space-y-8>*:not(:first-child) {
+      margin-top: 1.201vh;
+    }
+
+    .image_2 {
+      width: 12.462vh;
+      height: 12.462vh;
+    }
+
+    .text_2 {
+      color: #ffffff;
+      font-size: 3.304vh;
+      font-family: SourceHanSansCN;
+      line-height: 3.303vh;
+    }
+
+    .space-y-20>*:not(:first-child) {
+      margin-top: 3.003vh;
+    }
+
+    .font_1 {
+      font-size: 1.802vh;
+      font-family: SourceHanSansCN;
+      line-height: 1.351vh;
+      color: #ffffff;
+    }
+
+    .text_3 {
+      line-height: 1.652vh;
+    }
+
+    .space-x-8>*:not(:first-child) {
+      margin-left: 1.201vh;
+    }
+
+    .space-y-18>*:not(:first-child) {
+      margin-top: 2.703vh;
+    }
+
+    .button {
+      padding: 2.402vh 0;
+      background-color: #ff0059;
+      border-radius: 1.201vh;
+    }
+
+    .font_2 {
+      font-size: 1.802vh;
+      font-family: SourceHanSansCN;
+      line-height: 1.727vh;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .button_2 {
+      padding: 2.402vh 0;
+      background-color: #7b7b7b;
+      border-radius: 1.201vh;
+    }
+
+    .title {
+      color: white;
+      font-weight: 600;
+      font-size: 1.04rem;
+      margin-bottom: 1.5rem;
+      margin-top: -1.5rem;
+    }
+    .m_5{
+      margin-top: 1rem;
+    }
+    .title_text {
+      color: white;
+      font-weight: 100;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .begin_time_title{
+      color: white;
+      font-size:1.0rem;
+      margin-top:-0.2rem ;
+      margin-bottom:1.2rem ;
+    }
+    .end_time_title{
+      color: white;
+      font-size: 0.9rem;
+    }
+    .begin_time{
+      background: #1B1B1B;
+      border-radius: 14px;
+      padding: 3.202vh 0;
+      border-radius: 1.201vh;
+      text-align: center;
+      margin-top: 25px;
+    }
+   .description{
+    height: 8rem;
+    border-radius:1.201vh;
+    background: #1B1B1B;
+    width: 100%;
+    color: white;
+    outline: none;
+    font-size: 0.91rem;
+   }
+   .select_pirture{
+    background: #1B1B1B;
+    width: 100%;
+    padding: 1.902vh 0;
+    border-radius:1.201vh;
+    text-align: center;
+    line-height: 100%;
+   }
+   .select_text{
+    /* display: flex; */
+    color: white;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow-x: auto;
+   }
+   .button_item{
+    flex:1;
+    margin: 0;
+    padding: 0;
+    width: 5rem;
+    height: 2rem;
+    background: rgb(64, 128, 255);
+    display: inline-block;
+    border-radius: 2px;
+    color: white;
+   }
+   
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100vh;
+}
+
+body * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+*{
+  margin:0px;
+  padding:0px;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-baseline {
+  align-self: baseline;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.grow-0 {
+  flex-grow: 0;
+}
+
+.shrink {
+  flex-shrink: 1;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.relative {
+  position: relative;
+}
+  </style>
+</head>
+
+<body>
+  <div class="flex-col page">
+    <div class="flex-row justify-center items-center relative header">
+      <img class="image pos" src="../../img/back.png" />
+      <span class="text">测试情况</span>
+    </div>
+
+    <div class="flex-col flex-auto group space-y-160 ">
+      <div class="test_box ">
+        <div class="title_text pos_box">测试结束</div>
+        <div class="begin_time">
+          <div class="begin_time_title">开始测试时间</div>
+          <div class="end_time_title">2022 - 12 - 29 00:00:00</div>
+        </div>
+
+        <div class="begin_time">
+          <div class="begin_time_title">结束测试时间</div>
+          <div class="end_time_title">2022 - 12 - 29 00:00:00</div>
+        </div>
+      </div>
+      
+      <!-- 测试内容 -->
+      <div class="test_box">
+        
+        <div class="title">测试内容</div>
+        <div class="title_text">测试项目</div>
+        <select name="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel" selected>Opel</option>
+          <option value="audi">Audi</option>
+      </select>
+
+        <div class="title_text">速度模式</div>
+        <div class="button_list">
+          <button class="button_item">ss11</button>
+          <button class="button_item">ss</button>
+          <button class="button_item">ss</button>
+          
+        </div>
+        
+
+        <div class="title_text">测试结果</div>
+        <div class="button_list">
+          <button class="button_item">ss11</button>
+          <button class="button_item">ss</button>
+          <button class="button_item">ss</button>
+          
+        </div>
+      </div>
+      <!-- 附加内容 -->
+      <div class="test_box">
+        
+        <div class="title">附加内容</div>
+        <div class="title_text">失败原因（选填）</div>
+        <select name="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel" selected>Opel</option>
+          <option value="audi">Audi</option>
+      </select>
+
+        <div class="title_text">附加说明</div>
+        <textarea class="description"></textarea>
+
+        <div class="title_text">照片附件</div>
+        <div class="select_pirture">
+          <img src="../../img/select.png" alt="">
+          <span class="select_text">选择照片</span>
+        </div>
+       
+      </div>
+      <div class="flex-col space-y-20">
+
+        <div class="flex-col space-y-18">
+          <div class="flex-col justify-start items-center button"><span class="font_2">点击此处结束测试</span></div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

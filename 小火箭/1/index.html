@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    * {
+
+        margin: 0;
+
+        padding: 0;
+
+    }
+
+   
+
+    .move {
+
+        width: 500px;
+
+        height: 2000px;
+
+        background-color: pink;
+
+        font-size: 25px;
+
+    }
+
+   
+
+    .hj {
+
+        position: fixed;
+
+        bottom: 50px;
+
+        right: 10px;
+
+        font-size: 50px;
+
+        display: none;
+
+    }
+
+   
+
+    .hj:hover {
+
+        cursor: pointer;
+
+    }
+
+</style>
+<body>
+    <div class="move"></div>
+
+    <div class="hj">🚴‍♂️</div>
+    <script>
+        var hj = document.querySelector('.hj');
+
+var timer = null;
+
+window.onscroll = function(e) {
+
+    // console.log(document.documentElement.scrollTop);
+
+    if (document.documentElement.scrollTop > 200) {
+
+        hj.style.display = 'block';
+
+    }
+
+    if (document.documentElement.scrollTop < 200) {
+
+        hj.style.display = 'none';
+
+    }
+
+}
+
+hj.onclick = function() {
+
+    move()
+
+}
+
+function move() {
+
+    clearInterval(timer);
+
+    var s = document.documentElement.scrollTop;
+
+    var t = 20;
+
+    var v = s / t;
+
+    var count = 0;
+
+    timer = setInterval(function() {
+
+        count++;
+
+        s -= v;
+
+        if (count === t) {
+
+            clearInterval(timer);
+
+            s = 0;
+
+        }
+
+        document.documentElement.scrollTop = s;
+
+    }, 30)
+
+}
+    </script>
+</body>
+</html>

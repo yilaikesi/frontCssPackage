@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+    .container {
+            position: relative;
+            top: 200px;
+            left: 50%;
+        }
+
+        .box {
+            background-color: skyblue;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .box>div {
+            background-color: pink;
+            width: 50px;
+            height: 50px;
+            color: black;
+            text-align: center;
+            border-radius : 50%;
+            position: absolute;
+            left : -50px;
+            top: 0;
+            line-height: 50px;
+            /* 通过transform-origin : x轴 y轴; 实现圆形环绕效果  , 设定旋转元素的基点位置*/
+            transform-origin: 125px 75px;
+            transition: transform 1s;
+            overflow: hidden;
+        }
+        span{
+            /* display : inline-block; */
+            transform-origin : 0 0;
+            position: absolute;
+            /* width: 50px; */
+            /* height: 50px; */
+            left: 50%;
+            top: 50%;
+            /* transform : translate(-50% , -50%); */
+            /* background-color: red; */
+        }
+</style>
+<body>
+    
+    
+    <div class="container">
+        <div class="box">
+        </div>
+    </div>
+    <script>
+            let arr = [1,1,1,1,1,1]
+    arr.forEach(( e , i , self )=> {
+    let item = document.createElement('div');
+    let text = document.createElement('span');
+    let box = document.querySelector('.box');
+    text.innerText = i;
+    item.appendChild(text);
+    let degNumber = 180 / self.length;
+    text.style.transform = `rotate(${360-degNumber * ++i}deg) translate(-50% , -50%)`;
+    item.style.transform = `rotate(${degNumber * i}deg)`
+    box.appendChild(item);
+    
+    })
+    </script>
+</body>
+</html>
