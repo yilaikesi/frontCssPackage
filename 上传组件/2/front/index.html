@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .upload {
+      width: 100%;
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #preview {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+
+      text-align: center;
+      color: #8c8c8c;
+      border-radius: 16px;
+    }
+
+    /* 丑丑的玩意藏起来,判定文件的主要区域 */
+    #preview input {
+      /* width: 100%; */
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      position: absolute;
+    }
+
+    /* 按钮的div样式 */
+    #preview #pseudo-style {
+      width: 100%;
+      border-radius: 10px;
+      background-color: rgb(94, 124, 213);
+      color: #ffffff;
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 0.8rem;
+    }
+
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      color: #333;
+      padding: 16px;
+      position: relative;
+    }
+
+    .task-list {
+      height: 40vh;
+      margin-top: 20px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 选择图片上传控件 -->
+  <div class="upload">
+    <div id="preview">
+      <!-- 这里我们隐藏起来 长款跟div一样-->
+      <input type="file" name="" id="file" value="上传文件" multiple></input>
+      <div id="pseudo-style">选择图片上传</div>
+    </div>
+  </div>
+  <div class="task-list"></div>
+  <template id="template-task">
+    <div class="task">
+      <a class="task-name" target="_blank">some file name</a>
+      <span class="task-progress">50%</span>
+    </div>
+  </template>
+
+
+  <script>
+    const TASK_STATUS = {
+      PROCESSING: 1,
+      SUCCESS: 2,
+      ERROR: 3,
+    }
+    let tasks = [];
+    const taskTemplate = document.querySelector('#template-task');
+
+
+
+    var preview = document.getElementById("preview");
+    var img = document.createElement("img"); // 创建图片预览img元素
+    var file = document.getElementById("file");
+    /* 文件选择监听事件 */
+    file.onchange = function (e) {
+      /* 文件读取对象读取文件 */
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(e.srcElement.files[0]);
+      console.log(e.srcElement.files[0])
+      fileReader.onload = function () {
+        img.src = fileReader.result;
+        img.style.width = "300px";
+        preview.appendChild(img);
+      };
+
+    };
+
+
+
+    let url = "http://localhost:3000/upload"
+    let first_task_box_container ="task-list"
+
+    file.onchange = (e) => {
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(e.srcElement.files[0]);
+      function upload(file) {
+        const data = new FormData();
+        data.append('file', file);
+        const task = {
+          id: file.size,
+          name: file.name,
+          status: TASK_STATUS.PROCESSING,
+          progress: 0
+        }
+        tasks.unshift(task);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST',url );
+        xhr.setRequestHeader('x-file-name', encodeURIComponent(file.name));
+        // 先触发progress接下来触发load
+        xhr.upload.addEventListener('progress', (e) => {
+          const { loaded, total } = e;
+          const progress = Math.round(loaded / total * 100);
+          task.progress = progress;
+          // localStorage.setItem("task_"+id,task.id)
+          updateTask(task);
+        });
+        xhr.addEventListener('load', (e) => {
+          task.status = TASK_STATUS.SUCCESS;
+          const response = JSON.parse(xhr.response);
+          console.log('response', response);
+          const { url } = response;
+          task.url = url;
+          console.log("load")
+          updateTask(task);
+        });
+        xhr.addEventListener('error', (e) => {
+          task.status = TASK_STATUS.ERROR;
+          updateTask(task);
+        });
+        function updateTask (task)  {
+          const taskList = document.querySelector('.'+first_task_box_container);
+          // 重要：组装和生成2集id
+          let taskBox = taskList.querySelector(`#task-${task.id}`);
+          // 这里是进度条
+          if (!taskBox) {
+            taskBox = document.createElement('div');
+            taskBox.id = `task-${task.id}`;
+            taskList.prepend(taskBox);
+          }
+          taskBox.innerHTML = '';
+          taskBox.append(taskRenderer(task));
+          console.log("update", task)
+          // debugger
+        }
+
+        function taskRenderer (task) {
+          const taskDOM = taskTemplate.content.firstElementChild.cloneNode(true);
+          const nameDOM = taskDOM.querySelector('.task-name');
+          nameDOM.textContent = task.name;
+          const progressDOM = taskDOM.querySelector('.task-progress');
+          const progress = `${task.progress}%`
+          progressDOM.textContent = progress;
+          if (task.status === TASK_STATUS.PROCESSING) {
+            taskDOM.style.background = `linear-gradient(to right, #bae7ff ${progress}, #fafafa ${progress}, #fafafa 100%)`
+          } else if (task.status === TASK_STATUS.SUCCESS) {
+            taskDOM.style.background = '#d9f7be';
+            nameDOM.href = task.url;
+          } else if (task.status === TASK_STATUS.ERROR) {
+            taskDOM.style.background = '#ffccc7';
+          }
+          return taskDOM;
+        }
+        xhr.send(data);
+        // debugger
+      }
+      upload(e.srcElement.files[0])
+    }
+  </script>
+</body>
+
+</html>
