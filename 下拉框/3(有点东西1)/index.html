@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #menu * {
+            padding: 0;
+            margin: 0;
+            font: 12px georgia;
+            list-style-type: none;
+        }
+
+        #menu {
+            margin-top: 100px;
+        }
+
+        .dropdown {
+            position: absolute;
+            float: left;
+        }
+
+        #menu .dropdown .dropdown_item,
+         .dropdown .dropdown_item,
+         .dropdown:hover .dropdown .dropdown_item {
+            display: none;
+            list-style-type: none;
+            width: 140px;
+        }
+
+        #menu:hover .dropdown_item,
+        #menu:hover .dropdown:hover .dropdown_item,
+        #menu:hover .dropdown:hover .dropdown:hover .dropdown_item {
+            display: block;
+        }
+
+        #menu:hover .dropdown_item {
+            position: absolute;
+            font: 10px;
+            bottom: 100%;
+        }
+
+        .button {
+            display: block;
+            width: 173px;
+            height: 38px;
+            padding: 0 10px;
+            line-height: 38px;
+            border: 1px solid #d8d7d9;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+
+        <div class="dropdown">
+            <button class="button">点我</button>
+            <div class="dropdown_item">
+                <div>s12</div>
+                <div>2vvv</div>
+
+                <div>2vvv</div>
+                <div>2vvv</div>
+                <div>2vvv</div>
+                <div>2vvv</div><div>2vvv</div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

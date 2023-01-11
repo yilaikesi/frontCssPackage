@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  
+    button{
+        width: 80%;
+        height: 100px;
+    }
+    .option{
+        width: 80%;
+        height: 100px;
+        border: 1px solid;
+        text-align: center;
+        line-height: 100px;
+        border-radius: 10px;
+        display: none;
+        border-collapse:collapse;
+        transition: all .6s;
+    }
+</style>
+
+<body>
+    <button>点我</button>
+    <div class="dropdown">
+        <div class="option">ceshi1</div>
+        <div class="option">ceshi1</div>
+        <div class="option">ceshi1</div>
+    </div>
+    <script>
+        document.querySelector("button").addEventListener("click",()=>{
+            document.querySelectorAll(".option").forEach((e)=>{
+                e.style.display="block"
+                e.style.width=document.querySelector("button").offsetWidth+"px"
+            })
+        })
+    </script>
+</body>
+
+</html>
