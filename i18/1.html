@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" en="home" cn="主页"> 主页</div>
+    <div class="text" en="test" cn="测试">测试</div>
+    <button class="tran">转化</button>
+    <script>
+
+
+        function tr(param) {
+            if (param == "cn") {
+                let temp = Array.from(document.querySelectorAll("*")).filter((value) => {
+                    if (value.getAttribute("cn")) {
+                        return value
+                    }
+                })
+                temp.forEach((value) => {
+                    value.innerHTML = value.getAttribute("cn")
+                })
+            }
+            if(param == "en"){
+                let temp = Array.from(document.querySelectorAll("*")).filter((value) => {
+                    if (value.getAttribute("en")) {
+                        return value
+                    }
+                })
+                temp.forEach((value) => {
+                    value.innerHTML = value.getAttribute("en")
+                })
+            }
+        }
+        document.querySelector('.tran').addEventListener('click', () => {
+            if (document.querySelector('.tran').innerHTML == "转化") {
+                tr("en")
+                document.querySelector('.tran').innerHTML = "tran"
+            }else{
+                tr("cn")
+                document.querySelector('.tran').innerHTML = "转化"
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

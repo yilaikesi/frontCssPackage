@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<style>
+    /* 
+        align-items :交叉轴的对齐，flex—start flex-end center baseline stretch 
+        flex-direction: column ：横着走
+    */
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing:border-box
+    }
+    body{
+        background-color: rgb(240, 240, 240);
+    }
+   .container{
+    position: fixed;
+    bottom: 0rem;
+    width: 100%;
+   }
+    /* 白色卡片盒子 */
+    .card{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        /* border-radius: 15px; */
+        /* 内边距 */
+        padding:0rem 1rem 0rem 1rem;
+        
+    }
+    /* 小图标8个盒子 */
+    .card_content{
+        display: flex;
+        padding-top: 1rem;
+    }
+    /* 小图标个体盒子 */
+    .card_content_item{  
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 ;
+        align-items:center;
+        justify-content: center;  
+    }
+    .card_content_item_image{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .card_content_item_text{
+        font-size: 0.5rem;
+        font-family:PingFangSC-Regular;
+        color: #bbbabf;
+        margin: 0.6rem;
+    }
+    .active{
+        color: red;
+        font-size:1.5rem;
+    }   
+</style>
+
+<body>
+    <div class="container">
+        <div class="card">   
+            <div class="card_content">
+                
+                <div class="card_content_item  ">
+                    <i class="fa fa-address-book-o "></i>
+
+                    <div class="card_content_item_text  ">通知</div>
+                </div>
+                <div class="card_content_item active" >
+                    <i class="fa fa-address-book-o "></i>
+                    <div class="card_content_item_text">首页</div>
+                </div>
+                <div class="card_content_item">
+                    <i class="fa fa-address-book-o "></i>
+                    <div class="card_content_item_text">我的</div>
+                </div>
+                
+    
+            </div>
+        </div>
+    </div>
+    <script>
+        let item = document.querySelectorAll(".card_content_item")
+        function setActive(){
+            item.forEach((v)=>{
+                v.classList.remove("active")
+            })
+            this.classList.add("active")
+        }
+        item.forEach((v)=>{
+            v.addEventListener("click",setActive)
+        })
+    </script>
+</body>
+</html>
