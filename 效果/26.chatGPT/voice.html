@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let CN_TIMEOUT_KEEP_SYNTHESIS_WORKING
+    function CN_KeepSpeechSynthesisActive() {
+        console.log("Keeping speech synthesis active...");
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+	CN_TIMEOUT_KEEP_SYNTHESIS_WORKING = setTimeout(CN_KeepSpeechSynthesisActive, 5000);
+    }
+    function CN_SplitIntoSentences(text) {
+	var sentences = [];
+	var currentSentence = "";
+	
+	for(var i=0; i<text.length; i++) {
+		//
+		var currentChar = text[i];
+		
+		// Add character to current sentence
+		currentSentence += currentChar;
+		
+		// is the current character a delimiter? if so, add current part to array and clear
+		if (
+			// Latin punctuation
+		       currentChar == ',' 
+			|| currentChar == ':' 
+			|| currentChar == '.' 
+			|| currentChar == '!' 
+			|| currentChar == '?' 
+			|| currentChar == ';'
+			|| currentChar == '…'
+			// Chinese/japanese punctuation
+			|| currentChar == '、' 
+			|| currentChar == '，'
+			|| currentChar == '。'
+			|| currentChar == '．'
+			|| currentChar == '！'
+			|| currentChar == '？'
+			|| currentChar == '；'
+			|| currentChar == '：'
+			) {
+			if (currentSentence.trim() != "") sentences.push(currentSentence.trim());
+			currentSentence = "";
+		}
+	}
+	
+	return sentences;
+}
+</script>
+<body>
+    
+</body>
+</html>

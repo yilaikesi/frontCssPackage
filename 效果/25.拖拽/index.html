@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            /* margin: 0;
+            padding: 0; */
+        }
+        .parent{
+            width:400px;
+            height: 400px;
+            background: red;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .chlid{
+            width:200px;
+            height: 200px;
+            background: blue;
+            position: absolute;
+            right: -60px;
+            bottom: 0px;
+            
+            
+        }
+    </style>
+</head>
+<body>
+    
+    <div style="height: 100px;"></div>
+    <div class="parent">父级
+        <div class="chlid">子级</div>
+    </div>
+
+    <script>
+
+        function dragPanel(btnElement) {
+            const btn1 = document.querySelector(btnElement)
+            const main1 = btn1.parentElement
+            let isMove = false
+            var mouseY,mouseX = 0
+            //每一次拖拽的坐标
+            let currHeight = 0
+            btn1.addEventListener('mousedown', e => {
+                e = e || window.event;
+                mouseY = e.pageY
+                mouseX = e.pageX
+                console.log(mouseY,"点击坐标")
+                isMove = true;
+                // 相对top,left
+                currHeight = btn1.offsetTop
+                currLeft = btn1.offsetLeft
+                // currLeft = main1.offsetLeft
+            })
+            main1.addEventListener('mouseup', e => {
+                isMove = false
+                // btn1.style.bottom = window.bottom
+            })
+            main1.addEventListener('mousemove', e => {
+                e = e || window.event;
+                if (isMove) {    
+                    let  moveTop = e.pageY - mouseY
+                    let  moveRight = e.pageX - mouseX
+                    console.log(currHeight + moveTop,currLeft + moveRight,"最终坐标")
+                    btn1.style.top = (currHeight + moveTop) + "px"
+                    btn1.style.left = (currLeft + moveRight) + "px"
+                }else{
+                    // mouseX,mouseY = 0
+                }
+            })
+           
+            
+        }
+        dragPanel(".chlid")
+    </script>
+</body>
+</html>

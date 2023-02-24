@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #localVideo {
+        width: 700px;
+        height: 500px;
+    }
+</style>
+
+<body>
+
+    <video id="localVideo" autoplay playsinline muted></video>
+
+    <canvas id="fliter"></canvas>
+    <script>
+
+        // 调用摄像头
+        // 切换摄像头。可以切换成虚拟摄像头
+
+        //第一步，获取到本地媒体,getUserMedia  调用摄像头
+        // 注意兼容性 
+        function cameraStart() {
+            let isFront = false;
+
+            let config = {
+                audio: false, video: true, video: {
+                    width: 700,
+                    height: 500,
+                    // 前后置摄像头
+                    facingMode: isFront ? "user" : "environment",
+                    // 帧率设置. 字面意思，一个是理想的状态下面，一个是最大的帧率
+                    frameRate: { ideal: 30, max: 30 }
+                },
+            };
+            let video = document.querySelector("video");
+            function successCallback(stream) {
+                // 将返回的流提供给控制台进行检查
+                window.stream = stream;
+                console.log(stream)
+                video.srcObject = stream;
+                // 播放
+                video.play();
+            }
+            function errorCallback(error) {
+                console.log("navigator.getUserMedia error: ", error);
+            }
+            // 传入3个参数，第一个是配置，第二个是成功的回调
+            // 这个更加规范了，多加了一个mediaDevices。window.navigator.getUserMedia(config, successCallback, errorCallback);
+            navigator.mediaDevices.getUserMedia(config)
+                .then(function (stream) {
+                    successCallback(stream)
+                })
+                .catch(function (err) {
+                    errorCallback(err)
+                });
+
+        }
+        // 调用
+        cameraStart()
+
+    </script>
+
+    <script>
+        // 给直播加滤镜
+        var canvas = document.getElementById("fliter");
+        var context = canvas.getContext("2d");
+
+        var video = document.getElementById("localVideo");
+
+        // 开始播放时候执行
+        video.oncanplay = function () {
+            video.play();
+            switchToCanvas();
+        }
+
+        function switchToCanvas() {
+            const filterList = [
+                'blur(5px)', // 模糊
+                'brightness(0.5)', // 亮度
+                'contrast(200%)', // 对比度
+                'grayscale(100%)', // 灰度
+                'hue-rotate(90deg)', // 色相旋转
+                'invert(100%)', // 反色
+                'opacity(90%)', // 透明度
+                'saturate(200%)', // 饱和度
+                'saturate(20%)', // 饱和度
+                'sepia(100%)', // 褐色
+                'drop-shadow(4px 4px 8px blue)', // 阴影
+            ]
+            if (video.ended) {
+                return;
+            }
+            context.filter = filterList[2]
+            // 将video上的图片的每一帧以图片的形式绘制的canvas上
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            window.requestAnimationFrame(switchToCanvas);
+        }
+    </script>
+
+
+
+    <img src="" id="img" alt="">
+    <button onclick="photo()">点击拍照</button>
+
+    <script>
+        // 拍照功能
+        /*
+            1.初始化canvas 标签可以将媒体流createElement("canvas") 和 getContext('2d')
+            2.drawImage 绘制 
+            3.也可以通过 toDataURL 方法将 canvas 转换为 base64 图片然后转化到src
+        */
+        const filterList = [
+            'blur(5px)', // 模糊
+            'brightness(0.5)', // 亮度
+            'contrast(200%)', // 对比度
+            'grayscale(100%)', // 灰度
+            'hue-rotate(90deg)', // 色相旋转
+            'invert(100%)', // 反色
+            'opacity(90%)', // 透明度
+            'saturate(200%)', // 饱和度
+            'saturate(20%)', // 饱和度
+            'sepia(100%)', // 褐色
+            'drop-shadow(4px 4px 8px blue)', // 阴影
+        ]
+
+
+        function photo() {
+            const video = document.querySelector('#localVideo')
+            const canvas = document.createElement('canvas')
+            canvas.width = 200
+            canvas.height = 200
+            const ctx = canvas.getContext('2d')
+            ctx.filter = filterList[1]
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+            document.querySelector("#img").src = canvas.toDataURL('image/png')
+        }
+
+    </script>
+
+
+
+
+    <script>
+        // 公共模块
+        // 1.获取到所有的设备，然后筛选出 videoinput 类型的设备，最后通过不同的设备 id 来实现切换摄像头。
+        // 作用：切换摄像头。可以切换成虚拟摄像头
+        async function getDevices() {
+            const devices = await navigator.mediaDevices.enumerateDevices()
+            console.log('devicesList:', devices)
+            let videoDevices = devices.filter((device) => device.kind === 'videoinput')
+            // 获取可用的id
+            console.log('videoDevices:', videoDevices[0].deviceId)
+            //然后有什么用呢，哦我们可以在基础设置config的video的deviceId的exact 里面塞id
+            /*
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: {
+                    deviceId: { exact: deviceId },
+                    },
+                })
+            */
+        }
+        getDevices()
+
+    </script>
+</body>
+
+</html>
