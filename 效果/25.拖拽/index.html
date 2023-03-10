@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             /* margin: 0;
             padding: 0; */
         }
-        .parent{
-            width:400px;
+
+        body {
+            height: 100%;
+            width: 92vw;
+            overflow: hidden;
+        }
+
+        .parent {
+            width: 400px;
             height: 400px;
             background: red;
             margin: 0 auto;
@@ -19,21 +27,24 @@
             overflow: hidden;
             text-align: center;
             box-sizing: border-box;
+
         }
-        .chlid{
-            width:200px;
+
+        .chlid {
+            width: 200px;
             height: 200px;
             background: blue;
             position: absolute;
             right: -60px;
             bottom: 0px;
-            
-            
+
+
         }
     </style>
 </head>
+
 <body>
-    
+
     <div style="height: 100px;"></div>
     <div class="parent">父级
         <div class="chlid">子级</div>
@@ -45,14 +56,15 @@
             const btn1 = document.querySelector(btnElement)
             const main1 = btn1.parentElement
             let isMove = false
-            var mouseY,mouseX = 0
+            var mouseY, mouseX = 0
+            let currLeft
             //每一次拖拽的坐标
             let currHeight = 0
             btn1.addEventListener('mousedown', e => {
                 e = e || window.event;
                 mouseY = e.pageY
                 mouseX = e.pageX
-                console.log(mouseY,"点击坐标")
+                console.log(mouseY, "点击坐标")
                 isMove = true;
                 // 相对top,left
                 currHeight = btn1.offsetTop
@@ -65,20 +77,137 @@
             })
             main1.addEventListener('mousemove', e => {
                 e = e || window.event;
-                if (isMove) {    
-                    let  moveTop = e.pageY - mouseY
-                    let  moveRight = e.pageX - mouseX
-                    console.log(currHeight + moveTop,currLeft + moveRight,"最终坐标")
+                if (isMove) {
+                    let moveTop = e.pageY - mouseY
+                    let moveRight = e.pageX - mouseX
+                    console.log(currHeight + moveTop, currLeft + moveRight, "最终坐标")
                     btn1.style.top = (currHeight + moveTop) + "px"
                     btn1.style.left = (currLeft + moveRight) + "px"
-                }else{
+                } else {
                     // mouseX,mouseY = 0
                 }
             })
-           
-            
+
+            // 2.移动端移动
+            btn1.addEventListener('touchstart', e => {
+                e = e || window.event;
+                // alert(e.changedTouches[0].pageY)
+                mouseY = e.changedTouches[0].pageY
+                mouseX = e.changedTouches[0].pageX
+                isMove = true;
+                currHeight = btn1.offsetTop
+                currLeft = btn1.offsetLeft
+            })
+            main1.addEventListener('touchend', e => {
+                isMove = false
+                // btn1.style.bottom = window.bottom
+            })
+            main1.addEventListener('touchmove', e => {
+                e = e || window.event;
+                if (isMove) {
+                    let moveTop = e.changedTouches[0].pageY - mouseY
+                    let moveRight = e.changedTouches[0].pageX - mouseX
+                    // let cx = (currLeft + moveRight + btn1.offsetWidth / 2) / main1.offsetWidth
+                    // let cy = (currHeight + moveTop + btn1.offsetHeight / 2 + 10) / main1.offsetHeight
+                    // cache.set('humanRectCx', cx > 1 ? 1 : (cx < 0 ? 0 : cx))
+                    // cache.set('humanRectCy', cy > 1 ? 1 : (cy < 0 ? 0 : cy))
+                    btn1.style.top = (currHeight + moveTop) + "px"
+                    btn1.style.left = (currLeft + moveRight) + "px"
+                }
+            })
+
+
+            // 3.移动端捏合缩放
+            var store = {
+                scale: 1
+            };
+            btn1.addEventListener('touchstart', function (event) {
+                var touches = event.touches;
+                var events = touches[0];
+                var events2 = touches[1];
+
+                event.preventDefault();
+
+                // 第一个触摸点的坐标
+                store.pageX = events.pageX;
+                store.pageY = events.pageY;
+
+                store.moveable = true;
+
+                if (events2) {
+                    store.pageX2 = events2.pageX;
+                    store.pageY2 = events2.pageY;
+                }
+
+                store.originScale = store.scale || 1;
+            });
+            main1.addEventListener('touchmove', function (event) {
+                if (!store.moveable) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                var touches = event.touches;
+                var events = touches[0];
+                var events2 = touches[1];
+                // 双指移动
+                if (events2) {
+                    // 第2个指头坐标在touchmove时候获取
+                    if (!store.pageX2) {
+                        store.pageX2 = events2.pageX;
+                    }
+                    if (!store.pageY2) {
+                        store.pageY2 = events2.pageY;
+                    }
+
+                    // 获取坐标之间的举例
+                    var getDistance = function (start, stop) {
+                        return Math.hypot(stop.x - start.x, stop.y - start.y);
+                    };
+                    // 双指缩放比例计算
+                    var zoom = getDistance({
+                        x: events.pageX,
+                        y: events.pageY
+                    }, {
+                        x: events2.pageX,
+                        y: events2.pageY
+                    }) /
+                        getDistance({
+                            x: store.pageX,
+                            y: store.pageY
+                        }, {
+                            x: store.pageX2,
+                            y: store.pageY2
+                        });
+                    // 应用在元素上的缩放比例
+                    var newScale = store.originScale * zoom;
+                    // 最大缩放比例限制
+                    if (newScale > 3) {
+                        newScale = 3;
+                    }
+                    // 记住使用的缩放值
+                    store.scale = newScale;
+                    // 图像应用缩放效果
+                    btn1.style.transform = 'scale(' + newScale + ')';
+                }
+            });
+            main1.addEventListener('touchend', function () {
+                store.moveable = false;
+
+                delete store.pageX2;
+                delete store.pageY2;
+            });
+            main1.addEventListener('touchcancel', function () {
+                store.moveable = false;
+
+                delete store.pageX2;
+                delete store.pageY2;
+            });
+
         }
         dragPanel(".chlid")
     </script>
 </body>
+
 </html>

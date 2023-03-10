@@ -1,0 +1,170 @@
+:root {
+    --darkMessage: #000000;
+    --lightMessage: rgba(255, 255, 255);
+    --successMessage: #2dc74e;
+    --errorMessage: #e24d4c;
+    --warningMessage: #e9bd0c;
+    --infoMessage: #0091f1;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.notifications :where(.toast, .column) {
+    display: flex;
+    align-items: center;
+
+}
+
+.notifications {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    opacity: 0.5;
+}
+
+.notifications .toast {
+    width: 400px;
+    list-style: none;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    padding: 16px 17px;
+    margin-bottom: 10px;
+    background-color: var(--darkMessage);
+    justify-content: space-between;
+    color: var(--lightMessage);
+    animation: show_toast 0.3s forwards;
+}
+
+@keyframes show_toast {
+    0% {
+        transform: translateX(100%);
+    }
+
+    40% {
+        transform: translateX(-5%);
+    }
+
+    80% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.toast .column i {
+    font-size: 1.75rem;
+}
+
+.toast.hide {
+    /* backwards是保持第一帧的状态 */
+    /* forwards当动画完成后，保持最后一帧的状态（也就是最后一个关键帧中定义的状态） */
+    animation: hide_toast 0.3s forwards;
+}
+
+@keyframes hide_toast {
+    0% {
+        transform: translateX(-10%);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(calc(100% + 20px));
+    }
+}
+
+.toast .column span {
+    font-size: 1.07rem;
+    margin-left: 12px;
+}
+
+.toast i:last-child {
+    color: #aeb0d7;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.btn#success {
+    background-color: var(--successMessage);
+}
+
+
+.btn#error {
+    background-color: var(--errorMessage);
+}
+
+
+.btn#warning {
+    background-color: var(--warningMessage);
+}
+
+
+.btn#info {
+    background-color: var(--infoMessage);
+}
+
+.column i {
+    color: var(--successMessage);
+}
+
+.toast.error .column i {
+    color: var(--errorMessage);
+}
+
+.toast.warning .column i {
+    color: var(--warningMessage);
+}
+
+.toast.info .column i {
+    color: var(--infoMessage);
+}
+
+.ev-button .btn {
+    border: none;
+    outline: none;
+    color: var(--darkMessage);
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 530px) {
+    .notifications {
+        width: 95%;
+    }
+
+    .notifications .toast {
+        width: 100%;
+        font-size: 1rem;
+        margin-left: 20px;
+    }
+
+    .ev-button .btn {
+        margin: 0 1px;
+        font-size: 1.1rem;
+        padding: 8px 15px;
+    }
+
+}
+
