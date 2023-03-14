@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 最后要同步渲染 -->
+
+<body>
+    <div id="root"></div>
+    <script>
+        let root = document.querySelector("#root")
+        let nextUnitOfWork = null
+        let deletion = null
+        /*
+            diff算法
+            1.初始化一开始的树
+            
+        */
+        let currentRoot = null
+        let fiber = {
+            "type": "div",
+            "props": {
+                "id": "div1",
+                "children": [
+                    {
+                        "type": "div",
+                        "props": {
+                            "children": [
+                                {
+                                    "type": "div",
+                                    "props": {
+                                        // "innerHTML": "里面1",
+                                        "children": [
+                                            {
+                                                "type": "div",
+                                                "props": {
+                                                    "innerHTML": "里面1"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+
+                        }
+                    },
+                    {
+                        "type": "h3",
+                        "props": {
+                            "innerHTML": "里面2"
+                        }
+                    }
+                ]
+            }
+        }
+
+        let wipRoot = null;
+
+        // 2.在commit（虚拟dom渲染完后） 阶段进行赋值
+        function commitRoot() {
+            commitWork(wipRoot.children)
+            currentRoot = wipRoot
+            wipRoot = null
+        }
+
+        function createDOM(fiber) {
+            const dom =
+                fiber.type == 'TEXT_ELEMENT'
+                    ? document.createTextNode('')
+                    : document.createElement(fiber.type);
+
+            Object.keys(fiber.props)
+                .filter((key) => key !== 'children')
+                .forEach((key) => (dom[key] = fiber.props[key]));
+
+            return dom;
+        }
+
+        /**
+            3.定义一个alternate.表示上一个fiber树
+            定义一个deletion 数组，用来记录被删除的数组
+        */
+
+        function render(element, container) {
+            // Root Fiber
+            wipRoot = {
+                dom: container,
+                props: {
+                    children: [element],
+                },
+                children: null,
+                parent: null,
+                sibling: null,
+                alternate: currentRoot,
+            };
+            deletion = [];
+            nextUnitOfWork = wipRoot;
+        }
+        // 
+
+
+        /*
+            3.新建diff函数,对比老的和新的
+            注意的一点是oldFiber只能通过sibiling进行访问
+        */
+        function diff(oldFiberElement,elements){
+            let index = 0
+            let oldFiber = oldFiberElement.alternate ? oldFiberElement.alternate.children :""
+            let newFiber = null
+            // 有对比的树
+            while(index<elements.length() || oldFiber){
+                const element = elements[i]
+                const sameType = element && oldFiber && element.type === oldFiber.type
+                
+                if(sameType){
+                    // 更新dom 和 props
+                    newFiber={
+                        type: oldFiber.type,
+                        props:element.props,
+                        // dom都是当前的dom
+                        dom:oldFiber.dom,
+                        parent :oldFiberElement,
+                        alternate:oldFiber,
+                        effectTag:"update"
+                    }
+                }
+                // 1.先对比type，老节点和新节点有没有，相同，有复用当前dom 
+                // 2.新节点在，新节点没有或者新老节点不一样。那么增加
+                // 3.老节点在，新节点没有或者新老节点不一样。那么增加
+                if(element && !sameType){
+                    //  新建
+                    newFiber={
+                        type: element.type,
+                        props:element.props,
+                        dom:null,
+                        parent :oldFiberElement,
+                        // 还没有新建自然就没有
+                        alternate:null,
+                        effectTag:"create"
+                    }
+                }
+                if(oldFiber && !sameType){
+                    //  删除
+                    oldFiber.effectTag ="delete"
+                    deletion.push(oldFiber)
+                }
+
+                if(oldFiber){
+                    oldFiber = oldFiber.sibling 
+                }
+                index++
+            }
+
+        }
+        /*
+            4.建立fiber之间的联系那里，构建new fiber tree
+        */ 
+        function performUnitOfWork(fiber) {
+            // console.log(fiber)
+            if (!fiber.dom) {
+                fiber.dom = createDOM(fiber)
+            }
+
+            const elements = fiber.props.children
+            // 建立fiber之间的联系
+            // for (let i in elements) {
+            //     const newFiber = {
+            //         type: elements[i].type,
+            //         props: elements[i].props,
+            //         parent: fiber,
+            //         dom: null,
+            //         children: null,
+            //         sibling: null
+            //     }
+            //     // 只有第0个叫child，别的都叫做sibling
+            //     // 第二个if是兄弟节点
+            //     if (i == 0) {
+            //         fiber.children = newFiber
+            //     } else {
+            //         fiber.children.sibling = newFiber
+            //     }
+       
+
+            // }
+            console.log(fiber)
+            //找儿子,深度一直跑。
+            // console.log(fiber)
+            if (fiber.children) {
+                return fiber.children
+            }
+            // 找兄弟
+            let nextFiber = fiber
+            while (nextFiber) {
+                if (nextFiber.sibling) {
+                    return nextFiber.sibling
+                }
+                // 找爸爸
+                nextFiber = nextFiber.parent
+            }
+        }
+
+        function workLoop(deadline) {
+           
+            let shouldRun = true;
+            // 不忙的时候进行渲染,一直空闲就能一直跑这个循环
+            while (nextUnitOfWork && shouldRun) {
+                nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+                shouldRun = deadline.timeRemaining() > 1;
+            }
+            // console.log("d", nextUnitOfWork)
+            if (!nextUnitOfWork && wipRoot) {
+                commitRoot(wipRoot)
+            }
+            // 重新请求
+            requestIdleCallback(workLoop);
+
+        }
+
+        
+        function commitWork(fiber) {
+            if (!fiber) {
+                return
+            }
+            const domParent = fiber.parent.dom
+            domParent.appendChild(fiber.dom)
+            commitWork(fiber.children)
+            commitWork(fiber.sibling)
+        }
+
+        render(fiber, root)
+        requestIdleCallback(workLoop)
+
+    </script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>
