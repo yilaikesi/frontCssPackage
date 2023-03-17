@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="begin()">开始语音识别</button>
+    <script>
+       class listener {
+    constructor(param) {
+        this.config = {
+            beginText: "小圆",
+            endText: "结束",
+            aliveTime: 3
+        }
+        this.text = ""
+        this.speechRecognition = new webkitSpeechRecognition({
+            lang:"cmn-Hans-CN"
+        })
+        let that =this
+        this.speechRecognition.onaudiostart = (event) => {
+            console.log(`onsoundstart: `,event);
+
+        };
+        this.speechRecognition.onaudioend = (event) => {
+            console.log(`onsoundend:`,event);
+            setTimeout(()=>{
+                that.start()
+            },3500)
+        };
+        this.speechRecognition.onerror = (event) => {
+            console.log(`报错信息: ${event.error}`);
+            setTimeout(()=>{
+                that.start()
+            },3500)
+        };
+    }
+    start() {
+        console.log("begin");
+        this.speechRecognition.start()
+        this.speechRecognition.onresult = function (event) {
+            let results = event.results
+            console.log(results)
+            if (results.length > 0) {
+                for (var i = 0; i < results.length; i++) {
+                    this.text = results[i][0].transcript
+                    console.log(this.text)
+                    if(this.text.includes("你好")){
+                        let utterance1 = new SpeechSynthesisUtterance("你好")
+                        window.speechSynthesis.speak(utterance1)
+                    }
+                    // document.querySelector("textarea").innerHTML = text
+                }
+            }
+        }
+        this.speechRecognition.continuous = true
+        // this.speechRecognition.start()
+    }
+    end() {
+        console.log("end");
+        this.speechRecognition.stop()
+
+    }
+    alive() {
+        console.log("alive")
+    }
+}
+new listener().start()
+    </script>
+</body>
+
+</html>
