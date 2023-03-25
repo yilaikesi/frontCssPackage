@@ -36,7 +36,7 @@
       <canvas id="backgroundImg" class="background-img" width="640" height="480"></canvas>
     </div>
 
-    <div class="row side-by-side">
+    <div class="row side-by-side" style="display:none">
 
 
       <div id="fps_meter" class="row side-by-side">
@@ -50,7 +50,7 @@
 
     </div>
 
-    <span id="tiny_face_detector_controls">
+    <span id="tiny_face_detector_controls"  style="display:none">
       <div class="row side-by-side">
 
         <div class="row">
@@ -103,13 +103,13 @@
     const videoEl = document.querySelector("#inputVideo");
 
     if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()){return setTimeout(() => onPlay())}
-      
+      console.log(isFaceDetectionModelLoaded)
 
 
     const options = getFaceDetectorOptions()
     // console.log("option:",options)   // 输出一个置信 和 一个 宽高
     const ts = Date.now()
-
+    // detectAllFaces  detectSingleFace
     const result = await faceapi.detectSingleFace(videoEl, options)
     if (result) {
 

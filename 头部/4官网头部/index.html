@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            background: rgb(200, 200, 200);
+
+
+        }
+
+        .header {
+            top: 0;
+            left: 0;
+            right: 0;
+            position: fixed;
+            font-size: 1rem;
+            z-index: 999;
+            width: 91%;
+            background: transparent;
+            height: 60px;
+            /* padding: 20px 40px; */
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* 这里也有意思，还搞了一个100% */
+        .nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            /* justify-content: center; */
+        }
+
+        .nav_item {
+            /* margin: 0px 24px; */
+            padding: 10px 20px;
+            border-bottom: 1px solid transparent;
+            position: relative;
+            
+        }
+
+        /* 这里花了我贼多时间 */
+        .header_logo {
+            position: relative;
+            width: 100px;
+            top: 35%;
+            left: 0;
+            transform: translateY(-50%);
+
+        }
+
+        .header_logo img {
+            width: 100%;
+        }
+
+
+
+        /* .nav_item::after */
+        .nav_item:hover {
+            animation-name: underline_display;
+            animation-duration: 0.5s;
+            /*第三个参数是运动曲线*/
+            animation-timing-function: cubic-bezier(0.0, 0.0, 1.0, 1.0);
+
+            animation-fill-mode: forwards;
+        }
+
+        .nav_ {
+            display: flex;
+            position: relative;
+        }
+
+        @keyframes underline_display {
+            0% {
+                border-bottom: 1px solid transparent;
+            }
+
+            100% {
+                border-bottom: 1px solid black;
+            }
+        }
+
+        .nav_item:hover .nav_item_children{
+            display: block;
+        }
+
+        .nav_item_children {
+            /* display: block; */
+            /* flex-direction: column; */
+            position: absolute;
+            left: -30px;
+            top: 40px;
+            height: 0px;
+            display: none;
+            border: 12px solid transparent;
+        }
+
+        .nav_item_children_item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 50px;
+            align-items: center;
+
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0, 0.6);
+        }
+      
+       
+        
+    </style>
+</head>
+
+<body>
+    <div class="header">
+
+        <div class="header_logo">
+            <a href=""><img src="https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                    alt=""></a>
+        </div>
+
+        <div class="nav">
+            <div class="nav_">
+                <div class="nav_item ">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                    </div>
+
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始1</div>
+                    <div class="nav_item_children nav_item_children_toggle">
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                        <div class="nav_item_children_item">
+                            虚拟人
+                        </div>
+                    </div>
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                    </div>
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                    </div>
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                    </div>
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                    </div>
+                </div>
+                <div class="nav_item">
+                    <div class="nav_item_text">开始</div>
+                    <div class="nav_item_children">
+                    </div>
+                </div>
+                <div class="nav_underline"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let navList = document.querySelectorAll(".nav_item")
+        // Array.from(navList).forEach((navItem) => {
+        //     console.log(navItem)
+        //     navItem.querySelector(".nav_item_children").classList.remove("nav_item_children_toggle")
+        // })
+
+        Array.from(navList).forEach((navItem) => {
+            // console.log(e)
+            navItem.addEventListener("mouseover", (e) => {
+                console.log(e.target)
+                e.stopPropagation()
+                e.preventDefault()
+            },false)
+        })
+    </script>
+    <!-- switchButton -->
+</body>
+
+</html>

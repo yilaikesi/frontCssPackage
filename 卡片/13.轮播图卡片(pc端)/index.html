@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        padding-top: 20px;
+        background: rgb(40, 40, 40);
+
+    }
+
+
+    .picture_wall {
+        /* display: flex; */
+        /* 横着排列 */
+        /* flex-direction: row; */
+        overflow-x: scroll;
+        white-space: nowrap;
+        color: white;
+        width: 45vw;
+        margin: 0 auto;
+        position: relative;
+        width:100%
+    }
+
+    .picture_wall::-webkit-scrollbar {
+        display: none;
+    }
+
+    .picture_wall_item {
+        font-size: 10px;
+
+        height: 300px;
+        border-radius: 15px 15px 15px 15px;
+        background: rgb(255, 0, 0);
+        margin: 10px;
+        display: inline-block;
+        position: relative;
+        width: 133px;
+
+    }
+
+    .picture_wall_item:hover {
+        margin: -15px 10px 10px 10px;
+        box-shadow: 0 0 10px 10px rgb(34, 151, 234);
+    }
+
+    /* 可视墙 */
+    .picture_seewo_wall{
+        margin: 0 auto;
+        position: relative;
+        /* overflow: hidden; */
+        list-style: none;
+        padding: 0;
+        z-index: 1;
+        width: 50%;
+    }
+    .picture_card{
+        padding: 30px 0px;
+        position: relative;
+        width: 100%;
+    }
+    .next{
+        position: absolute;
+        left: 0px;
+        top: 40%;
+        left: -20px;
+        
+    }
+    .prev{
+        position: absolute;
+        right: -10px;
+        top: 40%;
+        /* padding: 0px 80px; */
+    }
+    /* 这里是主要的地方 */
+    .picture_card_sci{
+        /* width: 480px; */
+        overflow: hidden;
+        width: 100%;
+    }
+</style>
+
+<body>
+    <!-- <h1>test</h1> -->
+
+    <!-- 
+        这周：
+        1.参考游戏行业的CAVE设计在three.js中生成3折屏幕，实现视频和图片的伪全景效果
+        2.分析竞品的小程序和PC端官网布局，封装和绘制相关组件
+
+        下周计划
+        1.继续学习前端相关知识
+        2.继续分析竞品，绘制可能在后期用到的组件和界面
+
+     -->
+
+    <div class="picture_wall">
+        
+        <div class="picture_seewo_wall">
+           
+            <div class="picture_card">
+                <span class=" prev">⚪</span>
+                <span class="next">⚪</span>
+                <div class="picture_card_sci">
+                    <div class="picture_wall_item ">0</div>
+                    <div class="picture_wall_item ">1</div>
+                    <div class="picture_wall_item ">2</div>
+                
+                    
+                    <div class="picture_wall_item ">3</div>
+                    
+                    <div class="picture_wall_item ">4</div>
+                    <div class="picture_wall_item ">5</div>
+                    <div class="picture_wall_item ">Game</div>
+                    
+                    <div class="picture_wall_item ">6</div>
+                    <div class="picture_wall_item ">Game</div>
+                    <div class="picture_wall_item ">Game</div>
+                    <div class="picture_wall_item ">Shopping</div>
+                    <div class="picture_wall_item ">Game</div>
+
+                </div>
+                
+            </div>
+           
+
+        </div>
+        
+    </div>
+
+    <script>
+        let index = 0
+        let temp =Array.from(document.querySelectorAll(".picture_wall_item"))
+        document.querySelector(".prev").addEventListener("click",(e)=>{
+            index++
+            console.log(index,temp[index].scrollLeft)
+            document.querySelector(".picture_card_sci").scrollLeft =temp[index].offsetLeft
+        })
+        
+    </script>
+</body>
+
+</html>

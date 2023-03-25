@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="face-api.js"></script>
+  <script src="js/commons.js"></script>
+  <script src="js/faceDetectionControls.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+  <script type="text/javascript" src="jq.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <style>
+    .background-img {
+      position: absolute;
+      z-index: 99999;
+      top: 0;
+      left: 0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- <div id="navbar"></div> -->
+
+  <div class="center-content page-container">
+
+    <div class="progress" id="loader">
+      <div class="indeterminate"></div>
+
+    </div>
+
+    <div style="position: relative;width:80%" class="margin">
+      <video onloadedmetadata="onPlay(this)" src="./test1.mp4" id="inputVideo"   playsinline  autoplay></video>
+      <!-- <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video> -->
+      <canvas id="overlay"> </canvas>
+      <canvas id="backgroundImg" class="background-img" width="640" height="480"></canvas>
+    </div>
+
+    <div class="row side-by-side" style="display:none">
+
+
+      <div id="fps_meter" class="row side-by-side">
+        <div>
+          <label for="time">Time:</label>
+          <input disabled value="-" id="time" type="text" class="bold">
+          <label for="fps">Estimated Fps:</label>
+          <input disabled value="-" id="fps" type="text" class="bold">
+        </div>
+      </div>
+
+    </div>
+
+    <span id="tiny_face_detector_controls"  style="display:none">
+      <div class="row side-by-side">
+
+        <div class="row">
+          <label for="scoreThreshold">Score Threshold:</label>
+          <input disabled value="0.5" id="scoreThreshold" type="text" class="bold">
+        </div>
+        <button class="waves-effect waves-light btn" onclick="onDecreaseScoreThreshold()">
+          <i class="material-icons left">-</i>
+        </button>
+        <button class="waves-effect waves-light btn" onclick="onIncreaseScoreThreshold()">
+          <i class="material-icons left">+</i>
+        </button>
+      </div>
+    </span>
+
+</body>
+<script>
+
+  const backgroundCanvas = document.querySelector('#backgroundImg')
+  const backgroundCtx = backgroundCanvas.getContext('2d')
+  function drawImg(x, y, width, height) {
+    // setTimeout(()=>{},0)
+    backgroundCtx.clearRect(0, 0, 640, 480);
+   
+    const img = new Image()
+    // img.src = backgroundImg
+    img.src = 'avator.png'
+    img.setAttribute('crossOrigin', '')
+
+    backgroundCtx.drawImage(img, x, y, width, height)
+    
+
+  }
+ 
+  drawImg(0, 0)
+</script>
+
+<script>
+  let forwardTimes = []
+
+  function updateTimeStats(timeInMs) {
+    forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
+    const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
+    document.querySelector("#time").value = `${Math.round(avgTimeInMs)} ms`
+    document.querySelector("#fps").value = `${faceapi.utils.round(1000 / avgTimeInMs)}`
+
+  }
+
+  async function onPlay() {
+    const videoEl = document.querySelector("#inputVideo");
+
+    if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()){return setTimeout(() => onPlay())}
+        // console.log(isFaceDetectionModelLoaded)
+
+
+    const options = getFaceDetectorOptions()
+    // console.log("option:",options)   // 输出一个置信 和 一个 宽高
+    const ts = Date.now()
+    // detectAllFaces  detectSingleFace
+    const result = await faceapi.detectAllFaces(videoEl, options)
+    console.log(result)
+    if (result) {
+      for(let i in result){
+        drawImg(result[i]._box._x, result[i]._box._y, result[i]._box.width, result[i]._box._height)
+      }
+      
+      // console.log(result?[result._box._x,result._box._y]:"无")  // 输出 点的位置 和 打分值
+    }
+    updateTimeStats(Date.now() - ts)
+    if (result) {
+
+      const canvas = document.querySelector("#overlay");
+      /*
+       dim 是  {
+            "width": 640,
+            "height": 480
+        }
+      */
+      const dims = faceapi.matchDimensions(canvas, videoEl, true)
+      faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+    }
+    setTimeout(() => onPlay())
+  }
+
+  async function run() {
+    // load face detection model
+    await changeFaceDetector(TINY_FACE_DETECTOR)
+    changeInputSize(128)
+    // try to access users webcam and stream the images
+    // to the video element
+    // const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+    const videoEl = document.querySelector("#inputVideo");
+    // videoEl.srcObject = stream
+  }
+
+  function updateResults() { }
+  initFaceDetectionControls()
+  run()
+</script>
+</body>
+
+</html>

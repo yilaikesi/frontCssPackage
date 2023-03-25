@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'PingFang';
+        src: url('https://cdn.jsdelivr.net/npm/frontfontpackage@1.0.0/PingFang/苹方黑体-细-简.ttf');
+        font-weight: normal;
+        font-style: normal;
+        font-display: optional
+    }
+
+    body {
+        padding: 30px;
+    }
+    .tab {
+        display: flex;
+        /* 横着排列 */
+        flex-direction: row;
+        overflow-y: scroll;
+        white-space: nowrap;
+    }
+
+    .tab::-webkit-scrollbar {
+        display: none;
+    }
+    .tab_item {
+        font-size: 15px;
+        font-family: PingFang, sans-serif;
+        line-height: 1rem;
+        color: #979797;
+    }
+
+    .text_active {
+        color: #333333;
+    }
+
+    .text_active::after {
+        color: #333333;
+        content: "";
+        display: block;
+        width: 70%;
+        height: 0px;
+        margin: 0 auto;
+        margin-top: 10px;
+        border: 1px solid gray;
+    }
+
+    .tab>:not(:first-child) {
+        margin-left: 15px;
+    }
+
+    
+</style>
+
+<body>
+    <div class="tab">
+        <span class="tab_item text_active">所有房间</span>
+        <span class="tab_item">客厅</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+        <span class="tab_item">卧室</span>
+    </div>
+    <script>
+        let main = document.querySelector(".tab")
+        main.addEventListener("click", (e) => {
+            if (JSON.stringify(e.target.classList).match(/tab_item/)) {
+                Array.from(main.children).forEach((e) => {
+                    e.classList.remove("text_active")
+                })
+                e.target.classList.add("text_active")
+            }
+
+        })
+    </script>
+</body>
+
+</html>

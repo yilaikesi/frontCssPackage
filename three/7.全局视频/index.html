@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>three</title>
+    <style>
+        body {
+            background-color: #bfe3dd;
+            color: #000;
+        }
+
+        .part {
+            /* display: none; */
+            visibility: hidden;
+            transform: scale(0.1);
+        }
+        .button1{
+            width: 100px;
+            height: 50px;
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            /* background: rgb(24, 109, 207); */
+            border: none;
+            border-radius: 10px;
+            
+        }
+        .button2{
+            width: 100px;
+            height: 50px;
+            position: fixed;
+            top: 20px;
+            left: 150px;
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            /* background: rgb(24, 109, 207); */
+            border: none;
+            border-radius: 10px;
+            
+        }
+     
+    </style>
+</head>
+
+<body>
+    <button class="button1">开始播放</button>
+    <button class="button2">暂停</button>
+    <div class="canvas">
+    </div>
+
+    <div>
+
+    </div>
+    
+    <div class="part">
+        <!-- <div style="width: 1280px; height: 1080px;">
+            <video crossOrigin="Anonymous"
+                src="https://virtualhuman.cvte.com/output/449d2531-b60a-48cd-940f-5be8b99d613d.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T082042Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=3dbcee2ed8f7dbe8c8d129433c4a025e04e8051b62a178238bc9c6b2e4076f8e"
+                controls></video>
+            <video crossOrigin="Anonymous" width="100%" height="100%"
+                src="https://virtualhuman.cvte.com/output/b1b4b455-8607-42bb-990f-d39f4f667c7f.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T062640Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=09c292f3499daec0fad33129a68e5f97f998cfb39259e7d8da97819c08da8a1f"
+                controls></video>
+        </div> -->
+        <video crossOrigin="Anonymous"
+       
+        src="https://virtualhuman.cvte.com/output/449d2531-b60a-48cd-940f-5be8b99d613d.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T082042Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=3dbcee2ed8f7dbe8c8d129433c4a025e04e8051b62a178238bc9c6b2e4076f8e"
+        controls></video>
+        <!-- <video src="../../webrtc/6.face_detect(人脸检测)/origin.mp4" controls style="width:500px;height: 300px"></video> -->
+        <canvas id="left"></canvas>
+        <canvas id="front"></canvas>
+        <canvas id="right"></canvas>
+
+
+
+      
+    </div>
+    <!-- https://127.0.0.1:5503/three/7.%E5%85%A8%E5%B1%80%E8%A7%86%E9%A2%91/index.html?url=https://virtualhuman.cvte.com/output/916bf00d-21cf-4403-83f8-5f2f9de3a1dc.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T074147Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=255e575db2923c2d431b497f9692a1ce77f3dd051ec9b32b8f7253a1d2897ef5 -->
+    <script>
+        // document.querySelector(".video").style.width = window.innerWidth
+        // let temp = (new URL(document.location)).searchParams;
+        // let searchParams =temp.get("url")
+        // if(!searchParams){
+        //     alert("请输入视频路径")
+        // }
+        // console.log("sdaaaaaaaaa",window.location.href.split("?"))
+        // document.querySelector("video").src=JSON.stringify(searchParams)
+
+        let myVideo = document.querySelector("video")
+        document.querySelector(".button1").addEventListener("click",()=>{
+            alert("电力")
+            myVideo.play();
+
+        })
+        document.querySelector(".button2").addEventListener("click",()=>{
+            myVideo.pause();
+
+        })
+    </script>
+    <!-- step1:引入插件 -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+        "three": "https://unpkg.com/three/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three/examples/jsm",
+        "gui":"https://unpkg.com/three/examples/jsm/libs/lil-gui.module.min.js",
+        "OrbitControls":"https://unpkg.com/three/examples/jsm/controls/OrbitControls.js",
+            "FBXLoader":"https://unpkg.com/three/examples/jsm/loaders/FBXLoader"
+        }
+    }
+    </script>
+    <script type="module">
+        document.querySelector("button").addEventListener('click', () => {
+
+            // alert("ds")
+            for (var j = 0; j < actions.length; j++) {
+                if (j == 16) {
+                    actions[j].play();
+                }
+                else {
+                    actions[j].stop();
+                }
+            }
+
+        })
+        import * as THREE from 'three';
+        import { GUI } from "gui";
+        import { OrbitControls } from "OrbitControls"
+        import { FBXLoader } from "FBXLoader"
+        console.log(THREE)
+
+        const clock = new THREE.Clock();
+        let mixer
+        let actions = []; //所有的动画数组
+     
+        class threeInit {
+            constructor(param) {
+                this.param = {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                }
+                this.status = 16
+                this.initScene()
+                this.initLight()
+                this.initObject()
+                this.initCamera()
+            }
+            // 初始化物体
+            initObject() {
+                //材质
+                // let material = new THREE.MeshLambertMaterial({
+                //     color: 0x05c5cf4
+                // });
+                // let geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+                // this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+                // this.mesh.position.set(this.param.x, this.param.y, this.param.z)
+
+                // this.scene.add(this.mesh)
+                // this.mesh = model
+                // this.scene.add(model)
+            }
+            initScene() {
+                this.scene = new THREE.Scene()
+            }
+            initLight() {
+                let pointLight = new THREE.PointLight(0xffffff); //创建一个白色的点光源
+                pointLight.position.set(0, 0, 150);
+                this.scene.add(pointLight);
+                let ambient = new THREE.AmbientLight(0xffffff, 1);
+                this.scene.add(ambient);
+                //                 const skyColor = 0xB1E1FF;  // bleu
+                //   const groundColor = 0xB97A20;  // orange brun
+                //   const intensity = 2;
+                //                 const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+                //                 this.scene.add(light);
+            }
+            initCamera() {
+                // this.width = document.body.clientWidth; //canvas画布宽度
+                console.log(window.innerWidth)
+                this.width = window.innerWidth
+                this.height = window.innerHeight; //canvas画布高度
+                let k = this.width / this.height; //canvas画布宽高比
+                //三维场景显示范围控制系数，系数越大，显示的范围越大
+                //创建相机对象  可视角度  实际窗口的纵横比  近处的裁面的距离
+                this.camera = new THREE.PerspectiveCamera(40, k, 1, 10000);
+                this.camera.position.set(0, -35, 10); //设置相机位置
+                // 重要：位置
+                let v1 = new THREE.Vector3(-0, -10, 0)
+                // this.camera.lookAt(v1); //设置相机方向(指向的场景对象)
+                let that = this
+                setTimeout(() => {
+                    that.control.target = v1
+                }, 100);
+
+            }
+            initGui(status) {
+
+                //1.设置基本属性
+                let gui = new GUI();
+                gui.domElement.classList.add();
+                gui.domElement.style.cssText = "position:absolute;top:0px;right:0px;";
+                // 2.等于params.x的属性跟mesh.position.y绑定
+                //-3 到 3 每一次0.01  mesh.position.x
+                gui.add(this.param, 'x', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.x = this.param.x;
+                    }).name('x的位置')
+
+                gui.add(this.param, 'y', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.y = this.param.y;
+                    }).name('y的位置(上下)')
+
+                gui.add(this.param, 'z', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.z = this.param.z;
+                    }).name('z的位置')
+                // gui.add(params, 'wireframe', [true, false])
+                //     .onChange(function () {
+                //         material.wireframe = params.wireframe;
+                //     }).name('设置线框')
+
+
+                // // gui.add(material, 'wireframe').name('设置线框')
+                // // gui.add(params,'background').name('设置天空')
+                // //gui.addColor
+                // gui.addColor(params, 'color')
+                //     .onChange(function () {
+                //         material.color.set(params.color);
+                //     });
+
+                // //2.重要：实现切换天空的效果
+                // gui.add(params, 'background', ["sky", "home"])
+                //     .onChange(function () {
+                //         initskyboxsun25deg(params.background);
+                //     }).name("切换天空");
+            }
+            initSkyBox() {
+
+                const starUrls = [
+                    ("../skyboxsun25deg/px.jpg"), // right
+                    ("../skyboxsun25deg/nx.jpg"), // left
+                    ("../skyboxsun25deg/py.jpg"), // top
+                    ("../skyboxsun25deg/ny.jpg"), // bottom
+                    ("../skyboxsun25deg/pz.jpg"), // back
+                    ("../skyboxsun25deg/nz.jpg"), // front
+                ];
+                this.scene.background = new THREE.CubeTextureLoader().load(starUrls);
+
+
+            }
+            changeAction(status) {
+                this.status = status
+                for (var j = 0; j < actions.length; j++) {
+                    if (j == status) {
+                        actions[j].play();
+                    }
+                    else {
+                        actions[j].stop();
+                    }
+                }
+
+            }
+            initVr(left, right, front) {
+
+                this.scene.children = this.scene.children.filter((obj) => {
+                    if (obj.name.includes("video")) {
+                        // obj.geometry.dispose();
+                        // obj.material.dispose();
+                        return false
+                    }
+                    return true
+                })
+                // this.scene.de
+                console.log(this.scene.children, this.scene.children.length)
+                // if()
+                var materials = [];
+                //根据左右上下前后的顺序构建六个面的材质集
+                var texture_right = new THREE.TextureLoader().load(right);
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_right }));
+                var texture_left = new THREE.TextureLoader().load(left);
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_left }));
+
+
+
+                var texture_top = new THREE.TextureLoader().load('../skyboxsun25deg/other.png');
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_top }));
+
+                // var texture_bottom = new THREE.TextureLoader().load( '../skyboxsun25deg/ny.jpg' );
+                var texture_bottom = new THREE.TextureLoader().load('../skyboxsun25deg/other.png');
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_bottom }));
+
+                var texture_front = new THREE.TextureLoader().load(front);
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_front }));
+
+                var texture_back = new THREE.TextureLoader().load('../skyboxsun25deg/other.png');
+                materials.push(new THREE.MeshBasicMaterial({ map: texture_back }));
+
+                var box = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), materials);
+                box.name = "video"
+                console.log(box)
+                box.position.set(0, 0, 0)
+                box.scale.set(70, 70, 70)
+                box.geometry.scale(1, 1, -1);
+                this.mesh = box
+                box.position.set(this.param.x, this.param.y, this.param.z)
+                this.scene.add(box);
+            }
+            initRender(status) {
+
+                let v1 = new THREE.Vector3(0, 0, 0)
+                // let renderer = new THREE.WebGLRenderer();
+                let renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer.setSize(this.width, this.height);//设置渲染区域尺寸
+
+                // 添加控制器
+                this.control = new OrbitControls(this.camera, renderer.domElement);
+                this.control.target = v1 //设置相机方向(指向的场景对象)
+                this.control.update();
+                // this.control.enableRotate = false
+
+                // 重要：抬起来的角度 左右
+                this.control.maxAzimuthAngle  = 0.3 * Math.PI
+                this.control.minAzimuthAngle  = -0.3 * Math.PI
+
+                // 竖着
+                this.control.maxPolarAngle = 0.55 * Math.PI
+                this.control.minPolarAngle = 0.55 * Math.PI
+                // renderer.setClearColor(0xb9d3ff, 1);
+                // 渲染函数
+                let render = () => {
+                    // console.log(actions)
+                    let status = this.status
+                    // actions[status]?.play();
+                    const delta = clock.getDelta();
+                    if (mixer) mixer.update(delta);
+                    this.control.update();
+                    // this.mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+                    renderer.render(this.scene, this.camera);//执行渲染操作
+                    // mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+                    requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
+                }
+                render(status);
+                return renderer
+            }
+
+
+        }
+
+        let three = new threeInit()
+        // three.initGui(1)
+
+        // three.initSkyBox()
+        three.initVr("../skyboxsun25deg/left.png", '../skyboxsun25deg/right.png', "../skyboxsun25deg/front.png")
+      
+
+        let status = 16
+
+        document.querySelector('.canvas').appendChild(three.initRender().domElement);
+
+
+        // actions[0].play()
+
+        // change(16)
+        // function createAction(i){
+        //         // actions[i] = mixer.clipAction(mesh.animations[i]);
+        //         console.log(actions)
+        // for(var j=0; j<actions.length; j++){
+        //         if(j == i){
+        //             actions[j].play();
+        //         }
+        //         else{
+        //             actions[j].stop();
+        //         }
+        //     }
+
+
+        //     }
+        //     createAction(2)
+
+
+
+        let sideParam = 4
+        let tempElement = document.querySelector("video")
+
+        let canvasLeft = document.querySelector("#left")
+        canvasLeft.width = tempElement.offsetWidth / 3 + sideParam
+        canvasLeft.height = tempElement.offsetHeight
+        console.log(tempElement.offsetHeight)
+        let contextleft = canvasLeft.getContext("2d");
+
+        let canvasRight = document.querySelector("#right")
+        canvasRight.width = tempElement.offsetWidth / 3 + sideParam
+        canvasRight.height = tempElement.offsetHeight
+        // console.log(tempElement.offsetHeight)
+        let contextRight = canvasRight.getContext("2d");
+
+
+        let canvasFront = document.querySelector("#front")
+        canvasFront.width = tempElement.offsetWidth / 3 + sideParam
+        canvasFront.height = tempElement.offsetHeight
+        // console.log(tempElement.offsetHeight)
+        let contextFront = canvasFront.getContext("2d");
+
+
+
+        let videoStatus = true
+        // let averageDivide = 
+        // 开始播放时候执行
+        tempElement.onplay = function () {
+            videoStatus = true
+            tempElement.play();
+            draw();
+        }
+        tempElement.onpause = function () {
+            videoStatus = false
+        }
+        // tempElement.onpause = function () {
+        //     videoStatus = false
+        // }
+        function draw() {
+            if (videoStatus) {
+                // let position = 
+                contextleft.drawImage(tempElement, 0, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight)
+                // canvasLeft.width = tempElement.width/3s
+                // console.log(canvasLeft.toDataURL('image/png'))
+
+                console.log(canvasLeft)
+                contextFront.drawImage(tempElement, tempElement.offsetWidth / 3, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight)
+                contextRight.drawImage(tempElement, tempElement.offsetWidth / 3 * 2, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3 + sideParam, tempElement.offsetHeight)
+                three.initVr(canvasLeft.toDataURL('image/png'), canvasRight.toDataURL('image/png'), canvasFront.toDataURL('image/png'))
+
+                // document.body.append(canvas)
+                requestAnimationFrame(draw);
+            }
+            // 左上方坐标 0 0 
+            //  然后是其他
+
+        }
+
+
+     
+
+
+        // // 重要：陀螺仪
+        // import { createToast } from "https://cdn.jsdelivr.net/npm/frontmessageplugin@1.0.5/messageLight.js?id=23"
+        // // 陀螺仪
+        // window.addEventListener('deviceorientation', function (event) {
+        //     // z 垂直与 手机水平面
+        //     let alpha = event.alpha;//绕z轴旋转的角度
+        //     let beta = event.beta;//绕x轴旋转的角度
+            
+        //     let gamma = event.gamma;// 绕y轴旋转的角度  new THREE.Vector3(-0, -10, 0)
+        //     // createToast("info", ("begin:" + beta + gamma), 500)
+        //     three.control.target=(new THREE.Vector3(gamma/2, beta/10, 0)) //沿着Z轴由近到远
+        // }, false);
+    </script>
+
+    
+</body>
+
+</html>

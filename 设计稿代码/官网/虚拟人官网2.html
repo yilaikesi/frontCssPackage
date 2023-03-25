@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- place-items: center 去掉就可以正常布局 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        /* 总体模板 */
+        * {
+            margin: 0;
+            padding: 0;
+            /* overflow: hidden; */
+
+        }
+
+        /* 核心样式 */
+        .container {
+            scroll-snap-type: y mandatory;
+            /* 需要把滚动条设置到直接父容器，
+                scroll-snap-type 才能生效，
+                默认是在 body 上，现在是 main_1_area 上 */
+            overflow: scroll;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .page1,
+        .page2,
+        .page3,
+        .page0,
+        .page4 {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: center;
+            display: grid;
+            /* place-items: center; */
+            font-size: 2em;
+            background: rgb(200, 200, 200);
+        }
+
+        .switch {
+            position: fixed;
+            top: 30%;
+            right: 100px;
+            z-index: 999;
+        }
+
+        .switchButton {
+            cursor: pointer;
+            color: white;
+            margin-top: 30px;
+        }
+
+
+        .switchButton::before {
+            position: fixed;
+            /* display: block; */
+            width: 29px;
+            height: 29px;
+            transform: translate(-24%, -25%);
+            /* top: 50%;
+            left: 50%; */
+            border-radius: 50%;
+            /* filter: blur(44%); */
+            background: #ffffff;
+            opacity: 0.3;
+            content: '';
+            pointer-events: none;
+            z-index: -99;
+        }
+
+        .circle {
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-radius: 50%;
+        }
+    </style>
+    <style>
+        /* 头部 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            background: rgb(200, 200, 200);
+
+
+        }
+
+        .header {
+            top: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+            font-size: 1rem;
+            z-index: 999;
+            width: 91%;
+            background: transparent;
+            height: 60px;
+            /* padding: 20px 40px; */
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* 这里也有意思，还搞了一个100% */
+        .nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            /* justify-content: center; */
+        }
+
+        .nav_item {
+            /* margin: 0px 24px; */
+            padding: 10px 20px;
+            border-bottom: 1px solid transparent;
+            position: relative;
+
+        }
+
+        /* 这里花了我贼多时间 */
+        .header_logo {
+            position: relative;
+            width: 100px;
+            top: 35%;
+            left: 0;
+            transform: translateY(-50%);
+
+        }
+
+        .header_logo img {
+            width: 100%;
+        }
+
+
+
+        /* .nav_item::after */
+        .nav_item:hover {
+            animation-name: underline_display;
+            animation-duration: 0.5s;
+            /*第三个参数是运动曲线*/
+            animation-timing-function: cubic-bezier(0.0, 0.0, 1.0, 1.0);
+
+            animation-fill-mode: forwards;
+        }
+
+        .nav_ {
+            display: flex;
+            position: relative;
+            color: white;
+        }
+
+        @keyframes underline_display {
+            0% {
+                border-bottom: 1px solid transparent;
+            }
+
+            100% {
+                border-bottom: 1px solid rgb(255, 255, 255);
+            }
+        }
+
+        .nav_item:hover .nav_item_children {
+            display: block;
+        }
+
+        .nav_item_children {
+            /* display: block; */
+            /* flex-direction: column; */
+            position: absolute;
+            left: -30px;
+            top: 40px;
+            height: 0px;
+            display: none;
+
+            border: 12px solid transparent;
+        }
+
+        .nav_item_children_item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 50px;
+            align-items: center;
+
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0, 0.6);
+        }
+    </style>
+
+    <style>
+        /* 第二个屏幕 */
+        .page0 {
+            background: rgb(0, 0, 0, 20%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page1 {
+            background: rgb(0, 0, 0, 20%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .padding_header {
+            width: 100%;
+            height: 50px;
+        }
+
+        .main_1_area {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background: url("https://www.faceunity.com/uploadfile/upfiles/20220425115934128406.png");
+            /* background-repeat: no-repeat; */
+            background-position: 50%;
+            /* background-origin: 0px 0px; */
+            padding: 80px 300px;
+        }
+
+        .page1_text_main {
+            font-weight: 550;
+            color: #424255;
+        }
+
+        .page1_technology {
+            display: flex;
+            width: calc(90% - 300px);
+        }
+
+        .page1_technology_item {
+            background: rgb(200, 200, 200);
+            padding: 30px 30px 30px 30px;
+            font-size: 20px;
+            flex: 3;
+            transition: all .48s;
+
+        }
+
+        .page1_technology_item:hover {
+            flex: 7;
+            opacity: 1;
+            opacity: 0.5;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="switch">
+        <!-- ⚪  ⚫-->
+        <div class="switchButton" index="0">
+            <div class="circle" index="0"></div>
+        </div>
+        <div class="switchButton" index="1">
+            <div class="circle" index="1"></div>
+        </div>
+        <div class="switchButton" index="2">
+            <div class="circle" index="2"></div>
+        </div>
+        <div class="switchButton" index="3">
+            <div class="circle" index="3"></div>
+        </div>
+        <div class="switchButton" index="4">
+            <div class="circle" index="4"></div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="page0">
+            <div class="header">
+
+                <div class="header_logo">
+                    <a href=""><img
+                            src="https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                            alt=""></a>
+                </div>
+                <div class="nav">
+                    <div class="nav_">
+                        <div class="nav_item ">
+                            <div class="nav_item_text">开始</div>
+
+                        </div>
+                        <div class="nav_item">
+                            <div class="nav_item_text">开始1</div>
+
+                            <div class="nav_item_children">
+                                <div class="nav_item_children_item">
+                                    虚拟人
+                                </div>
+                                <div class="nav_item_children_item">
+                                    虚拟人
+                                </div>
+                                <div class="nav_item_children_item">
+                                    虚拟人
+                                </div>
+                                <div class="nav_item_children_item">
+                                    虚拟人
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav_item">开12始</div>
+                        <div class="nav_item">开12始</div>
+                        <div class="nav_item">开12始</div>
+                        <div class="nav_item">开12始</div>
+                        <div class="nav_item">开12始</div>
+                        <div class="nav_underline"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="page1">
+            <div class="main_1_area" style="">
+                <div class="padding_header"></div>
+                <div class="page1_text_main">核心技术</div>
+                <div class="page1_technology">
+                    <div class="page1_technology_item">
+                        222
+                    </div>
+                    <div class="page1_technology_item">
+                        你好你好你好
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="page2">页面三</div>
+        <div class="page3">页面四</div>
+        <div class="page4">页面五（上下滚动也行）</div>
+
+    </div>
+    <script>
+        document.querySelector(".page" + 1).scrollIntoView({
+            behavior: "smooth",// 平滑过渡
+            block: "start", //垂直方向的对齐
+            inline: "start"
+        })
+        document.querySelector(".switch").addEventListener("click", (v) => {
+            let index = v.target.getAttribute("index")
+            document.querySelector(".page" + index).scrollIntoView({
+                behavior: "smooth",// 平滑过渡
+                block: "start", //垂直方向的对齐
+                inline: "start"
+            })
+            console.log(v.target)
+        }, false)
+
+
+
+    </script>
+</body>
+
+</html>

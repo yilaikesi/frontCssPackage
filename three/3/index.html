@@ -289,9 +289,10 @@
                      */
                     // for (let j = 1; j < hand.landmarks.length; j += 1)
 
-                    // 食指
+                    
                     for (let j = 8; j < 9; j += 1) {
-                        const keypoint = hand.landmarks[j];
+                        // 食指
+                        let keypoint = hand.landmarks[j];
                         ctx.fillStyle = 'rgb(255, 215, 0)'
                         ctx.beginPath();
                         ctx.arc(keypoint[0], keypoint[1], 10, 0, 2 * Math.PI);
@@ -307,15 +308,22 @@
                             // console.log("横着走")
                             // speakbot.speak("横着走")
                             // window.scrollBy(document.body.clientWidth * (loganHandle.prev.x - loganHandle.next.x) / 1000, 0)
-                            model.position.z = model.position.z + (loganHandle.prev.x - loganHandle.next.x) * 2
-                         
+                            // model.position.z = model.position.z + (loganHandle.prev.x - loganHandle.next.x) /2
+                            model.rotateY( (loganHandle.prev.x - loganHandle.next.x) /40);
                         }
                         if (distance.y_distance > 3) {
                             // console.log("竖着走")
                             // speakbot.speak("竖着走")
-                            model.position.y = model.position.y + (loganHandle.prev.y - loganHandle.next.y) * 2
+                            model.position.y = model.position.y + (loganHandle.prev.y - loganHandle.next.y) /2
                             // window.scrollBy(0, document.body.clientHeight * (loganHandle.prev.y - loganHandle.next.y) / 1000)
                         }
+                        ctx.stroke();
+
+
+                        
+                       
+                        
+                        ctx.fill()
                         ctx.stroke();
 
                         // fill(0, 255, 0);
@@ -461,8 +469,8 @@
                 //                 this.scene.add(light);
             }
             initCamera() {
-                this.width = 1680; //canvas画布宽度
-                this.height = 1200; //canvas画布高度
+                this.width = 1280; //canvas画布宽度
+                this.height = 600; //canvas画布高度
                 let k = this.width / this.height; //canvas画布宽高比
                 //三维场景显示范围控制系数，系数越大，显示的范围越大
                 //创建相机对象
