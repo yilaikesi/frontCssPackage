@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parallax</title>
+    <script src="./parallax.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #scene {
+            position: absolute;
+            left: 40%;
+            top: 40%;
+        
+            /* height: 100vh;
+            width: 100vw; */
+        }
+
+        .layer {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100px;
+            height: 100px;
+        }
+        .one {
+            background-color: rgb(243, 103, 22);
+            width: 100px;
+            height: 100px;
+        }
+        .two {
+            background-color: blue;
+            width: 100px;
+            height: 100px;
+        }
+
+        .three {
+            background-color: rgb(153, 37, 182);
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scene">
+        <div class="layer one" data-depth="0.3"></div>
+        <div class="layer two" data-depth="0.1"> </div>
+        <div class="layer three" data-depth="0.2"></div>
+
+    </div>
+</body>
+<script>
+    // 运行视差
+    var scene = document.getElementById('scene');
+    var parallaxInstance = new Parallax(scene, {
+        //更多参数可参考 https://github.com/wagerfield/parallax
+        relativeInput: true, //默认值：false 使鼠标相对于场景元素的位置输入。
+        clipRelativeInput: false, //默认值：false 将鼠标输入剪切到场景的边界。这意味着一旦光标到达场景元素的边缘，移动就会停止。
+        hoverOnly: false //默认值：false 视差仅在光标位于场景元素上方时才有效，否则所有图层将移回到其初始位置。
+    });
+</script>
+
+</html>

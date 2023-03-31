@@ -8,62 +8,193 @@
     <title>Document</title>
 </head>
 <style>
-    .loader-pos{
+     .loading_pos{
         position: absolute;
         left: 50%;
-        top: 50%;
+        top: 46%;
         transform: translate(-50%,-50%);
     }
-    /* 第一种用法：挂载到animation中 */
-    .loader {
-        border: 8px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 8px solid #78adb4;
-        /* border-left:10px solid #6f8588; */
-        width: 30px;
-        height: 30px;
-        /* 属性名，事件，速度曲线/ease in 是低速开始，infinite是无限循环播放 */
-        animation: load 1s linear infinite;
-        /* 对应的tranition有属性名，事件，速度曲线/ease in 是低速开始，infinite是无限循环播放 */
-        
-    }
-    /* 第二种用法：单写入到class中去，就是直接写animtion属性就可以了 */
+.loading_circle,
+.loading_circle > div {
+  position: relative;
+  box-sizing: border-box;
+}
 
-    /* 调用就document.querySector('xxxx').classList.toggle('loader') */
-    @keyframes load {
-        0% {
-            transform: rotate(0deg);
-        }
+.loading_circle {
+  display: block;
+  font-size: 0;
+  color: rgb(255, 126, 126);
+}
 
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+.loading_circle.la-dark {
+  color: #333;
+}
 
-    /* 加载怎么少得了遮罩 */
-    .mask {
-        /* display: none; */
-        content: ' ';
-        position: absolute;
-        /* top: -375px; */
-        left: 0;
-        width: 100%;
-        height: 100%;
+.loading_circle > div {
+  display: inline-block;
+  float: none;
+  background-color: currentColor;
+  border: 0 solid currentColor;
+}
 
-        line-height: 375px;
-        text-align: center;
-        font-size: 30px;
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-</style>
+.loading_circle {
+  width: 40px;
+  height: 32px;
+}
+
+.loading_circle > div {
+  width: 4px;
+  height: 32px;
+  margin: 2px;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+  animation: line-scale 1.2s infinite ease;
+}
+
+.loading_circle > div:nth-child(1) {
+  animation-delay: -1.2s;
+}
+
+.loading_circle > div:nth-child(2) {
+  animation-delay: -1.1s;
+}
+
+.loading_circle > div:nth-child(3) {
+  animation-delay: -1s;
+}
+
+.loading_circle > div:nth-child(4) {
+  animation-delay: -0.9s;
+}
+
+.loading_circle > div:nth-child(5) {
+  animation-delay: -0.8s;
+}
+
+.loading_circle.la-sm {
+  width: 20px;
+  height: 16px;
+}
+
+.loading_circle.la-sm > div {
+  width: 2px;
+  height: 16px;
+  margin: 1px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.loading_circle.la-2x {
+  width: 80px;
+  height: 64px;
+}
+
+.loading_circle.la-2x > div {
+  width: 8px;
+  height: 64px;
+  margin: 4px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.loading_circle.la-3x {
+  width: 120px;
+  height: 96px;
+}
+
+.loading_circle.la-3x > div {
+  width: 12px;
+  height: 96px;
+  margin: 6px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@keyframes line-scale {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1);
+  }
+}
+
+
+
+    </style>
 
 <body>
-    <div class="mask"></div>
-    <div class="loader-pos">
-        <div class='loader'></div>
+    <div class="loading_mask"></div>
+    <!-- <div class="loading_pos">
+        <div class='loading_circle'></div>
     </div>
+    dsadas -->
+
+    <div class="loading_pos">
+        <div class="loading_circle">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+    </div>
+   
     
+   
+    
+ 
+    <!-- <script>
+        class loadInit {
+            constructor(param){
+                this.mask = null
+                this.loading_circle = null
+              
+                this.cssText(param.bgColor,param.maskColor)
+            }
+            add(){
+                this.mask = document.createElement("div")
+                this.mask.className = "loading_mask"
+                
+
+                this.loading_circle = document.createElement("div")
+                this.loading_circle.className = "loading_pos"
+                let circle = document.createElement("div")
+                circle.className = "loading_circle"
+                this.loading_circle.appendChild(circle)
+
+            
+                document.body.appendChild(this.mask)
+                document.body.appendChild(this.loading_circle)
+            }
+            remove(){
+                this.mask.remove()
+                this.loading_circle.remove()
+            }
+            cssText(bgColor,circleColor){
+                let bg = `
+                   
+                `
+                let css = document.createElement("style")
+                css.innerHTML = bg
+                document.body.appendChild(css)
+
+            }
+        }
+        let element = new loadInit({
+            bgColor:"rgba(0, 0, 0, 0.3)",
+            maskColor:"rgba(0, 0, 0, 1)"
+        })
+        element.add()
+        setTimeout(()=>{
+            element.remove()
+        },4000)
+    </script> -->
 </body>
 
 </html>

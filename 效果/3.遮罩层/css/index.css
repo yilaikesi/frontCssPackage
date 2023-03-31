@@ -4,14 +4,6 @@
     margin: 0;
 }
 
-body {
-    /* 弹性布局 让页面垂直+水平居中 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* 让页面占浏览器总高 */
-    height: 100vh;
-}
 
 .box {
     /* 相对定位 */
@@ -29,7 +21,7 @@ body {
 .box::before {
 
     content: '火影忍者sss - 鸣人';
-
+    
     position: absolute;
     top: -375px;
     left: 0;
@@ -47,54 +39,16 @@ body {
 .box:hover::before {
     top: 0;
     /* 动画 名称   时长 */
-    animation: dropdown 2s;
+    animation: dropdown 1s;
 }
 
 /* 下面定义下降动画 */
 @keyframes dropdown {
     0% {
-        top: -375px;
+        top: -175px;
     }
 
-    5% {
-        top: 0;
-    }
-
-    10% {
-        top: -30px;
-    }
-
-    20% {
-        top: 0;
-    }
-
-    30% {
-        top: -20px;
-    }
-
-    40% {
-        top: 0;
-    }
-
-    50% {
-        top: -15px;
-    }
-
-    60% {
-        top: 0;
-    }
-
-    70% {
-        top: -10px;
-    }
-
-    80% {
-        top: 0;
-    }
-
-    90% {
-        top: -5px;
-    }
+  
 
     100% {
         top: 0;

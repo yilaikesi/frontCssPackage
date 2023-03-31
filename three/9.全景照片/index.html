@@ -57,21 +57,12 @@
     </div>
     
     <div class="part">
-        <!-- <div style="width: 1280px; height: 1080px;">
-            <video crossOrigin="Anonymous"
-                src="https://virtualhuman.cvte.com/output/449d2531-b60a-48cd-940f-5be8b99d613d.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T082042Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=3dbcee2ed8f7dbe8c8d129433c4a025e04e8051b62a178238bc9c6b2e4076f8e"
-                controls></video>
-            <video crossOrigin="Anonymous" width="100%" height="100%"
-                src="https://virtualhuman.cvte.com/output/b1b4b455-8607-42bb-990f-d39f4f667c7f.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230321T062640Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=mCk955Mp8n2lHRJZ%2F20230321%2Fcn-cvte-1%2Fs3%2Faws4_request&X-Amz-Signature=09c292f3499daec0fad33129a68e5f97f998cfb39259e7d8da97819c08da8a1f"
-                controls></video>
-        </div> -->
-        <img src="../skyboxsun25deg/test5.jpg" alt="" srcset="">
+   
+        <img src="../skyboxsun25deg/test3.jpg" alt="" srcset="">
         <!-- <video src="../../webrtc/6.face_detect(人脸检测)/origin.mp4" controls style="width:500px;height: 300px"></video> -->
         <canvas id="left"></canvas>
         <canvas id="front"></canvas>
         <canvas id="right"></canvas>
-
-
 
       
     </div>
@@ -138,17 +129,7 @@
             }
             // 初始化物体
             initObject() {
-                //材质
-                // let material = new THREE.MeshLambertMaterial({
-                //     color: 0x05c5cf4
-                // });
-                // let geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
-                // this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-                // this.mesh.position.set(this.param.x, this.param.y, this.param.z)
-
-                // this.scene.add(this.mesh)
-                // this.mesh = model
-                // this.scene.add(model)
+           
             }
             initScene() {
                 this.scene = new THREE.Scene()
@@ -302,32 +283,12 @@
         // three.initGui(1)
 
         // three.initSkyBox()
-        three.initVr("../skyboxsun25deg/left.png", '../skyboxsun25deg/right.png', "../skyboxsun25deg/front.png")
+        // three.initVr("./left.png", './right.png', "./front.png")
       
 
         let status = 16
 
         document.querySelector('.canvas').appendChild(three.initRender().domElement);
-
-
-        // actions[0].play()
-
-        // change(16)
-        // function createAction(i){
-        //         // actions[i] = mixer.clipAction(mesh.animations[i]);
-        //         console.log(actions)
-        // for(var j=0; j<actions.length; j++){
-        //         if(j == i){
-        //             actions[j].play();
-        //         }
-        //         else{
-        //             actions[j].stop();
-        //         }
-        //     }
-
-
-        //     }
-        //     createAction(2)
 
 
 
@@ -378,11 +339,7 @@
         }
         draw()
 
-
-     
-
-
-        // // 重要：陀螺仪
+        
         // import { createToast } from "https://cdn.jsdelivr.net/npm/frontmessageplugin@1.0.5/messageLight.js?id=23"
         // // 陀螺仪
         window.addEventListener('deviceorientation', function (event) {

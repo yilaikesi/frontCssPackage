@@ -224,7 +224,8 @@
             height: 100%;
             overflow: hidden;
             position: relative;
-            background: url("https://www.faceunity.com/uploadfile/upfiles/20220425115934128406.png");
+
+            /* background: url("https://www.faceunity.com/uploadfile/upfiles/20220425115934128406.png"); */
             /* background-repeat: no-repeat; */
             background-position: 50%;
             /* background-origin: 0px 0px; */
@@ -243,7 +244,7 @@
 
         .page1_technology_item {
             background: rgb(200, 200, 200);
-            padding: 30px 30px 30px 30px;
+            padding: 130px 30px 130px 30px;
             font-size: 20px;
             flex: 3;
             transition: all .48s;
@@ -251,9 +252,24 @@
         }
 
         .page1_technology_item:hover {
+            /* background:rgb(0, 0, 0, 0.6); */
             flex: 7;
             opacity: 1;
             opacity: 0.5;
+        }
+
+        .page1_technology_item:hover {
+            /* background:rgb(0, 0, 0, 0.6); */
+            flex: 7;
+            opacity: 1;
+            opacity: 0.5;
+        }
+
+        .page1_technology_item:hover.main_1_area {
+            background: rgb(242, 236, 236);
+            /* flex: 7;
+            opacity: 1;
+            opacity: 0.5; */
         }
     </style>
 
@@ -331,7 +347,7 @@
                 <div class="padding_header"></div>
                 <div class="page1_text_main">核心技术</div>
                 <div class="page1_technology">
-                    <div class="page1_technology_item">
+                    <div class="page1_technology_item ">
                         222
                     </div>
                     <div class="page1_technology_item">
@@ -345,9 +361,90 @@
         <div class="page2">页面三</div>
         <div class="page3">页面四</div>
         <div class="page4">页面五（上下滚动也行）</div>
-
+        .appear
     </div>
     <script>
+
+        // temp.
+       
+        function visualEffect(element) {
+            
+            const elementMonitor = Array.from(element);
+           
+            console.log(elementMonitor)
+            console.log("listen:", element)
+            let cssText = `
+           
+            .appear {
+                -webkit-animation: opacity_show .68s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+                animation: opacity_show .68s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards; 
+                opacity: 1 !important; 
+            }
+            
+            @keyframes opacity_show{
+                0% {
+                    -webkit-transform: scale(0.3);
+                    transform: scale(0.3);
+                    -webkit-transform: translateY(150px);
+                    transform: translateY(150px);
+                    opacity: .1;
+                },
+                100% {
+                    -webkit-transform: scale(1);
+                    transform: scale(1);
+                    -webkit-transform: translateY(0);
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            
+            `
+
+
+            let temp = document.createElement("style")
+            temp.innerHTML = cssText
+            document.body.append(temp)
+            const io = new IntersectionObserver(ioes => {
+                ioes.forEach(ioe => {
+                    const el = ioe.target;
+                    const intersectionRatio = ioe.intersectionRatio;
+                    console.log(intersectionRatio)
+                    if (intersectionRatio > 0 && intersectionRatio <= 1) {
+                        console.log("能看见元素",intersectionRatio)
+                        elementMonitor.forEach(item => {
+                            // if(item.classList)
+                                item.classList.add("appear")
+                                console.log("kaishi")
+                        })
+                    } else {
+                        elementMonitor.forEach(item => {
+                                item.classList.remove("appear")
+                })
+                    }
+                    // el.onload = el.onerror = () => io.unobserve(el);
+                });
+            });
+            elementMonitor.forEach(item => io.observe(item))
+        }
+        visualEffect(document.querySelectorAll(".page1_technology_item"))
+        // visualEffect(document.querySelector(".page1_technology_item"))
+
+
+        // 添加背景
+        Array.from(document.querySelectorAll(".page1_technology_item")).forEach((e) => {
+            e.addEventListener("mouseover", (element) => {
+                console.log(element.target.innerText)
+                if (element.target.innerText == "222") {
+                    document.querySelector(".main_1_area").style.background = "rgb(242, 236, 236,0.4)";
+                    // document.querySelector(".main_1_area").style.height="100%"
+                    // document.querySelector(".main_1_area").style.opacity: ;="100%"
+                } else {
+                    document.querySelector(".main_1_area").style.background = "rgb(242, 236, 236,0.2)";
+                }
+
+            })
+
+        })
         document.querySelector(".page" + 1).scrollIntoView({
             behavior: "smooth",// 平滑过渡
             block: "start", //垂直方向的对齐

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.1.0/dist/tf.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+</head>
+
+<body>
+
+
+  <script>
+    // console.log(tf.version)
+    // console.log(tfvis)
+    // const shape = [2, 3] // 2维2行3列
+    // const a = tf.tensor([1, 2, 3, 4, 5, 6], shape)
+    // a.print()
+    // // 直接打印没东西的
+    // console.log(a)
+
+
+  </script>
+
+  <script>
+
+    class deepStudy {
+      constructor() {
+        this.LEARNING_RATE = 0.01;
+        this.EPOCHS = 50;
+
+        this.BATCH_SIZE = 8;
+        this.model = null
+        this.data = null
+        this.dataReady()
+        this.modelCreate()
+        // 在这里面save 和 infer
+        this.train()
+    
+        
+        // 2.加载数据并且load数据
+        // this.dataReady()
+        // this.load()
+        
+       
+      }
+      
+      // step1：数据预处理
+      dataReady() {
+        let origin_data = [800, 850, 900, 950, 980, 1000, 1050, 1075, 1100, 1150, 1200, 1250, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000];
+        let last_answers = [800000, 850000, 900000, 950000, 980000, 1000000, 1050000, 1075000, 1100000, 1150000, 1200000, 1250000, 1300000, 1400000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000];
+
+        // 测试数据集
+        const dataTest = [886, 1225, 500];
+        const answersTest = [886000, 1225000, 500000];
+
+        this.trainTensors = {
+          data: tf.tensor2d(origin_data, [origin_data.length, 1]),
+          answer: tf.tensor2d(last_answers, [last_answers.length, 1])
+        };
+
+        this.testTensors = {
+          data: tf.tensor2d(dataTest, [dataTest.length, 1]),
+          answer: tf.tensor2d(answersTest, [answersTest.length, 1])
+        };
+
+
+      }
+      // step2：创造模型
+      modelCreate() {
+        // 创造一个 序贯模型(Sequential) 
+        this.model = tf.sequential();
+        // this.model.add(tf.layers.dense({ inputShape: [1], units: 1 }));
+
+  
+        // Add a single hidden layer 添加层
+        // this.model.add(tf.layers.dense({units: 1, inputShape: [1]})); 
+        this.model.add(tf.layers.dense({ inputShape: [1], units: 1, useBias: true }));
+        // Add an output layer
+        // this.model.add(tf.layers.dense({ units: 1,}));
+        return this.model
+      }
+      // step3：开始训练
+      async train() {
+        this.model.compile({
+          optimizer: tf.train.sgd(this.LEARNING_RATE),
+          loss: 'meanAbsoluteError'
+        });
+        let results = await this.model.fit(this.trainTensors.data, this.trainTensors.answer, {
+          epochs: this.EPOCHS,
+          batchSize: this.BATCH_SIZE,
+          shuffle: true,
+          validationSplit: 0.1
+        });
+
+        console.log('training complete');
+        this.infer()
+        // await this.save()
+      }
+      // step4:开始推理
+      async infer() {
+        // await this.load()
+        // 推理的初始数据
+        let predValue = 768;
+        let answer = this.model.predict(tf.tensor1d([predValue]));
+        answer.print();
+
+        let nonTensorRepresentation = answer.dataSync();
+        console.log("预测的y：",Math.floor(nonTensorRepresentation[0]));
+       
+        // 求预测的准确值 这里加载的时候用不了
+        // let result = this.model.evaluate(this.testTensors.data, this.testTensors.answer);
+        // let testLoss = result.dataSync()[0];
+        // console.log('Test loss: ' + testLoss);
+      }
+      // step5.可选:保存模型
+      async save(){
+        await this.model.save('downloads://model_save_1d');
+      }
+      // step6:之后就可以加载模型
+      async load(){
+        this.model = await tf.loadLayersModel('../model/model_save_1d.json');
+        // this.infer()
+       
+      }
+    }
+    let model = new deepStudy()
+    // console.log(model.modelCreate())
+
+    // model.dataReady()
+    // model.modelCreate()
+    // model.train()
+    // model.infer()
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
