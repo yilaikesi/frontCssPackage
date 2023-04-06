@@ -92,7 +92,7 @@
         answer.print();
 
         let nonTensorRepresentation = answer.dataSync();
-        console.log("预测的y：",Math.floor(nonTensorRepresentation));
+        console.log("预测的y：",Math.floor(nonTensorRepresentation[0]),nonTensorRepresentation[1]);
        
         // 求预测的准确值
         // let result = this.model.evaluate(this.testTensors.data, this.testTensors.answer);

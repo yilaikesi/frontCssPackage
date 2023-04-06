@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="./camera_utils.js" crossorigin="anonymous"></script>
+    <script src="./control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="./drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="./holistic.js" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            width:200px;
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" >
+        <video class="input_video"></video>
+       
+    </div>
+
+    <script type="module">
+        const videoElement = document.getElementsByClassName('input_video')[0];
+       
+        function onResults(results) {
+           
+            // 0. nose
+            // 1. left_eye_inner
+            // 2. left_eye
+            // 3. left_eye_outer
+            // 4. right_eye_inner
+            // 5. right_eye
+            // 6. right_eye_outer
+            // 7.left_ear
+            // 8. right_ear
+            // 9. mouth_left
+            // 10. mouth_right
+            // 11.left_shoulder
+            // 12. right_shoulder
+            // 13.left_elbow
+            // 14. right_elbow
+            // 15.left_wrist
+            // 16. right_wrist
+            // 17.left_pinky
+            // 18. right_pinky
+            // 19. left_index
+            // 20. right_index
+            // 21.left_thumb
+            // 22. right_thumb
+            // 23.left_hip
+            // 24.right_hip
+            // 25.left_knee
+            // 26. right_knee
+            // 27.left_ankle
+            // 28. right_ankle
+            // 29. left_heel
+            // 30. right_heel
+            // 31.left_foot_index
+            // 32. right_foot_index
+            //输出 33 个点   z 是深度 越近 就越小  以米为单位的真实世界 3D 坐标，
+            console.log(results.poseLandmarks)
+
+        }
+
+        const holistic = new Holistic({
+            locateFile: (file) => {
+                console.log(file,"file")
+                return `./locate/${file}`;
+            }
+        });
+        holistic.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: true,
+            smoothSegmentation: true,
+            refineFaceLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        holistic.onResults(onResults);
+
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await holistic.send({ image: videoElement });
+            },
+            width: 200,
+            height: 190
+        });
+        camera.start();
+    </script>
+<!-- 
+    构建优化
+    1.css（nano），js（terser），img 体积大小 优化
+    2.cache loader 和 thead loader 优化
+    3.swc loader
+    4.测试环境，生产环境分离
+    5.分包的splitchunk策略
+    6.自己构建测试用的plugin
+    7.自己构建自动生成版本号的plugin
+    8.自动构建CI下面自己发短信的plugin
+ -->
+</body>
+
+</html>
