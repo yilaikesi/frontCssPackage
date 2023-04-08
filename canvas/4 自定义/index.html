@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/4.2.0/fabric.min.js"></script>
+<style>
+    canvas { border: 1px solid black; }
+</style>
+</head>
+<body>
+   <canvas width="150" height="150"> </canvas>
+        <script>
+            let canvas  = document.querySelector("canvas")
+
+            function drawRect(config){
+                let ctx = canvas.getContext("2d");
+                let {target ,leftPos , topPos,width,height,background} = config
+                ctx.fillStyle = background;
+                ctx.fillRect (leftPos , topPos,width,height);
+                
+            }
+            
+            drawRect({
+                target:canvas,
+                leftPos:10,
+                topPos:10,
+                width:60,
+                height:50,
+                background:"rgba(0, 0, 200, 0.5)"
+            })
+
+            drawRect({
+                target:canvas,
+                leftPos:30,
+                topPos:30,
+                width:60,
+                height:50,
+                background:"rgba(0, 0, 200, 0.8)"
+            })
+
+            // 画三角形
+            function drawTrangle(){
+                let ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.moveTo(75, 50);
+                ctx.lineTo(100, 75);
+                ctx.lineTo(100, 25);
+                ctx.fill();
+            }
+            drawTrangle()
+            // ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+            // ctx.fillRect (30, 30, 55, 50);
+        </script>
+</body>
+</html>

@@ -22,7 +22,10 @@
 
 <body>
   <!-- <div id="navbar"></div> -->
-
+  <!-- 
+    1.face-api 
+    2.写一个图片引入的位置方法
+  -->
   <div class="center-content page-container">
 
     <div class="progress" id="loader">
@@ -91,17 +94,18 @@
 <script>
   let forwardTimes = []
 
-  function updateTimeStats(timeInMs) {
-    forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
-    const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
-    document.querySelector("#time").value = `${Math.round(avgTimeInMs)} ms`
-    document.querySelector("#fps").value = `${faceapi.utils.round(1000 / avgTimeInMs)}`
+  // function updateTimeStats(timeInMs) {
+  //   forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
+  //   const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
+  //   document.querySelector("#time").value = `${Math.round(avgTimeInMs)} ms`
+  //   document.querySelector("#fps").value = `${faceapi.utils.round(1000 / avgTimeInMs)}`
 
-  }
+  // }
 
   async function onPlay() {
-    const videoEl = document.querySelector("#inputVideo");
 
+    
+    const videoEl = document.querySelector("#inputVideo");
     if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()){return setTimeout(() => onPlay())}
       console.log(isFaceDetectionModelLoaded)
 
@@ -116,7 +120,7 @@
       drawImg(result._box._x, result._box._y, result._box.width, result._box._height)
       // console.log(result?[result._box._x,result._box._y]:"无")  // 输出 点的位置 和 打分值
     }
-    updateTimeStats(Date.now() - ts)
+    // updateTimeStats(Date.now() - ts)
     if (result) {
 
       const canvas = document.querySelector("#overlay");

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg" id="img" srcset="">
+    <video controls="" src="blob.mp4"  id ="video" type="video/webm" style="width: 50%;"></video>
+    <canvas></canvas>
+    <button onclick="captureImg()">点我截图</button>
+    <button onclick="downloadImg()">点我下载</button>
+
+
+    <script>
+        //功能点1：滤镜
+        let img = document.querySelector("#img")
+        let video = document.querySelector("#video")
+        const canvas = document.createElement('canvas')
+        img.style.filter = "opacity(0.5)"
+        video.style.filter = "contrast(200%)"
+
+
+        //功能点2：截图
+        //step1:通过canvas 然后ctx.drawImage
+        //step2:然后通过todataurl就可以了
+        function captureImg(){
+            
+            canvas.width = 200
+            canvas.height = 200
+            const ctx = canvas.getContext('2d')
+            // 要保存的元素
+            let temp = document.querySelector("#video")
+            // 重要：video才可以这么用
+            ctx.drawImage(temp, 0, 0, canvas.width, canvas.height)
+            document.querySelector("#img").src = canvas.toDataURL('image/png')
+        }
+       
+
+    </script>
+</body>
+</html>

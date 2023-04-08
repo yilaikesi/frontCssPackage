@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img crossOrigin src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg" id="img" srcset="">
+    <button id="download" onclick="downloadImg()">下载</button>
+    <canvas></canvas>
+    <script>
+        // const canvas = document.createElement("canvas")
+        const canvas = document.querySelector("canvas")
+        canvas.width = 200
+        canvas.height = 200
+
+         function downloadImg () {
+                const ctx = canvas.getContext('2d')
+       
+                // 要保存的元素,要提前变成canvas
+    
+                ctx.drawImage(document.querySelector("img"), 0, 0, canvas.width, canvas.height)
+
+
+                let aLink = document.createElement('a')
+                aLink.download = 'fileName.png' // 文件名后缀需要和dataurl表示的相同，否则可能乱码
+                aLink.href = canvas.toDataURL('image/png')
+                aLink.click()
+                URL.revokeObjectURL(aLink)
+         }
+         
+        //功能点3：图片播放
+    </script>
+</body>
+</html>
