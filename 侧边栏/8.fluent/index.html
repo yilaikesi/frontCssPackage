@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+    <meta   http-equiv="Expires"   CONTENT="0">
+    <meta   http-equiv="Cache-Control"   CONTENT="no-cache">
+    <meta   http-equiv="Pragma"   CONTENT="no-cache">
+</head>
+<style>
+    @font-face {
+        font-family: 'PingFang';
+        src: url('https://cdn.jsdelivr.net/npm/frontfontpackage@1.0.0/PingFang/苹方黑体-细-简.ttf');
+        font-weight: normal;
+        font-style: normal;
+        font-display: optional
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        /* font-size: 1rem; */
+        font-family: PingFang, sans-serif;
+    }
+
+    body {
+        background-color: rgb(0, 0, 0, 20%);
+
+        display: flex;
+        /* justify-content: space-evenly; */
+        /* height: 100vh; */
+        align-items: center;
+    }
+
+    .shell {
+        width: 60px;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        /* align-items: flex-start; */
+        flex-direction: column;
+        background-color: rgb(0, 0, 0, 20%);
+        border-radius: 10px;
+        transition: .3s;
+        overflow: hidden;
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+    .box {
+        display: block;
+        height: 50px;
+        width: 100%;
+        /* margin: 9px; */
+        padding-bottom:15px ;
+        border-radius: 5px;
+        position: relative;
+        transition: .3s;
+        color: rgb(160, 160, 175);
+    }
+
+    .box i {
+        font-size: 25px;
+        position: absolute;
+        margin: 18px 0 0 18px;
+        color: rgba(0, 0, 0, 100%);
+    }
+
+    /* .box:nth-child(1)::before,
+        .box:nth-child(5)::before{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: rgb(55, 65, 81);
+            position: absolute;
+            bottom: -10px;
+        } */
+
+    .box span {
+        position: relative;
+        top: 19px;
+        left: 55px;
+
+        opacity: 0;
+        transition: .1s;
+        color: black;
+        font-size: 15px;
+    }
+    .box:hover {
+        background-color: rgba(0, 0, 0, 40%);
+    }
+
+    @keyframes cssEffect {
+        0%{
+            opacity: 80%;
+        }
+        100%{
+            opacity: 100%;
+        }
+    }
+    .box.active {
+        animation-name: cssEffect;
+        animation-duration: 0.5s;
+        background-color: rgba(0, 0, 0, 40%);
+    }
+    
+   
+    /* .shell:hover {
+        width: 180px;
+    }
+    .shell:hover +.right {
+        left: 180px;
+    }
+   
+
+    .shell:hover span {
+        opacity: 1;
+    }
+
+    .box:hover {
+        color: #fff;
+    } */
+
+
+    .right{
+        position: relative;
+        left: 60px;
+        transition: .3s;
+        padding: 20px;
+    }
+
+
+</style>
+
+<style type="text/css">
+    a:link{color:red;text-decoration:none}/*未访问，红色，无下划线*/
+    a:active{color:rgb(176, 255, 6);}/*激活，红色*/
+    a:visited{color:rgb(33, 177, 255);text-decoration:none}
+    a:hover{color:rgb(0, 0, 0);text-decoration:underline}/*鼠标移动上面，蓝色，下划线*/
+</style>
+
+
+<body>
+
+    <div class="shell">
+        <a href="#" class="box active"><i class="fa fa-bars fa-2x"></i><span>选项</span></a>
+        <a href="#主页" class="box"><i class="fa fa-home fa-2x"></i><span> 主页</span></a>
+        <a href="#锚点" class="box"><i class="fa fa-arrows fa-2x"></i><span>锚点</span></a>
+        <a href="#图像" class="box"><i class="fa fa-asterisk fa-2x"></i><span> 图像</span></a>
+        <a href="#bug" class="box"><i class="fa fa-bug fa-2x"></i><span>bug</span></a>
+        <a href="#钱包" class="box"><i class="fa fa-briefcase fa-2x"></i><span> 钱包</span></a>
+        <a href="#" class="box"><i class="fa fa-bullseye fa-2x"></i><span> Warehouse</span></a>
+        <!-- <a href="#" class="box"><i class="fa fa-angle-left fa-2x"></i><span>主页</span></a> -->
+       
+    </div>
+    <div class="right">
+        ds    <a href="">nih</a>
+    </div>
+    <script>
+        document.querySelector(".shell").addEventListener("click",(e)=>{
+            let temp = e.composedPath().filter((e)=>{
+                // console.log(e.classList?.contains("box"))
+                return e.classList?.contains("box")
+            })
+
+            document.querySelectorAll(".box").forEach((value)=>{
+                value.classList.remove("active")
+                temp[0].classList.add("active")
+            })
+            // console.log(temp[0].querySelector("span").innerText)
+            // window.location.href = window.location.href + "#" + temp[0].querySelector("span").innerText
+        })
+
+
+
+        
+    </script>
+</body>
+
+</html>

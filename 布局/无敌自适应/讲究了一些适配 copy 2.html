@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --scale: 1
+    }
+
+    #ScaleBox {
+        /* --scale: 1; */
+    }
+
+    .ScaleBox {
+        position: absolute;
+        transform-origin: left top;
+        display: flex;
+        flex-direction: column;
+        transform: scale(var(--scale)) translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        transition: 0.3s;
+        z-index: 999;
+        /* 这里是设计稿的px尺寸，作业的时候要按照1920*1080来看（f12） */
+    
+        overflow: hidden;
+    }
+</style>
+
+<body>
+    <div class="ScaleBox">
+        <div style="width: 1440px;height:750px;background:red;font-size: 100px;">dsadasd</div>
+    </div>
+    <script>
+        // // 大屏会出现上下有空位的情况，可以拉动滚动条
+        function adapition(rootEle) {
+            let scale = "";
+            //设计的尺寸 -800*0.13
+            let DesignWidth = 1440;
+            let DesignHeight = 750;
+            let browerWidth = DesignWidth;
+            let browerHeight = DesignHeight-DesignHeight*0.13;
+            // 至少有一个能贴边，这里是我认为可以调整的地方
+            // 小于号换成 大于号 就是尽可能大不变形
+            function getScale() {
+                let wh = window.innerHeight / browerHeight;
+                let ww = window.innerWidth / browerWidth;
+                return ww < wh ? ww : wh;
+            }
+            function setScale() {
+                console.log("执行到这里了")
+                if (window.innerHeight == DesignHeight) {
+                    // 设计稿
+                    document.querySelector(".ScaleBox").style.height = `${DesignHeight}px `;
+                } else {
+                    // 浏览器中的尺寸
+                    document.querySelector(".ScaleBox").style.height = `${browerHeight}px `;
+                }
+                scale = getScale();
+                document.body.style.setProperty("--scale", scale);
+
+            }
+            function debounce(fn, time) {
+                window.flag = null;
+                return function () {
+                    clearTimeout(window.flag)
+                    window.flag = setTimeout(() => {
+                        fn()
+                    }, time)
+                }
+            }
+            window.addEventListener("resize", debounce(setScale, 100));
+            window.addEventListener("load", setScale)
+        }
+
+        
+        adapition()
+    </script>
+
+</body>
+
+</html>
