@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgba(30, 30, 30, 1);
+            font-size: 13px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: large;
+        }
+    </style>
+    <style>
+        /*表格样式*/
+        table {
+            width: 80%;
+
+            margin: 10px auto;
+            /* border-collapse: collapse; */
+            background: transparent;
+
+            color: white;
+
+
+            border-collapse: separate;
+            /* 每个单元格的长宽，第一个越大间隔越小，第二个越大间隔越大 */
+            border-spacing: 10px 15px;
+            font-weight: 100;
+            font-family: sans-serif;
+        }
+
+        th,
+        td {
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            /* border: 1px solid #ccc; */
+        }
+
+
+        button[attr="primary"] {
+            width: 80px;
+            border-radius: 20px;
+            border: none;
+            padding: 4px 10px;
+            color: white;
+            background: rgb(30, 150, 240);
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <h1> 设备管理</h1>
+        <thead>
+
+            <th>Name</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Phone</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Albert Ellis</td>
+                <td>New York</td>
+                <td>Aristotle</td>
+                <!-- 设置宽度就这样就好了 -->
+                <td style="width: 200px;">Greece</td>
+                <td><button attr="primary">你好</button></td>
+            </tr>
+            <tr>
+                <td>Marcus Aurelius</td>
+                <td>Rome</td>
+                <td>Aristotle</td>
+                <td>Greece</td>
+                <td><button attr="primary">你好</button></td>
+            </tr>
+            <tr>
+                <td>Epictetus</td>
+                <td>Greece</td>
+                <td>Aristotle</td>
+                <td>Greece</td>
+                <td><button attr="primary">你好</button></td>
+            </tr>
+            <tr>
+                <td>Aristotle</td>
+                <td>Greece</td>
+                <td>Aristotle</td>
+                <td>Greece</td>
+                <td><button attr="primary">你好</button></td>
+
+            </tr>
+        </tbody>
+    </table>
+    <template id="table">
+        <table>
+            <thead>
+
+                <!-- <th>Phone</th> -->
+            </thead>
+            <tbody>
+                <!-- <tr>
+                    <td>Albert Ellis</td>
+                    <td><button attr="primary">你好</button></td>
+                </tr> -->
+
+            </tbody>
+        </table>
+    </template>
+    <script>
+        let title = ["name", "city", "phone"]
+        let content = [
+            { "name": { type: "string", text: "小明" }, "city": { type: "string", text: "小明" }, phone: { type: "button", text: 12 } },
+            { "name": { type: "string", text: "小明" }, "city": { type: "string", text: "小明" }, phone: { type: "button", text: 34 } },
+            { "name": { type: "string", text: "小明" }, "city": { type: "string", text: "小明" }, phone: { type: "button", text: 10 } }
+        ]
+        let userFn = (row)=>{
+            console.log(row.phone)
+        }
+        let sortBy = {
+            key: "phone"
+        }
+
+        if(sortBy.key){
+            content = content.sort((a,b)=>{return  a[sortBy.key]["text"]-b[sortBy.key]["text"]})
+        }
+        console.log(content)
+
+
+
+        const taskTemplate = document.querySelector("template[id='table']");
+        const taskDOM = taskTemplate.content.firstElementChild.cloneNode(true);
+        if (title.length != Object.keys(content[0]).length) {
+            alert("数量必须相等")
+        }
+
+        // 插入表头
+        let taskHeader = document.createElement("thead")
+        let head = []
+        for (let i in title) {
+            // 插入表头
+            let taskHeaderItem = document.createElement("th")
+            taskHeaderItem.innerText = title[i]
+            head.push(title[i])
+            taskHeader.appendChild(taskHeaderItem)
+        }
+        taskDOM.appendChild(taskHeader)
+
+
+        let dataContent = []
+
+        for (let i in content) {
+            let taskContentItem = document.createElement("tr")
+            for (let j of Object.keys(content[0])) {
+                switch (content[i][j].type) {
+                    case "string":
+                        let taskContentItemText = document.createElement("td")
+                        taskContentItemText.innerText = content[i][j].text
+                        taskContentItem.appendChild(taskContentItemText)
+                        break;
+                    case "button":
+                        let taskContentItemButton = document.createElement("td")
+                        taskContentItemButton.innerHTML = `<button attr="primary">${content[i][j].text}</button>`
+                        taskContentItem.appendChild(taskContentItemButton)
+                        break
+                }
+               
+            }
+            
+            taskDOM.appendChild(taskContentItem)
+        }
+
+        // 获取行的数据
+        function searchRow(table,key){
+            let temp = [ ]
+            Array.from(table[key].querySelectorAll("td")).forEach((e)=>{
+                temp.push(e.innerText)
+            })
+            return temp
+        }
+        
+        Array.from( taskDOM.querySelectorAll("button")).forEach((e)=>{
+            
+            e.addEventListener("click",(mouseTarget)=>{
+                let temp = []
+                let res = {}
+                mouseTarget.target.parentNode.parentNode.querySelectorAll("td").forEach((ev,i)=>{
+                    temp.push(ev.innerText)
+                    res[head[i]] = ev.innerText
+                })
+                // console.log(res)
+                userFn(res)
+            })
+        })
+       
+        console.log(searchRow(taskDOM.rows,0))
+        document.body.appendChild(taskDOM)
+    </script>
+</body>
+
+</html>

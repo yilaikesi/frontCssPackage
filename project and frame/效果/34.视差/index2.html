@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <title>纯css的视差动画</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+}
+
+#container{
+    width: 100%;
+
+}
+section{
+    height: 100vh;
+    background-color: #c4cbcf;
+    color: #fff;
+    font-size: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img{
+
+    background-position: center;
+    /* 不会随着界面滚动真好用 */
+    background-attachment: fixed;
+
+    /* width: 100%; */
+
+}
+#img1{
+    background-image: url(../../three/skyboxsun25deg/test.jpg);
+}
+#img2{
+    background-image: url(../../three/skyboxsun25deg/test3.jpg);
+}
+#img3{
+    background-image: url(../../three/skyboxsun25deg/test5.jpg);
+}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <section id="img1" class="img">IMG 1</section>
+        <section id="content1">CONTENT 1</section>
+        <section id="img2" class="img">IMG 2</section>
+        <section id="content2">CONTENT 2</section>
+        <section id="img3" class="img">IMG 3</section>
+        <section id="footer">FOOTER</section>
+    </div>
+</body>
+</html>

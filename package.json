@@ -1,11 +1,28 @@
 {
-  "name": "frontcsspackage",
-  "version": "0.0.4",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "frontcsspackage",
+	"version": "0.0.4",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "husky install "
+	},
+  "label":[
+    {
+      "frontName": "Bili",
+      "behindName": "Electrolux",
+      "src": "https://space.bilibili.com/286773126",
+      "color": "pink"
+    }
+  ],
+	"homepage": "none",
+	"author": "Electrolux",
+	"license": "ISC",
+	"devDependencies": {
+		"chalk": "^4.1.2",
+		"commander": "^9.5.0",
+		"husky": "^8.0.3",
+		"inquirer": "^7.3.3",
+		"ora": "^4.1.1"
+	}
 }

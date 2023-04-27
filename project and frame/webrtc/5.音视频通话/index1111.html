@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+        概念
+        0.webrtc 是 用户通过 nat，stun，turn经过信令服务器和其他人所建立p2p连接
+        1.SDP：Session Description Protocol ：一个对话协议。能大概的看到一些你的内网 IP 信息，外网 IP 信息，以及一些媒体流
+        然后webrtc通过sdp来交换端与端的网络和媒体
+        2.ICE：Interactive Connectivity Establishment，交互式连接建立协议
+        3.nat将内网地址变成外网
+        4.ICE候选者的种类：host：本机候选者（内网） | srflx：P2P服务(stun) | relay：relay候选者（turn）
+        5.STUN：NAT 的进化版，遍历服务器进行查询操作。道外网地址(一般我们用这个)
+        6.turn用来交换udp数据（兜底）
+        7.信令是WebRTC 想要直接通过 P2P 连接进行通信，需要一个传输过程确定通信协议和信息，这就称之为信令。
+        
+        host优先级最高，host不行就给p2p，p2p不行就给relay
+
+        基本示例：
+        1.创建一个用于连接控制的 RTCPeerConnection 对象
+        2.采集媒体流并添加到RTCPeerConnection 实例中
+        3.建立连接，传输媒体流。
+
+        公网中使用，那么你需要在创建 RTCPeerConnection 传入
+        STUN(本地公网 IP 地址，端口号) 和 
+        TURN (兜底)
+        服务器地址的配置对象。
+    -->
+
+
+    <video id="local" autoplay playsinline muted></video>
+    <video id="remote" autoplay playsinline></video>
+    <script>
+        console.log(io)
+        const socket = io('https://localhost:3000')
+        // // 第一步
+        // const pc = new RTCPeerConnection()
+
+        // // 第二步：采集媒体流并添加到RTCPeerConnection 实例中
+        // // 初始化
+        // async function init(params) {
+        //     const localVideo = document.getElementById('local')
+        //     const remoteVideo = document.getElementById('remote')
+        //     const localStream = await navigator.mediaDevices.getUserMedia({
+        //         video: true,
+        //         audio: true,
+        //     })
+        //     localVideo.srcObject = localStream
+        //     // 添加本地媒体流的轨道都添加到 RTCPeerConnection 中
+        //     localStream.getTracks().forEach((track) => {
+        //         pc.addTrack(track, localStream)
+        //     })
+        //     // 监听远程流
+        //     pc.ontrack = (event) => {
+        //         remoteVideo.srcObject = event.streams[0]
+        //     }
+
+        // }
+        // // 创造本地的offer后，通过RTCpeer连接设置本地描述
+        // // 最后通过RTCpeer的setremotedescription设置对方的sdp
+        // let offerSdp = ''
+        // let answerSdp = ''
+
+        // const createOffer = async () => {
+        //     // 创建 offer
+        //     const offer = await pc.createOffer()
+        //     // 设置本地描述
+        //     await pc.setLocalDescription(offer)
+        //     // 到这里，我们本地的 offer 就创建好了，一般在这里通过信令服务器发送 offerSdp 给远端
+
+        //     // 监听onicecandidate，
+        //     // 当 ICE 服务器返回一个新的候选地址时，就会触发该事件
+        //     pc.onicecandidate = async (event) => {
+        //         if (event.candidate) {
+        //             offerSdp.value = JSON.stringify(pc.localDescription)
+        //         }
+        //     }
+        // }
+        // // 第三步：建立连接
+
+    </script>
+</body>
+
+</html>

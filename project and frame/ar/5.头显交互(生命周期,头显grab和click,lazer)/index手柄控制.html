@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+
+    <!-- cursor="rayOrigin :mouse" -->
+    <a-scene >
+
+        <!-- vr 手柄 一般有 两种
+            3 dof: 谷歌 三星
+            6 dof :  quest htc
+            引入super hand 能够很好的 使用
+
+           谷歌扩展看：
+           
+           WebXR API Emulator
+
+           有两个解决方案。
+           第一个叫做laser interaction
+           单击时移动位置，双击时移动手部控制器
+           另一个加偶走 super hand
+
+
+        -->
+
+        <!-- 1.这种方法是射线检测 -->
+        <!-- <a-entity laser-controls="hand:right"></a-entity> -->
+
+        <!-- 2.这种方法是碰到才有效果 -->
+        <!-- <a-entity hand-controls="hand:right;handModelStyle:lowPoly;color:rgb(60,60,60)"></a-entity> 
+        
+        
+        animation 之中startEvents:click mouseenter mouseleave 都可以
+        -->
+        
+        <a-entity super-hands sphere-collider="objects:#box"  d ="rightHand" hand-controls="hand:right;handModelStyle:lowPoly;color:rgb(60,60,60)"></a-entity>
+
+        <!-- hoverable grabbable clickable-->
+
+    
+        <a-box id="box" color="rgb(255,255,10)"  position="-1.5 1.5 -3" 
+        color-toggle
+       
+        ></a-box> 
+     
+
+
+        <a-assets>
+        
+            <img id="skyImg"
+                src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ8NDQ0NDQ0ODQ0NDQ0NDQ8NDQ0NFREWFhURFhUYHSggGBolGxMVITEhJSkrLi4uFx8zODMsNygtNSsBCgoKDQ0NDg0NDisZFRkrKys3NysrKysrKysrKysrKys3KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAL4BCgMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAAIEB//EAB4QAQEBAQACAgMAAAAAAAAAAAABAhFBUSGREnHw/8QAGAEBAQEBAQAAAAAAAAAAAAAAAQADBAX/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8A9RST0GADSIZRCSBSASRAC7O8KASRCFKQZRsBCBSABH5fPEECigkkEkiEkkkkkkhdfPCE6w0GTsgRCSFKQZRBCY1fTdEnEFJxJEANBAIogApBlGilMbpk4ZOFAJJAIggIhBJJJM6rQzOJLMKSDsSFjF2kKQpMoghJJBlNAgJJAJUZnCEGggEkQgUgyiCkCkAhM8KARRDKKSCSQSSIdqSYO8IhBAW+IZOIIFEBJIANVkhApAJM6vifohIzPEgEkQgUgyiCkkkAOrV9KZ4gQUgA0CgjQg7kkwdwGmgkzMkghApAAogApBlEECiZaSASRADQQQSIQKSArQQZkKRCBSASSQRRDtBTB3BJJBEECiRoIIFIMoogClIMoghJJBnMJBADQSCSQSSIC4UgyJGgUkkgEUg7QUwdwBRQRCARBARY3fSB74SznhQZRBCBSADVBASSAHfC3pZzxBIoplEIJFEAFJANM6v2gOkZz58kp2ohg7UCkBQUQEkgLBI0CgiEECkACiAkkAGgQzIUkgiiACkAGggEkkmZGkQgUg7FUmLtZkJCSBCCBRASSARBQokaCCBSABRASSADQICISEiKQCIICKSZR4kAiEnYkmTrSQ1/e0mdXxDmcUzwpIEIJJEBJIBEFBnV9NUTP2gszhSQAaBARCCBSTKIpA1RnP2plpJAogLiKAoKSdSSZOpJJJApIJCIJEJBEEJJIBEFBEIJCS+SgEUkyiCEkkAGkQyizJUikkAiinSkmTpSSSSSSQKSCSQCISCIISSQCISQKICSQQKSAaBARCCSSQDSIZRST//Z"
+                alt="">
+
+            <a-asset-item id="model" src="https://cdn.jsdelivr.net/npm/electroluxasset/model/scene/scene.gltf"></a-asset-item>
+        </a-assets>
+
+  
+       
+
+        <a-sky material="src:#skyImg"></a-sky>
+
+
+     
+    </a-scene>
+
+    <script>
+        // 组件生命后期
+        AFRAME.registerComponent("color-toggle", {
+            init: function () {
+                let el = this.el
+                this.toggleColor = function () {
+
+                }
+                this.el.addEventListener("click", (e) => {
+                    e.target.setAttribute("material", "color:rgb(255,255,255)")
+                    // 重要: refreshObjects 可以实现只选择一个
+                   
+                })
+                this.el.addEventListener("mouseenter", (e) => {
+                   
+                   
+                })
+                this.el.addEventListener("grabStartButtons", (e) => {
+                    // e.target.setAttribute("material", "color:rgb(0,0,0)")
+                    // 重要: refreshObjects 可以实现只选择一个
+                   alert("抓到了")
+                })
+                
+            },
+            remove: function () {
+                // this.el.removeEventListener("click",this.toggleColor)
+            },
+            // 进行的时候会用的
+            update(){
+
+            },
+            // 每一次渲染做啥
+            tick(){
+                
+                this.el.getObject3D("mesh").rotation.x +=0.1
+            }
+        })
+    </script>
+    <Button></Button>
+</body>
+
+</html>

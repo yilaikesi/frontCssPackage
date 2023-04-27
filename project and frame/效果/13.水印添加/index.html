@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: red;
+            left: 200px;
+
+        }
+        .water5{
+            margin: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+    <img class="water"
+        src="https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1672419600&t=be04db076391811bcbde9197a35e7cb8"
+        alt="">
+
+    <img class="water2"
+        src="https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1672419600&t=be04db076391811bcbde9197a35e7cb8"
+        alt="">
+    <img class="water3"
+        src="https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1672419600&t=be04db076391811bcbde9197a35e7cb8"
+        alt="">
+
+        <img class="water4"
+        src="https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1672419600&t=be04db076391811bcbde9197a35e7cb8"
+        alt="">
+        <img class="water5"
+        src="https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1672419600&t=be04db076391811bcbde9197a35e7cb8"
+        alt="">
+    <script>
+
+
+        // window.waterMark = function (config) {
+        //     var defaultConfig = {
+        //         content: '我是水印',
+        //         fontSize: '16px',
+        //         opacity: 0.5,
+        //         rotate: '-10',
+        //         color: '#ADADAD',
+        //         modalId: 'J_waterMarkModalByXHMAndDHL',
+        //     }
+
+        //     config = Object.assign({}, defaultConfig, config)
+
+        //     var existMarkModalDom = document.getElementById(config.modalId)
+        //     if (existMarkModalDom) {
+        //         // return;
+        //         document.body.removeChild(existMarkModalDom)
+        //     }
+
+        //     var markModalDom = document.createElement('div')
+        //     markModalDom.setAttribute('id', config.modalId)
+        //     markModalDom.style['position'] = 'fixed'
+        //     markModalDom.style['top'] = 0
+        //     markModalDom.style['left'] = 0
+        //     markModalDom.style['bottom'] = 0
+        //     markModalDom.style['right'] = 0
+        //     markModalDom.style['background-color'] = 'transparent'
+        //     markModalDom.style['pointer-events'] = 'none'
+        //     markModalDom.style['z-index'] = 9999
+        //     markModalDom.style['overflow'] = 'hidden'
+
+        //     var markContentDom = document.createElement('span')
+
+        //     markContentDom.style['position'] = 'relative'
+        //     markContentDom.style['display'] = 'inline-block'
+        //     markContentDom.style['max-width'] = '33%'
+        //     markContentDom.style['min-width'] = '400px'
+        //     markContentDom.style['padding'] = '80px 0'
+        //     markContentDom.style['height'] = '100px'
+        //     markContentDom.style['text-align'] = 'center'
+
+        //     markContentDom.style['opacity'] = config.opacity
+        //     markContentDom.style['pointer-events'] = 'none'
+
+        //     var markContentTxtDom = document.createElement('span')
+        //     markContentTxtDom.innerHTML = config.content
+        //     markContentTxtDom.style['position'] = 'absolute'
+        //     markContentTxtDom.style['display'] = 'inline-block'
+        //     markContentTxtDom.style['pointer-events'] = 'none'
+        //     markContentTxtDom.style['top'] = '50%'
+        //     markContentTxtDom.style['left'] = '50%'
+        //     markContentTxtDom.style['transform'] =
+        //         'translate(-50%, -50%) rotate(' + config.rotate + 'deg)'
+        //     markContentTxtDom.style['font-size'] = config.fontSize
+        //     markContentTxtDom.style['color'] = config.color
+
+        //     markContentDom.appendChild(markContentTxtDom)
+
+        //     // return
+
+        //     var contentHtml = markContentDom.outerHTML
+        //     var allContentHtml = ''
+        //     for (var i = 0; i < 100; i++) {
+        //         allContentHtml += contentHtml
+        //     }
+
+        //     markModalDom.innerHTML = allContentHtml
+
+        //     document.body.appendChild(markModalDom)
+        // }
+
+        window.waterMark = function (config, idName) {
+            var defaultConfig = {
+                content: '水印',
+                fontSize: '10px',
+                opacity: 0.5,
+                rotate: '-10',
+                color: '#ADADAD',
+                modalId: 'J_waterMarkModalByXHMAndDHL',
+            }
+
+            config = Object.assign({}, defaultConfig, config)
+
+            var existMarkModalDom = document.getElementById(config.modalId)
+            // if (existMarkModalDom) {
+            //     // return;
+            //     document.body.removeChild(existMarkModalDom)
+            // }
+
+            var markModalDom = document.createElement('div')
+            markModalDom.setAttribute('id', config.modalId)
+
+            markModalDom.style['position'] = 'absolute'
+            markModalDom.style['top'] = document.querySelector(`.${idName}`).offsetTop + 'px'
+
+            markModalDom.style['left'] = document.querySelector(`.${idName}`).offsetLeft + 'px'
+            // markModalDom.style['bottom'] = 0
+            // markModalDom.style['right'] = 0
+            markModalDom.style['background-color'] = 'transparent'
+            markModalDom.style['pointer-events'] = 'none'
+            markModalDom.style['z-index'] = 9999
+            markModalDom.style['overflow'] = 'hidden'
+            if (document.querySelector(`.${idName}`).tagName == "DIV") {
+                markModalDom.style['width'] = document.querySelector(`.${idName}`).offsetWidth + 'px'
+                markModalDom.style['height'] = document.querySelector(`.${idName}`).offsetHeight + 'px'
+            } else {
+                setTimeout(() => {
+                    markModalDom.style['top'] = document.querySelector(`.${idName}`).offsetTop + 'px'
+
+                    markModalDom.style['left'] = document.querySelector(`.${idName}`).offsetLeft + 'px'
+                    markModalDom.style['width'] = document.querySelector(`.${idName}`).width + 'px'
+                    markModalDom.style['height'] = document.querySelector(`.${idName}`).height + 'px'
+                })
+                console.log(document.querySelector(`.${idName}`).width + 'px')
+
+            }
+
+            var markContentDom = document.createElement('span')
+
+            markContentDom.style['position'] = 'relative'
+            markContentDom.style['display'] = 'inline-block'
+            markContentDom.style['max-width'] = '33%'
+            markContentDom.style['min-width'] = '30px'
+            // markContentDom.style['padding'] = '80px 0'
+            markContentDom.style['height'] = '100px'
+            markContentDom.style['text-align'] = 'center'
+
+            markContentDom.style['opacity'] = config.opacity
+            markContentDom.style['pointer-events'] = 'none'
+
+            var markContentTxtDom = document.createElement('span')
+            markContentTxtDom.innerHTML = config.content
+            markContentTxtDom.style['position'] = 'absolute'
+            markContentTxtDom.style['display'] = 'inline-block'
+            markContentTxtDom.style['pointer-events'] = 'none'
+            markContentTxtDom.style['top'] = '50%'
+            markContentTxtDom.style['left'] = '50%'
+            markContentTxtDom.style['transform'] =
+                'translate(-50%, -50%) rotate(' + config.rotate + 'deg)'
+            markContentTxtDom.style['font-size'] = config.fontSize
+            markContentTxtDom.style['color'] = config.color
+
+            markContentDom.appendChild(markContentTxtDom)
+
+            // return
+
+            var contentHtml = markContentDom.outerHTML
+            var allContentHtml = ''
+            for (var i = 0; i < 100; i++) {
+                allContentHtml += contentHtml
+            }
+
+            markModalDom.innerHTML = allContentHtml
+
+            document.body.appendChild(markModalDom)
+
+        }
+        waterMark("", "water")
+        waterMark("", "water2")
+        waterMark("", "water3")
+        waterMark("", "water4")
+        waterMark("", "water5")
+    </script>
+</body>
+
+</html>

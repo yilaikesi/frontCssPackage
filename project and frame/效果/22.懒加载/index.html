@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        lazyLoad {
+            display: block;
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+            margin: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 模拟初次渲染 -->
+    <lazyLoad key="0">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+    <lazyLoad key="1">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+    <lazyLoad key="2">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+    <lazyLoad key="3">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+    <lazyLoad key="4">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+    <lazyLoad key="5">
+        <div id="text"></div> <img id="img" src="" alt="">
+    </lazyLoad>
+
+    <script>
+        //step1:模拟初始数据
+        let originData = [
+            { id: 0, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试0" },
+            { id: 1, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试1" }
+            , { id: 2, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试2" }
+            , { id: 3, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试3" }
+            , { id: 4, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试4" }
+            , { id: 5, img: "https://static.leetcode.cn/cn-mono-assets/production/assets/logo-light-cn.17bc9272.svg", text: "测试5" }
+
+        ]
+        function lazyLoad(originData) {
+            // step2：监听目前的可视区
+            const io = new IntersectionObserver((ioes) => {
+                ioes.forEach((ioe) => {
+                    const el = ioe.target;
+                    //step3：获取当前的key
+                    let key = el.getAttribute("key")
+                    const intersectionRatio = ioe.intersectionRatio;
+                    if (intersectionRatio > 0 && intersectionRatio <= 1) {
+                        console.log("能看见元素", el, key)
+                        // step4：赋值（懒加载最终实现）
+                        el.querySelector("#text").innerHTML = originData[key].text
+                        el.querySelector("#img").src = originData[key].img
+                    } else {
+                        console.log("看不见")
+                    }
+                    el.onload = el.onerror = () => io.unobserve(el);
+                });
+            });
+            const imgs = Array.from(document.querySelectorAll("lazyLoad"));
+            imgs.forEach((item) => {
+                io.observe(item)
+            })
+        }
+
+
+        lazyLoad(originData)
+    </script>
+</body>
+
+</html>

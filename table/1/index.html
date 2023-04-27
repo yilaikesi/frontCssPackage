@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*表格样式*/
+        table {
+            width: 90%;
+            background: #ccc;
+            margin: 10px auto;
+            border-collapse: collapse;
+            /*border-collapse:collapse合并内外边距
+(去除表格单元格默认的2个像素内外边距*/
+        }
+
+        th, td {
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eee;
+            font-weight: normal;
+        }
+
+        tr {
+            background: #fff;
+        }
+
+        tr:hover {
+            /* background: #cc0; */
+        }
+
+        td a {
+            color: #06f;
+            text-decoration: none;
+        }
+
+        td a:hover {
+            color: #06f;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="table-1"> <!-- Replace "table-1" with any of the design numbers -->
+        <thead>
+            <th>Name</th>
+            <th>City</th>
+            <th>Phone</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Albert Ellis</td>
+            <td>New York</td>
+            <td>+1 718 000000</td>
+        </tr>
+        <tr>
+            <td>Marcus Aurelius</td>
+            <td>Rome</td>
+            <td>+1 718 000000</td>
+        </tr>
+        <tr>
+            <td>Epictetus</td>
+            <td>Greece</td>
+            <td>+1 718 000000</td>
+        </tr>
+        <tr>
+            <td>Aristotle</td>
+            <td>Greece</td>
+            <td><a>你好</a></td>
+            
+        </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

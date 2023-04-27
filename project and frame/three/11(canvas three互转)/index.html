@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>three</title>
+    <style>
+        body {
+            background-color: #bfe3dd;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test" width="600" height="200"></canvas>
+
+
+
+    <script>
+        
+    </script>
+
+
+    <div class="canvas">
+    </div>
+    <!-- step1:引入插件 -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+        "three": "https://unpkg.com/three/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three/examples/jsm",
+        "gui":"https://unpkg.com/three/examples/jsm/libs/lil-gui.module.min.js",
+        "OrbitControls":"https://unpkg.com/three/examples/jsm/controls/OrbitControls.js",
+            "FBXLoader":"https://unpkg.com/three/examples/jsm/loaders/FBXLoader"
+        }
+    }
+    </script>
+
+
+
+
+
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GUI } from "gui";
+        import { OrbitControls } from "OrbitControls"
+        import { FBXLoader } from "FBXLoader"
+        console.log(THREE)
+
+        const clock = new THREE.Clock();
+        let mixer
+        let actions = []; //所有的动画数组
+       
+
+        // console.log(GUI)
+        class threeInit {
+            constructor(param) {
+                this.param = {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                }
+                
+                this.initScene()
+                this.initLight()
+                this.initObject()
+                this.initCamera()
+            }
+            // 传入二维坐标，
+            initObject(position) {
+                //材质
+                let material = new THREE.MeshLambertMaterial({
+                    color: 0x05c5cf4
+                });
+                // let geometry1 = new THREE.BoxGeometry(10, 10, 100); //创建一个立方体几何对象Geometry
+                let geometry2 = new THREE.BoxGeometry(1, 1, 10); //创建一个立方体几何对象Geometry
+                
+                for(let i in position){
+                    let mesh =  new THREE.Mesh(geometry2, material); //网格模型对象Mesh
+                    mesh.position.set(position[i][0]/10, -position[i][1]/10, 0)
+                    this.scene.add(mesh)
+                }
+                // this.mesh2 = new THREE.Mesh(geometry2, material); //网格模型对象Mesh
+                // this.mesh1 = new THREE.Mesh(geometry1, material); //网格模型对象Mesh
+                
+                // this.mesh2.position.set(3, 4, 0)
+                // this.mesh1.position.set(this.param.x, this.param.y, this.param.z)
+                // this.scene.add(this.mesh2)
+                // this.scene.add(this.mesh1)
+                // this.mesh = model
+                // this.scene.add(model)
+            }
+            initScene() {
+                
+                this.scene = new THREE.Scene()
+
+                const group = new THREE.Group();
+				this.scene.add( group );
+                const helper = new THREE.GridHelper( 160, 100 );
+				helper.rotation.x = Math.PI / 2;
+				group.add( helper );
+            }
+            initLight() {
+                let pointLight = new THREE.PointLight(0xffffff); //创建一个白色的点光源
+                pointLight.position.set(0, 0, 150);
+                this.scene.add(pointLight);
+                let ambient = new THREE.AmbientLight(0xffffff, 1);
+                this.scene.add(ambient);
+               
+            }
+            initCamera() {
+                this.width = 1280; //canvas画布宽度
+                this.height = 600; //canvas画布高度
+                let k = this.width / this.height; //canvas画布宽高比
+                //三维场景显示范围控制系数，系数越大，显示的范围越大
+                //创建相机对象
+                this.camera = new THREE.PerspectiveCamera(30, k, 20, 1000);
+                this.camera.position.set(0, 10, 60); //设置相机位置
+                let v1 = new THREE.Vector3(0, 0, 0)
+                this.camera.lookAt(v1); //设置相机方向(指向的场景对象)
+            }
+            initGui(status) {
+
+                //1.设置基本属性
+                let gui = new GUI();
+                gui.domElement.classList.add();
+                gui.domElement.style.cssText = "position:absolute;top:0px;right:0px;";
+                // 2.等于params.x的属性跟mesh.position.y绑定
+                //-3 到 3 每一次0.01  mesh.position.x
+                gui.add(this.param, 'x', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.x = this.param.x;
+                    }).name('x的位置')
+
+                gui.add(this.param, 'y', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.y = this.param.y;
+                    }).name('y的位置(上下)')
+
+                gui.add(this.param, 'z', -3, 100, 0.01)
+                    .onChange(() => {
+                        this.mesh.position.z = this.param.z;
+                    }).name('z的位置')
+               
+            }
+            initSkyBox() {
+
+              
+
+            }
+            
+
+            initRender() {
+
+                let v1 = new THREE.Vector3(0, 0, 0)
+                // let renderer = new THREE.WebGLRenderer();
+                let renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer.setSize(this.width, this.height);//设置渲染区域尺寸
+
+                // 添加控制器
+                let control = new OrbitControls(this.camera, renderer.domElement);
+                control.target = v1 //设置相机方向(指向的场景对象)
+                control.update();
+
+                // renderer.setClearColor(0xb9d3ff, 1);
+                // 渲染函数
+                let render = () => {
+                    // actions[0].play();
+                    const delta = clock.getDelta();
+                    if ( mixer ) mixer.update( delta );
+                    control.update();
+                    // this.mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+                    renderer.render(this.scene, this.camera);//执行渲染操作
+                    // mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+                    requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
+                }
+                render();
+                return renderer
+            }
+
+
+        }
+
+        let three = new threeInit()
+        three.initGui(1)
+        
+        // three.initSkyBox()
+        document.querySelector('.canvas').appendChild(three.initRender().domElement);
+
+        let dataArray = []
+         function write(idName) {
+            const cvs = document.getElementById(idName);
+            const ctx = cvs.getContext('2d');
+            let isDraw = false;
+            let startPos = null
+            let endPos = null
+            cvs.addEventListener('mousedown', (e) => {
+                dataArray  = []
+                e = e || window.event;
+                isDraw = true;
+                ctx.moveTo(e.pageX, e.pageY)
+                // console.log("start:",e.pageX, e.pageY)
+                dataArray.push([e.pageX, e.pageY])
+            })
+            cvs.addEventListener('mousemove', (e) => {
+                e = e || window.event;
+       
+                if (isDraw) {
+                    ctx.lineTo(e.pageX, e.pageY);
+                    ctx.stroke();
+                    dataArray.push([e.pageX, e.pageY])
+                }
+                
+            })
+            cvs.addEventListener('mouseup', (e) => {
+                isDraw = false;
+                // console.log("end:",e.pageX, e.pageY)
+                console.log(e.pageX, e.pageY)
+               
+                dataArray.push([e.pageX, e.pageY])
+                three.initObject(dataArray)
+            })
+        }
+        write("test")
+    </script>
+
+</body>
+
+</html>

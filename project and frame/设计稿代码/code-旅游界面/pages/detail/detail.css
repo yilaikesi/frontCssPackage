@@ -1,0 +1,229 @@
+.page {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.section {
+  padding-bottom: 15.31rem;
+  background-image: url('../../img/a2f882a324049e620bb0acdfc62289d9.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.space-y-10 > *:not(:first-child) {
+  margin-top: 0.63rem;
+}
+.group {
+  padding: 1rem 0.88rem 0.94rem 2rem;
+}
+.text {
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-family: PingFangSC;
+  line-height: 0.81rem;
+}
+.space-x-5 > *:not(:first-child) {
+  margin-left: 0.31rem;
+}
+.image {
+  width: 1.06rem;
+  height: 0.75rem;
+}
+.image_2 {
+  width: 1rem;
+  height: 0.75rem;
+}
+.image_3 {
+  width: 1.56rem;
+  height: 0.75rem;
+}
+.group_2 {
+  padding-left: 1.63rem;
+  padding-right: 1.56rem;
+}
+.image_5 {
+  width: 1.38rem;
+  height: 1.13rem;
+}
+.image_6 {
+  margin: 0.19rem 0;
+}
+.image_4 {
+  border-radius: 0px;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.section_2 {
+  margin-top: -2.56rem;
+  padding: 1.88rem 1.31rem 2.13rem 1.56rem;
+  background-image: url('../../img/b3e29ca556d4774061dc9b64e4d0c8af.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.space-y-38 > *:not(:first-child) {
+  margin-top: 2.38rem;
+}
+.space-y-15 > *:not(:first-child) {
+  margin-top: 0.94rem;
+}
+.group_3 {
+  padding-left: 0.063rem;
+}
+.text_2 {
+  color: #343434;
+  font-size: 1.38rem;
+  font-family: PingFang SC Heavy;
+  line-height: 1.31rem;
+}
+.text_3 {
+  color: #eb4747;
+  font-size: 1.5rem;
+  font-family: PingFang SC Bold;
+  line-height: 1.25rem;
+}
+.group_4 {
+  padding: 0 0.063rem;
+}
+.space-x-9 > *:not(:first-child) {
+  margin-left: 0.56rem;
+}
+.image_7 {
+  width: 0.63rem;
+  height: 0.75rem;
+}
+.font_1 {
+  font-size: 0.75rem;
+  font-family: PingFang SC Regular;
+  line-height: 0.75rem;
+  color: #989898;
+}
+.group_5 {
+  padding-top: 0.063rem;
+  width: 5.38rem;
+  position: relative;
+}
+.image_9 {
+  width: 0.88rem;
+  height: 0.88rem;
+}
+.image_8 {
+  border-radius: 0px;
+  width: 4.88rem;
+  height: 0.94rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.text_4 {
+  margin-top: 0.13rem;
+}
+.space-y-14 > *:not(:first-child) {
+  margin-top: 0.88rem;
+}
+.font_2 {
+  font-size: 1rem;
+  font-family: PingFang SC Bold;
+  line-height: 0.94rem;
+  color: #343434;
+}
+.text_5 {
+  align-self: flex-start;
+}
+.text_6 {
+  align-self: flex-start;
+  color: #9a9a9a;
+  font-size: 0.81rem;
+  line-height: 0.81rem;
+}
+.text-wrapper {
+  padding: 1.31rem 0;
+  background-color: #2c3137;
+  border-radius: 1rem;
+  width: 3.38rem;
+  height: 3.38rem;
+}
+.font_4 {
+  font-size: 1rem;
+  font-family: PingFang SC Bold;
+  line-height: 0.75rem;
+  color: #333333;
+}
+.text_8 {
+  color: #ffffff;
+}
+.text-wrapper_2 {
+  padding: 1.31rem 0;
+  background-color: #f0f0f8;
+  border-radius: 1rem;
+  width: 3.38rem;
+  height: 3.38rem;
+}
+.text-wrapper_3 {
+  padding: 1.31rem 0 1.25rem;
+  background-color: #f0f0f8;
+  border-radius: 1rem;
+  width: 3.38rem;
+  height: 3.38rem;
+}
+.text_9 {
+  line-height: 0.81rem;
+}
+.text-wrapper_4 {
+  padding: 1.19rem 0;
+  background-color: #f0f0f8;
+  border-radius: 1rem;
+  width: 4.81rem;
+  height: 3.38rem;
+}
+.font_3 {
+  font-size: 1rem;
+  font-family: PingFang SC Regular;
+  line-height: 1rem;
+}
+.text_7 {
+  color: #999999;
+}
+.space-y-9 > *:not(:first-child) {
+  margin-top: 0.56rem;
+}
+.text_10 {
+  align-self: flex-start;
+}
+.font_5 {
+  font-size: 0.75rem;
+  font-family: PingFang SC Regular;
+  letter-spacing: -0.0037rem;
+  line-height: 1.25rem;
+  color: #989898;
+}
+.space-x-20 > *:not(:first-child) {
+  margin-left: 1.25rem;
+}
+.image-wrapper {
+  padding: 1.25rem 0;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: solid 0.063rem #9b9b9b;
+}
+.section_3 {
+  margin-right: 0.25rem;
+  padding: 1.25rem 1.75rem;
+  flex: 1 1 auto;
+  background-color: #5d67bc;
+  border-radius: 1rem;
+  height: 3.75rem;
+}
+.text_11 {
+  margin: 0.13rem 0;
+  color: #ffffff;
+}
+.image_10 {
+  border-radius: 0px;
+  width: 2.38rem;
+  height: 1.25rem;
+}

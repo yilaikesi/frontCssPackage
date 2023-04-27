@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 分割video -->
+    <video src="https://cdn.jsdelivr.net/npm/electroluxasset/video/origin.mp4" controls style="width:500px;height: 300px"></video>
+    <canvas id="left"></canvas>
+    <canvas id="front"></canvas>
+    <canvas id="right"></canvas>
+   
+    <script>
+        
+        let sideParam =10
+        let tempElement = document.querySelector("video")
+
+        let canvasLeft = document.querySelector("#left")
+        canvasLeft.width = tempElement.offsetWidth/3+sideParam
+        canvasLeft.height = tempElement.offsetHeight
+        console.log(tempElement.offsetHeight)
+        let contextleft = canvasLeft.getContext("2d");
+
+        let canvasRight = document.querySelector("#right")
+        canvasRight.width = tempElement.offsetWidth/3+sideParam
+        canvasRight.height = tempElement.offsetHeight
+        // console.log(tempElement.offsetHeight)
+        let contextRight = canvasRight.getContext("2d");
+
+        
+        let canvasFront = document.querySelector("#front")
+        canvasFront.width = tempElement.offsetWidth/3+sideParam
+        canvasFront.height = tempElement.offsetHeight
+        // console.log(tempElement.offsetHeight)
+        let contextFront =canvasFront.getContext("2d");
+        
+
+
+        let videoStatus = true
+        // let averageDivide = 
+        // 开始播放时候执行
+        tempElement.onplay = function () {
+            videoStatus = true
+            tempElement.play();
+            draw();
+        }
+        tempElement.onpause = function () {
+            videoStatus = false
+        }
+        // tempElement.onpause = function () {
+        //     videoStatus = false
+        // }
+        function draw() {
+            if (videoStatus) {
+                // let position = 
+                contextleft.drawImage(tempElement, 0, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight)
+                // canvasLeft.width = tempElement.width/3s
+                // console.log(canvasLeft.toDataURL('image/png'))
+                
+                contextFront.drawImage(tempElement, tempElement.offsetWidth / 3, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight)
+                contextRight.drawImage(tempElement, tempElement.offsetWidth / 3*2, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight, 0, 0, tempElement.offsetWidth / 3+sideParam , tempElement.offsetHeight)
+                
+                // document.body.append(canvas)
+                requestAnimationFrame(draw);
+            }
+            // 左上方坐标 0 0 
+            //  然后是其他
+
+        }
+        // draw()
+    </script>
+</body>
+
+</html>

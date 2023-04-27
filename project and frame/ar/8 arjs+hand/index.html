@@ -1,0 +1,32 @@
+<!-- import aframe and then ar.js with image tracking / location based features -->
+
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+<!-- <script src="aframe-ar-nft.js"></script> -->
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/frontassetzp/ar/js/aframe-ar.js'></script>
+</head>
+
+<!-- style for the loader -->
+<style>
+
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+
+
+  <!-- a-frame scene 
+renderer:是否使用对数深度缓冲区。
+ embedded:从画布中删除全屏样式。
+-->
+<a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false'
+		renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse' raycaster='near: 0; far:10000'>
+		<a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+	</a-scene>
+
+  <script>
+        // 注意兼容性 
+      
+  </script>
+</body>

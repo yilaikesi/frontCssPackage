@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>头像</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+
+<body>
+    <style>
+        body {
+            background: #1C1D1E;
+        }
+        .avator{
+            border-left: 5px solid transparent ;
+            border-bottom: 10px solid transparent ;
+        }
+        .avator_container {
+            margin: 0px 10px;
+            display: flex;
+            width: 60px;
+            position: relative;
+            background: #282E31;
+            border-radius: 20px;
+           
+            
+        }
+
+        .avator_icon_container {
+            line-height: 32px;
+            text-align: center;
+            color: white
+        }
+
+        .avator_img_container {
+            /* line-height: 30px; */
+            /* text-align: center; */
+            display: flex;
+            align-items: center;
+
+        }
+
+        .avator_img_container img {
+            width: 28px;
+            border-radius: 100px;
+            margin: 3px 6px;
+        }
+
+        .avator:hover .avator_dropdown_container {
+           display: block;
+           /* opacity: 1;
+           transition: all  1s; */
+        }
+        
+    </style>
+
+    <style>
+        .font_small{
+            transform: scale(0.9);
+        }
+        /* 下拉框 */
+        .avator_dropdown_container {
+            display: none;
+            position: absolute;
+            width: 180%;
+            /* height: 100px; */
+            top: 120%;
+            left: -30%;
+            background: #282E31;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            margin: 0 auto;
+            
+            /* opacity: 0; */
+        }
+        .avator_dropdown_inform{
+            display: flex;
+            height: 35px;
+            justify-content: center;
+        }
+
+        .avator_dropdown_inform_text {
+            display: flex;
+            align-items: center;
+
+       
+        }
+        .avator_dropdown_inform_img {
+            display: flex;
+            align-items: center;
+            line-height: 120%;
+        }
+        .avator_dropdown_inform_img img{
+            width: 16px;
+            border-radius: 100px;
+            margin: 3px 6px;
+            
+        }
+        .line{
+            width: 94%;
+            background: white;
+            margin: 0 auto;
+            height: 1px;
+            opacity: 0.6;
+        }
+        .avator_dropdown_main_item{
+            padding: 6px 0px;
+        }
+    </style>
+    <div class="avator">
+        <div class="avator_container">
+            <div class="avator_img_container">
+                <img src="https://p3-pc.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_a55b4d0b347683e6c497a1a114a0a1c8~c5_300x300.jpeg?from=2956013662"
+                  >
+    
+            </div>
+            <div class="avator_icon_container">
+                <i class="fa fa-angle-down"></i>
+            </div>
+    
+    
+            <div class="avator_dropdown_container">
+                <div class="avator_dropdown_inform">
+                    <div class="avator_dropdown_inform_img">
+                        <img src="https://p3-pc.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_a55b4d0b347683e6c497a1a114a0a1c8~c5_300x300.jpeg?from=2956013662"
+                    >
+                    </div>
+                    <div class="avator_dropdown_inform_text font_small">Electrolux</div>
+                </div>
+                <div class="line"></div>
+                <div class="avator_dropdown_main font_small">
+                    <div class="avator_dropdown_main_item">任务管理</div>
+                    <div class="avator_dropdown_main_item">设备管理</div>
+                </div>
+                <div class="line"></div>
+    
+                <div class="avator_dropdown_fotter font_small">
+                    <div class="avator_dropdown_main_item">注销</div>
+                    
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    
+
+
+    <script>
+
+    </script>
+</body>
+<!-- 
+    谷歌cast 投屏技术
+    1.boardcast 缺点是只能够在 谷歌设备上进行
+    2.小米用 乐播的 sdk
+
+protobuf + json
+ -->
+</html>

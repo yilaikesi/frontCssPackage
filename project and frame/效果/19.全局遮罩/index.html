@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mark {
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+            z-index: -9999;
+        }
+    </style>
+
+<body>
+    <button class="flat">点我展开遮罩层</button>
+    <button class="pickup">点我收起遮罩层</button>
+    <div class="mark">
+        
+    </div>
+    <script>
+        document.querySelector(".flat").addEventListener("click",()=>{
+            document.querySelector(".mark").style.display="block"
+        })
+        document.querySelector(".pickup").addEventListener("click",()=>{
+            document.querySelector(".mark").style.display="none"
+        })
+    </script>
+</body>
+
+</html>

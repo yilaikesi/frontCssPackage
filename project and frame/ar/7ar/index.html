@@ -1,0 +1,128 @@
+<!-- import aframe and then ar.js with image tracking / location based features -->
+
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+<!-- <script src="aframe-ar-nft.js"></script> -->
+</head>
+
+<!-- style for the loader -->
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+  #localVideo{
+    position: absolute;
+    top:0;
+    z-index: -999;
+  }
+  #main{
+    position: absolute;
+    top:0;
+    z-index: 999;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+  <!-- <div class="arjs-loader">
+    <div>正在加载AR模型，请稍候...</div>
+  </div> -->
+
+  <!-- a-frame scene 
+renderer:是否使用对数深度缓冲区。
+ embedded:从画布中删除全屏样式。
+-->
+
+  <a-scene
+    id="main"
+  >
+   
+
+  <a-box 
+  roughness="0.9"
+  
+   position="0 0 -8"
+   rotation="0 0 0" 
+   color="rgba(200,200,200)"
+   height="1"
+   width="1.5"
+   depth="1"
+   scale="3 3 3"
+  
+   
+  >
+ 
+ <!-- <a-circle 
+ color="rgba(200,200,0)"
+ position="0 0 0.11"
+ side="double"
+ 
+ ></a-circle> -->
+ 
+ </a-box>
+
+
+
+    <!-- <a-entity camera="fov: 190"></a-entity> -->
+  </a-scene>
+
+  <video id="localVideo" autoplay playsinline muted style="margin : auto 0"></video>
+  <script>
+        // 注意兼容性 
+        function cameraStart() {
+            let isFront = false;
+
+            let config = {
+                audio: false, video: true, video: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    // 前后置摄像头
+                    facingMode: isFront ? "user" : "environment",
+                    // 帧率设置. 字面意思，一个是理想的状态下面，一个是最大的帧率
+                    frameRate: { ideal: 30, max: 30 }
+                },
+            };
+            let video = document.querySelector("video");
+            function successCallback(stream) {
+                // 将返回的流提供给控制台进行检查
+                window.stream = stream;
+                console.log(stream)
+                video.srcObject = stream;
+                // 播放
+                video.play();
+            }
+            function errorCallback(error) {
+                console.log("navigator.getUserMedia error: ", error);
+            }
+            // 传入3个参数，第一个是配置，第二个是成功的回调
+            // 这个更加规范了，多加了一个mediaDevices。window.navigator.getUserMedia(config, successCallback, errorCallback);
+            navigator.mediaDevices.getUserMedia(config)
+                .then(function (stream) {
+                    successCallback(stream)
+                })
+                .catch(function (err) {
+                    errorCallback(err)
+                });
+
+        }
+        // 调用
+        cameraStart()
+  </script>
+</body>
