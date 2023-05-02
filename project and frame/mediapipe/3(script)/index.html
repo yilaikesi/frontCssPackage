@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<!-- 实现手指弯曲 计数 -->
+<head>
+    <meta charset="utf-8">
+    
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset/mediapipe/holistic/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset/mediapipe/holistic/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset/mediapipe/holistic/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset/mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <video class="input_video"></video>
+        <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+    </div>
+
+    <script type="module">
+        const videoElement = document.getElementsByClassName('input_video')[0];
+        const canvasElement = document.getElementsByClassName('output_canvas')[0];
+        const canvasCtx = canvasElement.getContext('2d');
+
+        let count = 0
+        let start = false
+        let end =false
+
+        function onResults(results) {
+            canvasCtx.save();
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.globalCompositeOperation = 'source-over';
+            console.log(results?.rightHandLandmarks[4])
+            canvasCtx.restore();
+        }
+
+        const holistic = new Holistic({
+            locateFile: (file) => {
+                console.log(file,"file")
+                return `https://cdn.jsdelivr.net/npm/electroluxasset/mediapipe/holistic/locate/${file}`;
+            }
+        });
+        holistic.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: true,
+            smoothSegmentation: true,
+            refineFaceLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        holistic.onResults(onResults);
+
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await holistic.send({ image: videoElement });
+            },
+            width: 1280,
+            height: 720
+        });
+        camera.start();
+    </script>
+
+</body>
+
+</html>

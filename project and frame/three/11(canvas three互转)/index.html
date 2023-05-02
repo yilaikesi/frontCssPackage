@@ -190,11 +190,14 @@
         let three = new threeInit()
         three.initGui(1)
         
+        // 定义3d的方法
+        // initObject
+
         // three.initSkyBox()
         document.querySelector('.canvas').appendChild(three.initRender().domElement);
 
         let dataArray = []
-         function write(idName) {
+        function write(idName) {
             const cvs = document.getElementById(idName);
             const ctx = cvs.getContext('2d');
             let isDraw = false;

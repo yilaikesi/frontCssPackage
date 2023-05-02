@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        3d 则是在 原来的3维坐标系中 根据canvas的
+        轨迹 新建 3d 的 1 * 1 的方块
+        并且根据 canvas 的位置进行 一个放置
+    -->
+    <canvas id="test" width="600" height="200"></canvas>
+
+
+    <script>
+         function write(idName) {
+            const cvs = document.getElementById(idName);
+            const ctx = cvs.getContext('2d');
+            let isDraw = false;
+            let startPos = null
+            let endPos = null
+            cvs.addEventListener('mousedown', (e) => {
+                dataArray  = []
+                e = e || window.event;
+                isDraw = true;
+                ctx.moveTo(e.pageX, e.pageY)
+                // console.log("start:",e.pageX, e.pageY)
+                dataArray.push([e.pageX, e.pageY])
+            })
+            cvs.addEventListener('mousemove', (e) => {
+                e = e || window.event;
+       
+                if (isDraw) {
+                    ctx.lineTo(e.pageX, e.pageY);
+                    ctx.stroke();
+                    dataArray.push([e.pageX, e.pageY])
+                }
+                
+            })
+            cvs.addEventListener('mouseup', (e) => {
+                isDraw = false;
+                // console.log("end:",e.pageX, e.pageY)
+                console.log(dataArray)
+               
+                dataArray.push([e.pageX, e.pageY])
+                // three.initObject(dataArray)
+            })
+        }
+        write("test")
+    </script>
+</body>
+</html>

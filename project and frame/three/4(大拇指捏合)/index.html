@@ -12,17 +12,39 @@
             color: #000;
         }
 
-        .video1 {
+        .input_video {
             top: 0;
             left: 0;
             position: fixed;
-            transform: scale(0.5);
+            transform: scale(1.5);
             transform-origin: 0%;
+        }
+        button{
+            position: fixed;
+            top:30%
         }
     </style>
 
 
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset@1.0.5/mediapipe/holistic/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset@1.0.5/mediapipe/holistic/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset@1.0.5/mediapipe/holistic/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/electroluxasset@1.0.5/mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
 
+    <script src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+        "three": "https://unpkg.com/three/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three/examples/jsm",
+        "gui":"https://unpkg.com/three/examples/jsm/libs/lil-gui.module.min.js",
+        "OrbitControls":"https://unpkg.com/three/examples/jsm/controls/OrbitControls.js",
+            "FBXLoader":"https://unpkg.com/three/examples/jsm/loaders/FBXLoader"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -34,368 +56,23 @@
 
 
         <canvas id="canvas1" width="640" height="480"></canvas>
-        <video id="video" width="640" height="480" autoplay style="display: none"></video>
 
     </div>
+
+    <video class="input_video"></video>
     <button onclick="">点哦</button>
     <!-- step1:引入插件 -->
-    <script src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js" type="text/javascript"></script>
+
     </head>
-    <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three/examples/jsm",
-      "gui":"https://unpkg.com/three/examples/jsm/libs/lil-gui.module.min.js",
-      "OrbitControls":"https://unpkg.com/three/examples/jsm/controls/OrbitControls.js",
-        "FBXLoader":"https://unpkg.com/three/examples/jsm/loaders/FBXLoader"
-    }
-  }
-</script>
-    <script defer>
-        class speechBot {
-
-            constructor(param) {
-                this.speechProgress = window.speechSynthesis
-                this.speechApi = new SpeechSynthesisUtterance()
-                this.speechApi.text = param.text ?? "没传入文本"
-                this.speechApi.rate = param.rate ?? 1
-                this.speechApi.volume = param.volume ?? 1
-                this.speechApi.lang = param.lang ?? "zh-CN"
-                this.speechApi.pitch = param.pitch ?? 1.5
-
-            }
-            speak = function (text) {
-                // console.log(text,this.speechProgress)
-                this.speechApi.text = text
-                this.speechProgress.speak(this.speechApi)
-            }
-            pause = function () {
-                this.speechProgress.pause()
-            }
-            resume = function () {
-                // 暂停和非暂停切换
-                this.speechProgress.resume()
-            }
-            cancel = function () {
-                // 删除所有话语
-                this.speechProgress.cancel()
-            }
-            configGet = function () {
-                // console.log(this.speechProgress.getVoices())
-            }
-        }
-        let speakbot = new speechBot({
-            text: "你在挥手",
-            pitch: 1,
-            rate: 1,
-            volume: 20,
-            lang: 'zh-CN'
-        })
-    </script>
-    <script defer>
-
-        function main(model, actions) {
-
-            class listener {
-                constructor(param,actions) {
-                    this.actions = actions
-                    this.config = {
-                        beginText: "小圆",
-                        endText: "结束",
-                        aliveTime: 3
-                    }
-                    this.text = ""
-                    this.speechRecognition = new webkitSpeechRecognition({
-                        lang: "cmn-Hans-CN"
-                    })
-                    let that = this
-                    this.speechRecognition.onaudiostart = (event) => {
-                        console.log(`onsoundstart: `, event);
-
-                    };
-                    this.speechRecognition.onaudioend = (event) => {
-                        console.log(`onsoundend:`, event);
-                        setTimeout(() => {
-                            that.start()
-                        }, 4500)
-                    };
-                    this.speechRecognition.onerror = (event) => {
-                        console.log(`报错信息: ${event.error}`);
-                        setTimeout(() => {
-                            that.start()
-                        }, 4500)
-                    };
-                }
-                start() {
-                    let that =this
-                    console.log("begin");
-                    this.speechRecognition.start()
-                    this.speechRecognition.onresult = function (event) {
-                        let results = event.results
-                        console.log(results)
-                        if (results.length > 0) {
-                            for (var i = 0; i < results.length; i++) {
-                                this.text = results[i][0].transcript
-                                console.log(this.text)
-                                if (this.text.includes("变形")) {
-                                    console.log(that.actions)
-                                    that.actions[16].play()
-                                    let utterance1 = new SpeechSynthesisUtterance("变形成功")
-                            
-                                    window.speechSynthesis.speak(utterance1)
-                                }
-                                // document.querySelector("textarea").innerHTML = text
-                            }
-                        }
-                    }
-                    this.speechRecognition.continuous = true
-                    // this.speechRecognition.start()
-                }
-                end() {
-                    console.log("end");
-                    this.speechRecognition.stop()
-
-                }
-                alive() {
-                    console.log("alive")
-                }
-            }
-            new listener({},actions).start()
-            console.log(model, actions)
-            let poseNet;
-            let hands = [];
-
-            let video;
-            let canvas;
-            let ctx;
-
-            let loganHandle = {
-                prev: {
-                    x: null,
-                    y: null
-                },
-                next: {
-                    x: null,
-                    y: null
-                }
-            }
-            let distance = {
-                x_distance: null,
-                y_distance: null,
-                allDistance: null
-            }
-
-            let loganHandleFn = (val) => {
-                // 一开始的数据
-                if (!loganHandle.prev.x && !loganHandle.next.x) {
-                    loganHandle.prev = JSON.parse(JSON.stringify(val))
-                    return
-                }
-                // 之后的数据
-                if (loganHandle.prev.x && !loganHandle.next.x) {
-                    loganHandle.next = JSON.parse(JSON.stringify(loganHandle.prev))
-                    loganHandle.prev = JSON.parse(JSON.stringify(val))
-                }
-                // 更新数据
-                if (loganHandle.prev.x && loganHandle.next.x) {
-                    loganHandle.prev = JSON.parse(JSON.stringify(loganHandle.next))
-                    loganHandle.next = JSON.parse(JSON.stringify(val))
-                }
-                if (loganHandle.prev.x && loganHandle.next.x) {
-                    let x_distance = Math.pow((loganHandle.prev.x - loganHandle.next.x), 2)
-                    let y_distance = Math.pow((loganHandle.prev.y - loganHandle.next.y), 2)
-                    // console.log("笛卡尔距离：",x_distance,y_distance,Math.log2(x_distance+y_distance))
-                    if (Math.log2(x_distance + y_distance)) {
-                        // console.log("笛卡尔距离：",x_distance,y_distance,Math.log2(x_distance+y_distance))
-                        distance.allDistance = Math.log2(x_distance + y_distance)
-
-                    }
-                    distance.x_distance = Math.log2(x_distance)
-                    distance.y_distance = Math.log2(y_distance)
-
-                }
-            }
-            // loganHandleFn({
-            //   x:1,
-            //   y:111
-            // })
-            // console.log(JSON.parse(JSON.stringify(loganHandle)))
-            // loganHandleFn({
-            //   x:2,
-            //   y:2222
-            // })
-
-            // console.log(JSON.parse(JSON.stringify(loganHandle)))
-            // loganHandleFn({
-            //   x:3,
-            //   y:3333
-            // })
-            // console.log(JSON.parse(JSON.stringify(loganHandle)))
-            // loganHandleFn({
-            //   x:4,
-            //   y:4444
-            // })
-            // console.log(JSON.parse(JSON.stringify(loganHandle)))
-
-            async function setup() {
-                // Grab elements, create settings, etc.
-                video = document.getElementById('video');
-                canvas = document.getElementById('canvas1');
-                ctx = canvas.getContext('2d');
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-
-                video.srcObject = stream;
-                video.play();
 
 
-                handpose = ml5.handpose(video, modelReady);
-
-                // This sets up an event that fills the global variable "predictions"
-                // with an array every time new hand poses are detected
-                handpose.on("hand", results => {
-                    hands = results;
-                });
-
-                // Hide the video element, and just show the canvas
-                // video.hide();
-
-
-                function modelReady() {
-                    console.log("Model ready!");
-                }
-
-                requestAnimationFrame(draw);
-            }
-
-            setup();
-
-            function modelReady() {
-                console.log('model loaded!')
-            }
-            function drawKeypoints() {
-                for (let i = 0; i < hands.length; i += 1) {
-                    // hands一般来说都是单手的
-                    const hand = hands[i];
-                    /**
-                     * @des 注册 
-                      thumb: [1, 2, 3, 4],
-                      indexFinger: [5, 6, 7, 8],
-                      middleFinger: [9, 10, 11, 12],
-                      ringFinger: [13, 14, 15, 16],
-                      pinky: [17, 18, 19, 20],
-                      palmBase: [0]
-                     */
-                    // for (let j = 1; j < hand.landmarks.length; j += 1)
-
-                    
-                    for (let j = 8; j < 9; j += 1) {
-                        // 食指
-                        let keypoint = hand.landmarks[j];
-                        ctx.fillStyle = 'rgb(255, 215, 0)'
-                        ctx.beginPath();
-                        ctx.arc(keypoint[0], keypoint[1], 10, 0, 2 * Math.PI);
-                        loganHandleFn({ x: keypoint[0], y: keypoint[1] })
-                        ctx.fill()
-                        // if(distance>15){
-                        //   console.log(distance)
-                        //   console.log("你在挥手")
-                        //   speakbot.speak("你在挥手")
-                        // }
-                        // console.log(distance.x_distance,distance.y_distance)
-                        if (distance.x_distance > 3) {
-                            // console.log("横着走")
-                            // speakbot.speak("横着走")
-                            // window.scrollBy(document.body.clientWidth * (loganHandle.prev.x - loganHandle.next.x) / 1000, 0)
-                            // model.position.z = model.position.z + (loganHandle.prev.x - loganHandle.next.x) /2
-                            // model.rotateY( (loganHandle.prev.x - loganHandle.next.x) /20);
-                        }
-                        if (distance.y_distance > 3) {
-                            // console.log("竖着走")
-                            // speakbot.speak("竖着走")
-                            // model.position.y = model.position.y + (loganHandle.prev.y - loganHandle.next.y) /2
-                            // window.scrollBy(0, document.body.clientHeight * (loganHandle.prev.y - loganHandle.next.y) / 1000)
-                        }
-                        ctx.stroke();
-
-
-                        // 大拇指
-                        let keypointThumb = hand.landmarks[4];
-                        ctx.fillStyle = 'rgb(255, 215, 0)'
-                        ctx.beginPath();
-                        ctx.arc(keypointThumb[0], keypointThumb[1], 10, 0, 2 * Math.PI);
-                        // loganHandleFn({ x: keypoint[0], y: keypoint[1] })
-                        let diff_x_distance = Math.pow((keypointThumb[0]- keypoint[0]), 2)
-                        let diff_y_distance = Math.pow((keypointThumb[1] - keypoint[1]), 2)
-                        let diff_distance
-                        // console.log(diff_x_distance,diff_y_distance)
-                        if (Math.log2(diff_x_distance + diff_y_distance)) {
-                        
-                        diff_distance = (Math.log2(diff_x_distance + diff_y_distance))/50
-
-                        }
-                        if(diff_distance>0.6 || diff_distance<0.5){
-                            model.scale.set(diff_distance,diff_distance, diff_distance);
-                        }
-                        // console.log("笛卡尔距离：",diff_distance)
-                        
-                        ctx.fill()
-                        ctx.stroke();
-
-                        // fill(0, 255, 0);
-                        // noStroke();
-                        // ellipse(keypoint[0], keypoint[1], 10, 10);
-                    }
-                }
-            }
-
-            function draw() {
-                requestAnimationFrame(draw);
-                // console.log(poses)
-                ctx.drawImage(video, 0, 0, 640, 480);
-                // We can call both functions to draw all keypoints and the skeletons
-                if (hands && hands.length != 0) {
-                    // console.log(hands)
-                    drawKeypoints()
-                }
-
-
-
-
-                // For one pose only (use a for loop for multiple poses!)
-                // if (poses.length > 0) {
-                //   const pose = poses[0].pose;
-
-                //   // Create a pink ellipse for the nose
-                //   const nose = pose.nose;
-
-                //   ctx.fillStyle = 'rgb(213, 0, 143)';
-                //   ctx.beginPath();
-                //   ctx.arc(nose.x, nose.y, 10, 0, 2 * Math.PI);
-                //   ctx.fill();
-                //   ctx.stroke();
-                // }
-            }
-
-        }
-
-    </script>
+    <!-- 
+        three  
+        input mediapipe
+        连接的方式可以在three加载好后将数据(模型)传输给mediapipe
+    -->
     <script type="module">
-        document.querySelector("button").addEventListener('click', () => {
-            // var actions =actions
-            main(model,actions )
-            // alert("ds")
-            // for (var j = 0; j < actions.length; j++) {
-            //     if (j == 16) {
-            //         actions[j].play();
-            //     }
-            //     else {
-            //         actions[j].stop();
-            //     }
-            // }
-
-        })
+        
         import * as THREE from 'three';
         import { GUI } from "gui";
         import { OrbitControls } from "OrbitControls"
@@ -405,42 +82,41 @@
         const clock = new THREE.Clock();
         let mixer
         let actions = []; //所有的动画数组
-        function initModel(url) {
-            return new Promise((resolve) => {
-                new FBXLoader().load(url, (object) => {
-                    mixer = new THREE.AnimationMixer(object);
-                    for (let i in object.animations) {
-                        actions[i] = mixer.clipAction(object.animations[i]);
-                    }
-                    // action = mixer.clipAction( object.animations[ 16 ] );
-                    // console.log(object.animations)
+        // function initModel(url) {
+        //     return new Promise((resolve) => {
+        //         new FBXLoader().load(url, (object) => {
+        //             mixer = new THREE.AnimationMixer(object);
+        //             for (let i in object.animations) {
+        //                 actions[i] = mixer.clipAction(object.animations[i]);
+        //             }
+        //             // action = mixer.clipAction( object.animations[ 16 ] );
+        //             // console.log(object.animations)
 
-                    object.traverse((res) => {
-                        // 贴图
-                        if (res.type == "Mesh") {
-                            const textureUrl = ["https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/ref.jpg", "https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/Control_Module_nmap.jpg", "https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/walker_color.jpg"]
-                            for (let i in textureUrl) {
-                                const textureLoader = new THREE.TextureLoader();
-                                const textureNormal = textureLoader.load(
-                                    textureUrl[i]
-                                );
-                                res.material.map = textureNormal
-                            }
+        //             object.traverse((res) => {
+        //                 // 贴图
+        //                 if (res.type == "Mesh") {
+        //                     const textureUrl = ["https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/ref.jpg", "https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/Control_Module_nmap.jpg", "https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/walker_color.jpg"]
+        //                     for (let i in textureUrl) {
+        //                         const textureLoader = new THREE.TextureLoader();
+        //                         const textureNormal = textureLoader.load(
+        //                             textureUrl[i]
+        //                         );
+        //                         res.material.map = textureNormal
+        //                     }
 
 
-                            // res.material.wireframe = true;
+        //                     // res.material.wireframe = true;
 
-                        }
+        //                 }
 
-                    });
-                    resolve(object);
-                });
-            });
-        }
-
-        let model = await initModel("https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/1.fbx");
-        // model.setAnimation( actions[0].name );
-        model.scale.set(0.25, 0.25, 0.25);
+        //             });
+        //             resolve(object);
+        //         });
+        //     });
+        // }
+        // let model = await initModel("https://cdn.jsdelivr.net/npm/electroluxasset/model/front_css_example/sphere/1.fbx");
+        // // model.setAnimation( actions[0].name );
+        // model.scale.set(0.25, 0.25, 0.25);
 
         // console.log(GUI)
         class threeInit {
@@ -459,16 +135,16 @@
             // 初始化物体
             initObject() {
                 //材质
-                // let material = new THREE.MeshLambertMaterial({
-                //     color: 0x05c5cf4
-                // });
-                // let geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
-                // this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-                // this.mesh.position.set(this.param.x, this.param.y, this.param.z)
-
+                let material = new THREE.MeshLambertMaterial({
+                    color: 0x05c5cf4
+                });
+                let geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+                this.mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+                this.mesh.position.set(this.param.x, this.param.y, this.param.z)
+                this.mesh.scale.set(0.6,0.6,0.6)
                 // this.scene.add(this.mesh)
-                this.mesh = model
-                this.scene.add(model)
+                // this.mesh = model
+                this.scene.add(this.mesh)
             }
             initScene() {
                 this.scene = new THREE.Scene()
@@ -478,6 +154,7 @@
                 pointLight.position.set(0, 0, 150);
                 this.scene.add(pointLight);
                 let ambient = new THREE.AmbientLight(0xffffff, 1);
+                
                 this.scene.add(ambient);
                 //                 const skyColor = 0xB1E1FF;  // bleu
                 //   const groundColor = 0xB97A20;  // orange brun
@@ -599,19 +276,168 @@
         }
 
         let three = new threeInit()
-        three.initGui(1)
+        // three.initGui(1)
 
         // three.initSkyBox()
         let status = 16
 
         document.querySelector('.canvas').appendChild(three.initRender().domElement);
+    
+        document.querySelector("button").addEventListener('click', () => {
+            // var actions =actions
+            main(three.mesh, actions)
 
-
-
-
+        })
     </script>
 
 
+
+    <script defer>
+
+        function main(model, actions) {
+
+            console.log(model, actions)
+            let loganHandle = {
+                prev: {
+                    x: null,
+                    y: null
+                },
+                next: {
+                    x: null,
+                    y: null
+                }
+            }
+            let distance = {
+                x_distance: null,
+                y_distance: null,
+                allDistance: null
+            }
+
+            // 求x y 移动的距离
+            let loganHandleFn = (val) => {
+                val.x = val.x*100
+                val.y = val.y*100
+                // 一开始的数据
+                if (!loganHandle.prev.x && !loganHandle.next.x) {
+                    loganHandle.prev = JSON.parse(JSON.stringify(val))
+                    return
+                }
+                // 之后的数据
+                if (loganHandle.prev.x && !loganHandle.next.x) {
+                    loganHandle.next = JSON.parse(JSON.stringify(loganHandle.prev))
+                    loganHandle.prev = JSON.parse(JSON.stringify(val))
+                }
+                // 更新数据
+                if (loganHandle.prev.x && loganHandle.next.x) {
+                    loganHandle.prev = JSON.parse(JSON.stringify(loganHandle.next))
+                    loganHandle.next = JSON.parse(JSON.stringify(val))
+                }
+                if (loganHandle.prev.x && loganHandle.next.x) {
+                    let x_distance = Math.pow((loganHandle.prev.x - loganHandle.next.x), 2)
+                    let y_distance = Math.pow((loganHandle.prev.y - loganHandle.next.y), 2)
+                    // console.log("笛卡尔距离：",x_distance,y_distance,Math.log2(x_distance+y_distance))
+                    if (Math.log2(x_distance + y_distance)) {
+                        // console.log("笛卡尔距离：",x_distance,y_distance,Math.log2(x_distance+y_distance))
+                        distance.allDistance = Math.log2(x_distance + y_distance)
+
+                    }
+                    distance.x_distance = Math.log2(x_distance)
+                    distance.y_distance = Math.log2(y_distance)
+                }
+            }
+
+
+            const videoElement = document.getElementsByClassName('input_video')[0];
+
+            function onResults(results) {
+                // console.log(results?.poseLandmarks[16])
+                try{
+                    let thumb = results?.leftHandLandmarks[4]
+                    let secondThumb = results?.leftHandLandmarks[8]
+                    let distance_tempX = Math.pow((thumb.x - secondThumb.x), 2)
+                    let distance_tempY = Math.pow((thumb.y - secondThumb.y), 2)
+                    let distance_tempZ = Math.pow((thumb.z - secondThumb.z), 2)
+                    let distance_thumb= Math.pow((distance_tempX + distance_tempY + distance_tempZ), 0.5)
+                    // console.log(distance)
+
+
+                    let scale  = distance_thumb
+                    // 实现缩放
+                    model.scale.set(scale*6,scale*6, scale*6);
+                    
+                    
+                    loganHandleFn({
+                        x:thumb.x,
+                        y:thumb.y
+                    })
+                    // 实现旋转
+                    // 实现平移
+
+                    console.log(distance,loganHandle)
+                    if (distance.x_distance > 0.1) {
+                            // console.log("横着走")
+                            // speakbot.speak("横着走")
+                            // window.scrollBy(document.body.clientWidth * (loganHandle.prev.x - loganHandle.next.x) / 1000, 0)
+                            // model.position.z = model.position.z + (loganHandle.prev.x - loganHandle.next.x) /2
+                        model.rotateY( (loganHandle.prev.x - loganHandle.next.x) /10);
+                    }
+                    if (distance.y_distance > 0.1) {
+                        // console.log("竖着走")
+                        // speakbot.speak("竖着走")
+                        model.position.y = model.position.y + (loganHandle.prev.y - loganHandle.next.y) *4
+                        // window.scrollBy(0, document.body.clientHeight * (loganHandle.prev.y - loganHandle.next.y) / 1000)
+                    }
+                
+                }catch{
+
+                }
+                
+            }
+
+            const holistic = new Holistic({
+                locateFile: (file) => {
+                    console.log(file, "file")
+                    return `https://cdn.jsdelivr.net/npm/electroluxasset@1.0.5/mediapipe/holistic/locate/${file}`;
+                }
+            });
+            holistic.setOptions({
+                modelComplexity: 1,
+                smoothLandmarks: true,
+                enableSegmentation: true,
+                smoothSegmentation: true,
+                refineFaceLandmarks: true,
+                minDetectionConfidence: 0.5,
+                minTrackingConfidence: 0.5
+            });
+            holistic.onResults(onResults);
+
+            const camera = new Camera(videoElement, {
+                onFrame: async () => {
+                    await holistic.send({ image: videoElement });
+                },
+                width: 200,
+                height: 190
+            });
+
+            camera.start();
+
+
+            // if (Math.log2(diff_x_distance + diff_y_distance)) {
+
+            //     diff_distance = (Math.log2(diff_x_distance + diff_y_distance))/50
+            // }
+            // if(diff_distance>0.6 || diff_distance<0.5){
+            //     model.scale.set(diff_distance,diff_distance, diff_distance);
+            // }
+
+
+        }
+
+
+
+
+        // main()
+    </script>
 </body>
 
 </html>

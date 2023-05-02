@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-   
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
     -->
     <div class="background-processing-container">
         <canvas id="backgroundImg" width="480" height="300" class="background-img"></canvas>
-    
+
         <video id="real-video" width="480" height="300" autoplay muted></video>
         <video id="virtual-video" width="480" height="300" autoplay muted></video>
 
@@ -60,7 +60,7 @@
 
     <script>
         // import backgroundImg from '@/assets/background2.png'
-       
+
         const WIDTH = 480
         const HEIGHT = 300
 
@@ -74,12 +74,12 @@
         let virtualVideo
         let virtualVideoCanvas
         let virtualVideoCtx
-        
-        document.querySelector('#color').onchange=function(e){
+
+        document.querySelector('#color').onchange = function (e) {
             // console.log(hexToRgb(e.target.value))
-            backgroundColor = hexToRgb(e.target.value)?hexToRgb(e.target.value):"#000000"
+            backgroundColor = hexToRgb(e.target.value) ? hexToRgb(e.target.value) : "#000000"
         }
-        
+
         // 重要：第一步，获取背景图的信息
         let backgroundImageData
         // 获取背景图像数据
@@ -89,7 +89,7 @@
                 const backgroundCtx = backgroundCanvas.getContext('2d')
                 const img = new Image()
                 // img.src = backgroundImg
-                img.src = 'https://img2.baidu.com/it/u=1926879275,2141590185&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=282'
+                img.src = 'background.png'
                 img.setAttribute('crossOrigin', '')
                 img.onload = () => {
                     backgroundCtx.drawImage(
@@ -111,17 +111,6 @@
             })
         }
 
-        // 获取摄像机流
-        async function getLocalStream(options) {
-            const stream = await navigator.mediaDevices.getUserMedia(options)
-            return stream
-        }
-
-        // 播放摄像机流
-        function playRealVideo(stream) {
-            realVideo = document.querySelector('#real-video')
-            realVideo.srcObject = stream
-        }
 
         // 合成视频
         function drawVideoToCanvas(realVideo) {
@@ -132,12 +121,13 @@
 
             virtualVideoCanvas = document.createElement('canvas')
             virtualVideoCtx = virtualVideoCanvas.getContext('2d')
-            
+
             realVideoCanvas.width = virtualVideoCanvas.width = WIDTH
             realVideoCanvas.height = virtualVideoCanvas.height = HEIGHT
-            
+
             // 每隔 100ms 将真实的视频写到 canvas 中，并获取视频的图像数据
             setInterval(() => {
+                // 下面的人物
                 realVideoCtx.drawImage(
                     realVideo,
                     0,
@@ -156,17 +146,13 @@
                 processFrameDrawToVirtualVideo()
             }, 50)
             // 从 VirtualVideoCanvas 中获取视频流并在 virtualVideo 中播放
-            getStreamFromVirtualVideoCanvas()
-        }
-
-        // 从 VirtualVideoCanvas 中获取视频流并在 virtualVideo 中播放
-        function getStreamFromVirtualVideoCanvas() {
             virtualVideo = document.querySelector('#virtual-video')
             const stream = virtualVideoCanvas.captureStream(30)
             // 重要，从这里canvas 变成最终的流
             virtualVideo.srcObject = stream
         }
 
+   
         // ！！！重要：合成：处理真实视频的图像数据，将其写到虚拟视频的 canvas 中
         function processFrameDrawToVirtualVideo() {
             // 逐像素计算与要处理的目标颜色的差值，如果差值小于阈值，则将该像素设置为背景图片中的对应像素
@@ -206,7 +192,7 @@
         // 十六进制转 rgb
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-            console.log("hexToRgb:"+hex)
+            console.log("hexToRgb:" + hex)
             return result
                 ? [
                     parseInt(result[1], 16),
@@ -223,7 +209,7 @@
         // },1000)
         // 重要：设置 diff 阈值
         const allowance = 162
-        let backgroundColor 
+        let backgroundColor
 
         // 重要：需要扣除的背景色
         backgroundColor = hexToRgb(color)
@@ -242,14 +228,16 @@
             // 重要第一步：在canvas绘制图像，显示出来
             await getBackgroundImageData()
             // 重要第二步：显示出来没有经过变化的原始摄像头，其实是没有什么意义的
-            const stream = await getLocalStream({
-                video: {
-                    width: WIDTH,
-                    height: HEIGHT,
-                },
-                audio: false,
-            })
-            playRealVideo(stream)
+            const stream = await navigator.mediaDevices.getUserMedia(
+                {
+                    video: {
+                        width: WIDTH,
+                        height: HEIGHT,
+                    }
+                })
+            realVideo = document.querySelector('#real-video')
+            realVideo.srcObject = stream
+
             // 重要第三步：这个是主要逻辑方法
             drawVideoToCanvas(realVideo)
         }

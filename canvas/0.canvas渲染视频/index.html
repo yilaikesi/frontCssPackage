@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #video1 {
+        display: none;
+    }
+
+    #canvas1 {
+        box-shadow: 3px 3px 10px black;
+    }
+</style>
+
+<body>
+    <canvas id="canvas1" width="500" height="500"></canvas>
+    <video id="video1" controls=""
+        src="https://blz-videos.nosdn.127.net/1/OverWatch/OVR_D.VA_SHOOTING_STAR_zhCN_YT_PC_3.mp4"
+        type="video/mp4">浏览器不支持</video>
+
+    <script>
+        var canvas = document.getElementById("canvas1");
+        var context = canvas.getContext("2d");
+
+        var video = document.getElementById("video1");
+
+        // 开始播放时候执行
+        video.oncanplay = function () {
+            video.play();
+            switchToCanvas();
+        }
+
+        function switchToCanvas() {
+            const filterList = [
+                'blur(5px)', // 模糊
+                'brightness(0.5)', // 亮度
+                'contrast(200%)', // 对比度
+                'grayscale(100%)', // 灰度
+                'hue-rotate(90deg)', // 色相旋转
+                'invert(100%)', // 反色
+                'opacity(90%)', // 透明度
+                'saturate(200%)', // 饱和度
+                'saturate(20%)', // 饱和度
+                'sepia(100%)', // 褐色
+                'drop-shadow(4px 4px 8px blue)', // 阴影
+            ]
+            if (video.ended) {
+                return;
+            }
+            context.filter = filterList[2]
+            // 将video上的图片的每一帧以图片的形式绘制的canvas上
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            window.requestAnimationFrame(switchToCanvas);
+        }
+    </script>
+
+    
+</body>
+
+</html>

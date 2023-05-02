@@ -12,19 +12,10 @@
 <body>
 
 
-
-
     <!-- cursor="rayOrigin :mouse" -->
     <a-scene cursor="rayOrigin :mouse">
-
-
-
-
         <a-box id="box" color="rgb(255,255,10)" position="-3 1.5 -3" depth="0.5" width="0.5" height="0.5" color-toggle></a-box>
-
-
         <a-entity super-hands sphere-collider="objects:#box"  d ="rightHand" hand-controls="hand:right;handModelStyle:lowPoly;color:rgb(60,60,60)"></a-entity>
-
         <a-assets>
             <a-asset-item id="model" src="https://cdn.jsdelivr.net/npm/electroluxasset/model/scene/scene.gltf"></a-asset-item>
             <img id="skyImg"
@@ -33,13 +24,10 @@
             
             <video id="video" src="https://cdn.jsdelivr.net/npm/electroluxasset/video/origin.mp4"></video>
         </a-assets>
-
         <a-entity
-            gltf-model="#model"
-           
-            
+            gltf-model="#model" 
         ></a-entity>
-        <a-video src="#video" width="8" height="5" position="0 2 -6"></a-video>
+        <a-video src="#video" width="8" height="5" position="0 2 -10"></a-video>
 
         <!-- <a-video src="#video" width="8" height="5" position="0 2 -6"></a-video> -->
 
@@ -63,9 +51,6 @@
                 //     autoplay:true
                     
                 // });
-
-
-
 
                 this.el.addEventListener("click", (e) => {
                     e.target.setAttribute("material", "color:rgb(255,255,255)")
