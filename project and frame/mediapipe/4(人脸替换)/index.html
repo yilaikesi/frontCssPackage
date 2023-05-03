@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="../holistic/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="../holistic/control_utils.js" crossorigin="anonymous"></script>
+    <script src="../holistic/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="../holistic/holistic.js" crossorigin="anonymous"></script>
+    <style>
+        #canvasPic {
+            /* z-index: -999;
+            position: absolute;
+            opacity: 0; */
+        }
+
+        .input_video {
+            /* position: absolute;
+            width: 1000px;
+            height: 800px; */
+        }
+
+        #overlay {
+            z-index: 999;
+            position: absolute;
+        }
+#canvas{
+    z-index: -999;
+    position: absolute;
+}
+        /* *{
+            overflow:scroll
+        } */
+    </style>
+</head>
+
+<body>
+    <video class="input_video"></video>
+    <canvas id="overlay" width="1000" height="800"> </canvas>
+    <canvas id="canvas" width="1000" height="800"></canvas>
+
+    <script type="module">
+        const videoElement = document.querySelector(".input_video");
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        let canvasPic = document.getElementById("overlay");
+        let contextPic = canvasPic.getContext("2d");
+
+
+
+        function countAngle(point1, point2, point3) {
+            // 1.先求 point1 和point2之间的距离
+            let temp12 = Math.pow((point1[0] - point2[0]), 2) + Math.pow((point1[1] - point2[1]), 2) + Math.pow((point1[2] - point2[2]), 2)
+            let point12 = Math.pow(temp12, 0.5)
+
+            let temp23 = Math.pow((point3[0] - point2[0]), 2) + Math.pow((point3[1] - point2[1]), 2) + Math.pow((point3[2] - point2[2]), 2)
+            let point23 = Math.pow(temp23, 0.5)
+            // console.log(point23)
+
+            // 2.求向量 
+            let vector12 = [(point1[0] - point2[0]), (point1[1] - point2[1]), (point1[2] - point2[2])]
+            let vector23 = [(point3[0] - point2[0]), (point3[1] - point2[1]), (point3[2] - point2[2])]
+
+
+            //3.求arccos 
+            let top = vector12[0] * vector23[0] + vector12[1] * vector23[1] + vector12[2] * vector23[2]
+            let bottom = point12 * point23
+
+            // 4.最后求解
+            // console.log(Math.acos(top / bottom))
+            return Math.acos(top / bottom) * 180 / Math.PI
+        }
+        const getFaceRadian = (jawPos, midPointOfEyebrows) => { 
+            return Math.PI - Math.atan2(jawPos.x - midPointOfEyebrows.x, jawPos.y - midPointOfEyebrows.y); }
+
+        function drawImg(ctx, x, y, width, height,angle) {
+            // setTimeout(()=>{},0)
+            
+
+            const img = new Image()
+            // img.src = backgroundImg
+            img.src = 'avator.png'
+            img.onload=()=>{
+                ctx.clearRect(0, 0, 1000, 1000);
+
+                // ctx.save();
+                // ctx.translate(x, y);
+                // ctx.rotate(angle);
+
+
+                // ctx.drawImage(img, x-370, y-350, width, height)
+                
+                // ctx.restore();
+
+                ctx.drawImage(img, x, y, width, height)
+            }
+            // img.setAttribute('crossOrigin', '')
+            
+            // contextPic.drawImage(img, x, y, width, height)
+
+        }
+        // drawImg(contextPic,0,0,100,100)
+        function onResults(results) {
+            // console.log(results.faceLandmarks)
+            try {
+                let left_x = results?.faceLandmarks[234].x
+                let right_x = results?.faceLandmarks[454].x
+                let top_y = results?.faceLandmarks[10].y
+                let bottom_y = results?.faceLandmarks[152].y
+
+
+
+                let targetInit = { x: left_x * canvasPic.width, y: top_y * canvasPic.height }
+
+                let targetWidth = Math.abs((right_x - left_x) * canvasPic.width)
+                let targetHeight = Math.abs((top_y - bottom_y) * canvasPic.height)
+
+
+
+                let meixin = {
+                    x: (results?.faceLandmarks[223].x + results?.faceLandmarks[443].x) / 2,
+                    y: (results?.faceLandmarks[223].y + results?.faceLandmarks[443].y) / 2,
+                    z: (results?.faceLandmarks[223].z + results?.faceLandmarks[443].z) / 2
+                }
+                // 算出 x 轴 的 偏移
+                
+
+                // 算出躯干
+                // let point1 = [ (results.poseLandmarks[11].x+results.poseLandmarks[12].x)/2,(results.poseLandmarks[11].y+results.poseLandmarks[12].y)/2,(results.poseLandmarks[11].z+results.poseLandmarks[12].z)/2]
+                // let point2 = [meixin.x,meixin.y,meixin.y]
+                // let point3 = [results?.faceLandmarks[223].x,results?.faceLandmarks[223].y,results?.faceLandmarks[223].z]
+
+                let rowPoint1 = {x:results?.faceLandmarks[152].x,y:results?.faceLandmarks[152].z}
+                let rowPoint2 = {x:meixin.x,y:meixin.z}
+                console.log("靠近肩膀角度：",getFaceRadian(results?.faceLandmarks[152], meixin),"转头角度："+getFaceRadian(rowPoint1, rowPoint2)* 180 / Math.PI
+                )
+                drawImg(contextPic, targetInit.x, targetInit.y, targetWidth, targetHeight,getFaceRadian(results?.faceLandmarks[152], meixin)-3)
+         
+               
+            } catch(e) {
+                console.log(e)
+            }
+
+
+        }
+
+        const holistic = new Holistic({
+            locateFile: (file) => {
+
+                return `../holistic/locate/${file}`;
+            }
+        });
+        holistic.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: true,
+            smoothSegmentation: true,
+            refineFaceLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        holistic.onResults(onResults);
+
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await holistic.send({ image: videoElement });
+            },
+            width: 190,
+            height: 200
+        });
+
+        camera.start();
+        videoElement.oncanplay = function () {
+            switchToCanvas();
+        }
+        function switchToCanvas() {
+            const filterList = [
+                // 'blur(5px)', // 模糊
+                // 'brightness(0.5)', // 亮度
+                // 'contrast(200%)', // 对比度
+                // 'grayscale(100%)', // 灰度
+                // 'hue-rotate(90deg)', // 色相旋转
+                // 'invert(100%)', // 反色
+                // 'opacity(90%)', // 透明度
+                // 'saturate(200%)', // 饱和度
+                // 'saturate(20%)', // 饱和度
+                // 'sepia(100%)', // 褐色
+                // 'drop-shadow(4px 4px 8px blue)', // 阴影
+            ]
+
+            // context.filter = filterList[2]
+            // 将video上的图片的每一帧以图片的形式绘制的canvas上
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+            window.requestAnimationFrame(switchToCanvas);
+        }
+
+        // 渲染canvas
+
+
+    </script>
+
+</body>
+
+</html>

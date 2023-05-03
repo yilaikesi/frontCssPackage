@@ -30,7 +30,7 @@
         canvas.height = 200
         const ctx = canvas.getContext('2d')
         let img = new Image()//创建新的图片对象
-        img.src = 'https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg';
+        img.src = 'avator.png';
         img.setAttribute("crossOrigin",'Anonymous')
         img.onload = function(){//图片加载完，再draw 和 toDataURL
             ctx.drawImage(img, 0, 0)

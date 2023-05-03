@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="../holistic/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="../holistic/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="../holistic/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="../holistic/holistic.js" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            width:900px;
+            /* position: fixed; */
+            height: auto;
+        }
+        /* *{
+            overflow:scroll
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container" >
+        <video class="input_video"></video>
+        <canvas id="canvas" width="1000" height="800"></canvas>
+    </div>
+
+    <script type="module">
+        const videoElement = document.getElementsByClassName('input_video')[0];
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        function onResults(results) {
+            // console.log(results.faceLandmarks)
+            for(let i = 0;i<results.faceLandmarks.length;i++){
+                context.font = "6.3px serif ";
+                context.fillStyle = "rgba(255, 255, 255, 1)";
+                context.fillText(i, results.faceLandmarks[i].x*canvas.width, results.faceLandmarks[i].y*canvas.height);
+                
+            }
+            
+        }
+
+        const holistic = new Holistic({
+            locateFile: (file) => {
+                console.log(file,"file")
+                return `../holistic/locate/${file}`;
+            }
+        });
+        holistic.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: true,
+            smoothSegmentation: true,
+            refineFaceLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        holistic.onResults(onResults);
+       
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await holistic.send({ image: videoElement });
+            },
+            width: 200,
+            height: 190
+        });
+         
+        camera.start();
+
+
+        // 渲染canvas
+        
+        videoElement.oncanplay = function () {
+           
+            switchToCanvas();
+        }
+
+        function switchToCanvas() {
+            const filterList = [
+                // 'blur(5px)', // 模糊
+                // 'brightness(0.5)', // 亮度
+                // 'contrast(200%)', // 对比度
+                // 'grayscale(100%)', // 灰度
+                // 'hue-rotate(90deg)', // 色相旋转
+                // 'invert(100%)', // 反色
+                // 'opacity(90%)', // 透明度
+                // 'saturate(200%)', // 饱和度
+                // 'saturate(20%)', // 饱和度
+                // 'sepia(100%)', // 褐色
+                // 'drop-shadow(4px 4px 8px blue)', // 阴影
+            ]
+      
+            // context.filter = filterList[2]
+            // 将video上的图片的每一帧以图片的形式绘制的canvas上
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            
+            window.requestAnimationFrame(switchToCanvas);
+        }
+    </script>
+
+</body>
+
+</html>

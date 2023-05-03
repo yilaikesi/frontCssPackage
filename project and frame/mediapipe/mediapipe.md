@@ -4,6 +4,7 @@
 
 <img src="body-landmarks.png"/>
 
+<img src="face-landmarks.png"/>
 ## handtrack
 
 ### SSD | 手掌检测器
