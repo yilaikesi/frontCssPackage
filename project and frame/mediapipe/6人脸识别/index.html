@@ -53,9 +53,9 @@
             return result;
         }
         function countAngle(temp1, temp2, temp3) {
-            let point1 = [temp1.x*100, temp1.y*100, temp1.z*100]
-            let point2 = [temp2.x*100, temp2.y*100, temp2.z*100]
-            let point3 = [temp3.x*100, temp3.y*100, temp3.z*100]
+            let point1 = [temp1.x*0.001, temp1.y*0.001, temp1.z*0.001]
+            let point2 = [temp2.x*0.001, temp2.y*0.001, temp2.z*0.001]
+            let point3 = [temp3.x*0.001, temp3.y*0.001, temp3.z*0.001]
             // 1.先求 point1 和point2之间的距离
             let temp12 = Math.pow((point1[0] - point2[0]), 2) + Math.pow((point1[1] - point2[1]), 2) + Math.pow((point1[2] - point2[2]), 2)
             let point12 = Math.pow(temp12, 0.5)
@@ -94,8 +94,8 @@
                 let random5 = countAngle(results?.poseLandmarks[0], results?.poseLandmarks[10], results?.poseLandmarks[9])
                 let random6 = countAngle(results?.poseLandmarks[0], results?.poseLandmarks[9], results?.poseLandmarks[10])
 
-
-                vector = [left_vector, center_vector, right_vector,random1,random2,random3,random5,random6]
+                // for(let i in results?.poseLandmarks[10])
+                vector = [left_vector, center_vector, right_vector,random1,random2,random3,random4,random5,random6]
             }
             catch {
 
